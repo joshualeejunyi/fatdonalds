@@ -13,6 +13,11 @@
                     <h5 class="card-title">
                         Login
                     </h5>
+                    <?php
+                        if ($_SESSION['msg']) {
+                            
+                        }
+                    ?>
                     <p>
                     Don't have an account? Register <a href="/register.php">here!</a>
                     </p>

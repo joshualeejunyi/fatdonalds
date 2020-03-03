@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+    include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
+?>
 <html>
     <?php
         include($_SERVER['DOCUMENT_ROOT'].'/incl/head.inc.php');
@@ -15,34 +18,38 @@
                         Login
                     </h5>
                     <p>
-                    For existing members, please go to the <a href="#">Sign In Page</a>
+                    For existing members, please go to the <a href="/login.php">Sign In Page</a>
                     </p>
                 </div>
                 <div class="card-body">
-                    <form action="/auth/process_register.php" method="post">
+                    <form action="" method="post">
+                        <?php echo displayErrors(); ?>
                         <div class="form-group">
                             <label for="fname">
                                 First Name:
                             </label>
-                            <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter First Name" maxlength="50">
+                            <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter First Name" value="<?php echo $firstname; ?>" maxlength="50">
                         </div>
                         
                         <div class="form-group">
                             <label for="lname">
                                 Last Name:
                             </label>
-                            <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last Name" maxlength="50" required>
-                            <!--<input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last Name" maxlength="50">-->
+                            <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last Name" value="<?php echo $lastname; ?>" maxlength="50" required>
+                        </div>
 
+                        <div class="form-group">  
+                            <label for="username">
+                                Username:
+                            </label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username"  value="<?php echo $username; ?>" required>
                         </div>
                         
                         <div class="form-group">  
                             <label for="email">
                                 Email:
                             </label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required>
-                            <!--<input type="text" class="form-control" id="email" name="email" placeholder="Enter Email" required>-->
-
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email"  value="<?php echo $email; ?>" required>
                         </div>
                         
                         <div class="form-group">
@@ -50,7 +57,6 @@
                                 Password:
                             </label>
                             <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Enter Password" required>
-                            <!--<input type="password" class="form-control" id="pwd" name="pwd" placeholder="Enter Password">-->
                         </div>
                         
                         <div class="form-group">
@@ -58,19 +64,17 @@
                                 Confirm Password:
                             </label>
                             <input type="password" class="form-control" id="pwd_confirm" name="pwd_confirm" placeholder="Confirm Password" required>
-                            <!--<input type="password" class="form-control" id="pwd_confirm" name="pwd_confirm" value="False" placeholder="Confirm Password">-->                
                         </div>
                         
                         <div class="form-check">
                             <label>
                                 <input type="checkbox" name="agree" required>
-                                <!--<input type="checkbox" name="agree">-->                    
                                 Agree to terms and  conditions.
                             </label>
                         </div>
                         
                         <div class="form-group">
-                            <button class="btn btn-primary" type="submit">Submit</button>
+                            <button class="btn btn-primary" type="submit" name="registerbtn">Submit</button>
                         </div>
                     </form>
                 </div>
