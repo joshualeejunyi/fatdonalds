@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
     <?php
-        include "head.inc.php";
+        include($_SERVER['DOCUMENT_ROOT'].'/incl/head.inc.php');
     ?>
     <body>
         <?php
-            include "nav.inc.php";
+            include($_SERVER['DOCUMENT_ROOT'].'/incl/nav.inc.php');
         ?>
-
-        
     </body>
 </html>
