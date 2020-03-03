@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-end">
-    <a class="navbar-brand" href="#">FatDonald's.</a>
+    <a class="navbar-brand" href="/">FatDonald's.</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -19,6 +19,8 @@
                 <a class="nav-link" href="contact.php">Contact Us</a>
             </li>
         </ul>
-        <button class="btn btn-primary">Account</button>
+        <form action="/deliver.php">
+            <button class="btn btn-primary">FatDelivery</button>
+        </form>
     </div>
 </nav>
