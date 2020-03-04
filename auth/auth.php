@@ -1,20 +1,44 @@
 <?php
 session_start();
 
-$db = mysqli_connect('localhost', 'dev', '', 'fatdonalds');
-$username = $email = $errors = "";
-
-if ($db -> connect_errno)  {
-    echo "Failed to connect to MySQL: " . $db -> connect_error;
-    exit();
-}
+$dbconfig = parse_ini_file('db.ini');
+$dbhost = $dbconfig['dbhost'];
+$dbuser = $dbconfig['dbuser'];
+$dbpassword = $dbconfig['dbpassword'];
+$dbschema = $dbconfig['dbschema'];
+$username = $email = $errors = $dbconn = "";
+// $dbconn = mysqli_connect($dbhost, $dbuser, $dbpassword, $dbschema);
 
 if (isset($_POST['registerbtn'])) {
-    if (register()) {
+    // die('help');
+    // die($dbhost . $dbuser . $dbpassword . $dbschema);
+    $dbconn = dbconnect($dbhost, $dbuser, $dbpassword, $dbschema);
+    $reg = register($dbconn);
+
+    die($reg);
+
+    if ($reg == true) {
         header("location: /login.php");
     } else {
-        header("location: /index.php");
+        header("location: /register.php");
     }
+    // if (register()) {
+    //     header("location: /login.php");
+    // } else {
+    //     header("location: /index.php");
+    // }
+}
+
+function dbconnect($dbhost, $dbuser, $dbpassword, $dbschema) {
+    // die($dbhost . $dbuser . $dbpassword . $dbschema);
+    $dbconn = new mysqli($dbhost, $dbuser, $dbpassword, $dbschema);
+    // die("Hello");
+    // die($db);
+    if($dbconn->connect_errno) {
+        die("Failed to connect to database");
+        // exit();
+    }
+    return $dbconn;
 }
 
 function isLoggedIn() {
@@ -31,27 +55,33 @@ function logout() {
     header("location: /login.php");
 }
 
-function register() {
-    global $db, $username, $email, $errors;
+function register($dbconn) {
+    global $username, $email, $errors;
     $success = true;
     $agreevar = false;
+
+    // die($success);
     
-    $fields = array("fname" => "First Name", "lname" => "Last Name", "email" => "Email", "pwd" => "Password", "pwd_confirm" => "Confirm Password");
+    $fields = array("fname" => "First Name", "lname" => "Last Name", "username" => "Username", "email" => "Email", "pwd" => "Password", "pwd_confirm" => "Confirm Password");
     // $dbfields = array("FirstName", "LastName", "Email", "Password");
-    
+
+    // die($fields);
+
     foreach($_POST as $key=>$value) {
         if ($key != "fname") {
             if (empty($value)) {
-                $errors .= $fields[$key] . " is required.<br>";
+                array_push($errors, $fields[$key] . " is required.");
+                // $errors .= $fields[$key] . " is required.<br>";
                 $success = false;
             }
         }
         
-        $value = sanitize_input($value);
+        $value = mysqli_real_escape_string($value);
         
         if ($key == "email") {
             if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                $errors .= "Invalid Email Format. <br>";
+                array_push($errors, "Invalid Email Format");
+                // $errors .= "Invalid Email Format. <br>";
                 $success = false;
             } else {
                 $email = $value;
@@ -59,19 +89,36 @@ function register() {
         }
         
     }
-    
+
     if (!checkpassword($_POST["pwd"], $_POST["pwd_confirm"])) {
-        $errors .= "Passwords are not the same. <br>";
+        array_push($errors, "Passwords are not the same");
+        // $errors .= "Passwords are not the same. <br>";
         $success = false;
     }
     
     if (!isset($_POST["agree"])) {
-        $errors .= "Terms and Conditions not Checked. <br>";
+        array_push($errors, "Terms and Conditions not Checked");
+        // $errors .= "Terms and Conditions not Checked. <br>";
         $success = false;
     }
 
-    return $success;
-          
+    if ($success == 1) {
+        $pwhash = password_hash($_POST["pwd"], PASSWORD_DEFAULT);
+
+        die($pwhash);
+
+        $stmt = $dbconn->prepare("INSERT INTO users (email, username, password, firstname, lastname, usertype) VALUES (?, ?, ?, ?, ? ,?)");
+        $stmt->bind_param($email, $_POST['username'], $pwhash, $_POST['fname'], $_POST['lname'], "customer");
+
+        $stmt->execute();
+
+        $stmt->close();
+        $dbconn->close();
+
+        return true;
+    } else {
+        return false;
+    }
 }
             
 function checkpassword($pwd1, $pwd2) {
@@ -94,10 +141,10 @@ function displayErrors() {
     }
 }
 
-function sanitize_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
+// function sanitize_input($data) {
+//     $data = trim($data);
+//     $data = stripslashes($data);
+//     $data = htmlspecialchars($data);
+//     return $data;
+// }
 ?>
