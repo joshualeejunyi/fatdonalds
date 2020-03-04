@@ -19,6 +19,8 @@
     integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm"
     crossorigin="anonymous">
     </script>
+
+    <script defer src="js/main.js"></script>
     
     <link rel="icon" href="images/favicon.png" sizes="32x32" type="image/png">
 </head>

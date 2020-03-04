@@ -1,0 +1,3 @@
+Currently havent test with server and stuff...
+
+Code runs on my netbeans but not sure how it would work with our database etc.
