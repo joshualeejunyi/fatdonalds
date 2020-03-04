@@ -17,7 +17,7 @@
 <!--        Slideshow container-->
     <body>
         <?php
-         include "SlideShow/PhpSlideshow.php";
+         include ($_SERVER['DOCUMENT_ROOT'].'/SlideShow/PhpSlideshow.php');
          ?>
     </body>
         <main class='container'>
@@ -99,7 +99,7 @@
                 </article>
             </section>
             <?php  
-            include "footer.inc.php"; 
+            include ($_SERVER['DOCUMENT_ROOT'].'/footer.inc.php');
             ?> 
         </main>
 
