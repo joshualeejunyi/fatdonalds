@@ -1,5 +1,4 @@
 <?php
-    phpinfo();
     include($_SERVER['DOCUMENT_ROOT'].'/incl/head.inc.php');
     include($_SERVER['DOCUMENT_ROOT'].'/incl/nav.inc.php');
 
@@ -60,6 +59,11 @@
             echo "<h4 class='display-4'>Registration Successful!</h4>";
             echo "<p><b>Email: " . $email ."</b>";
             echo "</div>";
+        } else {
+            echo "<div class='jumbotron text-center'>";
+            echo "<h4 class='display-4'>RIP :( </h4>";
+            echo "<h5>The following errors were detected:</h5>";
+            echo "<p class='display-5'><b>" . $errorMsg . "</b></p>";
         }
         
     } else {
@@ -92,43 +96,19 @@
         $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['schema']);
         if ($conn->connect_error) {
             $errorMsg = "Connection failed: " . $conn->connect_error;
-            $success = false;
             die($errorMsg);
         } else {
-            // print_r($dbfields);
-            // print_r($dbfields["email"]);
-            $stmt = $conn->prepare("INSERT INTO users (email, username, password, firstname, lastname, usertype) VALUES (?, ?, ?, ?, ?, ?)");
-            print_r($stmt);
-            $stmt->bind_param($dbfields["email"], $dbfields["username"], $dbfields["pwd"], $dbfields["fname"], $dbfields["lname"], "customer");
-            print($stmt);
-
-            // if(!($stmt->bind_param($dbfields["email"], $dbfields["username"], $dbfields["pwd"], $dbfields["fname"], $dbfields["lname"], "customer"))){
-            //     print_r("HELLO");
-            //     die( "Error in bind_param: (" .$conn->errno . ") " . $conn->error);
-            // } else {
-            //     print_r("HELLO");
-            // }
+            $sql = 'INSERT INTO users (email, username, password, firstname, lastname, usertype) VALUES("' . $dbfields['email'] . '", "' . $dbfields["username"] . '", "' . $dbfields["pwd"] . '", "' . $dbfields["fname"] . '", "' . $dbfields["lname"] . '", "customer");';
             
-            // $stmt->bind_param("a", "b", "c", "d", "e", "e");
-            // print_r($stmt);
-            // print_r($dbfields['email']);
-            // $stmt->execute();
-            
-            if (!$stmt->execute()) {
+            if (!$conn->query($sql)) {
                 $errorMsg = "Database error: " . $conn->error;
-                $success = false;
-                print_r($errorMsg);
                 die($errorMsg);
-            } else {
-                die("GG");
-                print_r("SUCCESS");
+                return false;
             }
-            
+
+            print_r("SUCCESS");
+            $conn->close();
         }
-
-        $stmt->close();
-        $conn->close();
-
-        return $success;
+        return true;
     }
 ?>
