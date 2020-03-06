@@ -22,7 +22,7 @@
                     </p>
                 </div>
                 <div class="card-body">
-                    <form action="" method="post">
+                    <form action="auth/process_register.php" method="post">
                         <?php echo displayErrors(); ?>
                         <div class="form-group">
                             <label for="fname">
@@ -74,15 +74,11 @@
                         </div>
                         
                         <div class="form-group">
-                            <button class="btn btn-primary" type="submit" name="registerbtn">Submit</button>
+                            <button class="btn btn-primary" type="submit">Submit</button>
                         </div>
                     </form>
                 </div>
             </div>
         </main>
-        
-        <?php
-            include "footer.inc.php";
-        ?>
     </body>
 </html>

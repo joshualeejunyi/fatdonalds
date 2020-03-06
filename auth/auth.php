@@ -9,34 +9,29 @@ $dbschema = $dbconfig['dbschema'];
 $username = $email = $errors = $dbconn = "";
 // $dbconn = mysqli_connect($dbhost, $dbuser, $dbpassword, $dbschema);
 
-if (isset($_POST['registerbtn'])) {
-    // die('help');
-    // die($dbhost . $dbuser . $dbpassword . $dbschema);
-    $dbconn = dbconnect($dbhost, $dbuser, $dbpassword, $dbschema);
-    $reg = register($dbconn);
+// if (isset($_POST['registerbtn'])) {
+//     $dbconn = dbconnect($dbhost, $dbuser, $dbpassword, $dbschema);
+//     $reg = register($dbconn);
 
-    die($reg);
+//     die($reg);
 
-    if ($reg == true) {
-        header("location: /login.php");
-    } else {
-        header("location: /register.php");
-    }
-    // if (register()) {
-    //     header("location: /login.php");
-    // } else {
-    //     header("location: /index.php");
-    // }
-}
+//     if ($reg == true) {
+//         header("location: /login.php");
+//     } else {
+//         header("location: /register.php");
+//     }
+//     // if (register()) {
+//     //     header("location: /login.php");
+//     // } else {
+//     //     header("location: /index.php");
+//     // }
+// }
 
 function dbconnect($dbhost, $dbuser, $dbpassword, $dbschema) {
     // die($dbhost . $dbuser . $dbpassword . $dbschema);
     $dbconn = new mysqli($dbhost, $dbuser, $dbpassword, $dbschema);
-    // die("Hello");
-    // die($db);
     if($dbconn->connect_errno) {
         die("Failed to connect to database");
-        // exit();
     }
     return $dbconn;
 }
@@ -60,12 +55,8 @@ function register($dbconn) {
     $success = true;
     $agreevar = false;
 
-    // die($success);
-    
     $fields = array("fname" => "First Name", "lname" => "Last Name", "username" => "Username", "email" => "Email", "pwd" => "Password", "pwd_confirm" => "Confirm Password");
     // $dbfields = array("FirstName", "LastName", "Email", "Password");
-
-    // die($fields);
 
     foreach($_POST as $key=>$value) {
         if ($key != "fname") {
