@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
-    <?php
-        include($_SERVER['DOCUMENT_ROOT'].'/incl/head.inc.php');
-    ?>
+    <head>
+     <?php
+    include "HeadInclude.php";
+    ?>    
+    </head>
     <body>
-        <?php
-            include($_SERVER['DOCUMENT_ROOT'].'/incl/nav.inc.php');
-        ?>
-
-
-       
+    
+    <?php  
+    include "nav.inc.php"; 
+    ?>      
+    
 <header class="jumbotron text-center">     
     <h1 class="display-2">Welcome to FatDonalds!</h1> 
     <h2>Home of Singapore's Obesity</h2>
@@ -17,7 +18,7 @@
 <!--        Slideshow container-->
     <body>
         <?php
-         include ($_SERVER['DOCUMENT_ROOT'].'/SlideShow/PhpSlideshow.php');
+         include "SlideShow/PhpSlideshow.php";
          ?>
     </body>
         <main class='container'>
@@ -99,12 +100,9 @@
                 </article>
             </section>
             <?php  
-            include ($_SERVER['DOCUMENT_ROOT'].'/footer.inc.php');
+            include "footer.inc.php"; 
             ?> 
         </main>
-
-
-
-
     </body>
 </html>
+

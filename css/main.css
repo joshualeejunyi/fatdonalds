@@ -1,8 +1,43 @@
-.container {
-    margin-top: 5vh;
+* {box-sizing: border-box}
+
+
+
+main h2 {
+  text-decoration:underline;
 }
 
+footer {
+    border-top: 1px solid black;
+    font-style: italic; 
+    text-align: center;
+}
 
+footer > p{
+    font-size: smaller !important; 
+}
+figcaption{
+    color: grey;
+    font-style: italic;
+    text-align: center;
+}
+
+figure{
+    display: inline-block;
+}
+
+.img-thumbnail{
+    max-width: none !important;
+}
+
+.img-popup{
+    border-image-width: 50;
+    border: double;
+    background-color: black;
+    width: 250px 400px;
+    padding: 8px 0;
+    position: absolute;
+    border-radius: 6px;
+}
 
 /* Slideshow container */
 .slideshow-container {
@@ -150,3 +185,5 @@ img .avatar {
 * {
   box-sizing: border-box;
 }
+
+
