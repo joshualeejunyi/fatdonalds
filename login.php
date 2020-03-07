@@ -13,16 +13,16 @@
                     <h5 class="card-title">
                         Login
                     </h5>
-                    <?php
-                        if ($_SESSION['msg']) {
-                            
-                        }
-                    ?>
                     <p>
                     Don't have an account? Register <a href="/register.php">here!</a>
                     </p>
                 </div>
                 <div class="card-body">
+                    <?php
+                        if ($_SESSION['msg']) {
+                            echo "<div class='alert alert-danger'>" . $_SESSION['msg'] . "</div>";
+                        }
+                    ?>
                     <form action="process_login.php" method="post">
                         <div class="form-group">  
                             <label for="email">

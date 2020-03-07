@@ -2,7 +2,7 @@
     include('auth/auth.php');
 
     if (!isLoggedIn()) {
-        $_SESSION['msg'] = "You Must Login First";
+        $_SESSION['msg'] = "Please Login to Proceed";
         header('location: /login.php');
     }
 ?>

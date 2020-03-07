@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <head>
     <title>Fatdonald's</title>
     <meta charset="UTF-8">
