@@ -7,31 +7,67 @@ $dbuser = $dbconfig['dbuser'];
 $dbpassword = $dbconfig['dbpassword'];
 $dbschema = $dbconfig['dbschema'];
 $username = $email = $errors = $dbconn = "";
-// $dbconn = mysqli_connect($dbhost, $dbuser, $dbpassword, $dbschema);
 
-// if (isset($_POST['registerbtn'])) {
-//     $dbconn = dbconnect($dbhost, $dbuser, $dbpassword, $dbschema);
-//     $reg = register($dbconn);
+if (isset($_POST['usernameCheck'])) {
+    $uname = $_POST['username'];
+    $sql = "SELECT * from users WHERE username='$uname'";
 
-//     die($reg);
+    $config = parse_ini_file('db.ini');
+    $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['schema']);
+    if ($conn->connect_error) {
+        $errorMsg = "Connection failed: " . $conn->connect_error;
+        die($errorMsg);
+    } else {
+        $result = $conn->query($sql);
+        if (!$result) {
+            $errorMsg = "Database error: " . $conn->error;
+            return $errorMsg;
+        } else {
+            $rowCount = $result->num_rows;
+            if ($rowCount > 0) {
+                print("taken");
+            } else {
+                print("notTaken");
+            }
+        }
+        $conn->close();
+        exit();
+    }
+}
 
-//     if ($reg == true) {
-//         header("location: /login.php");
-//     } else {
-//         header("location: /register.php");
-//     }
-//     // if (register()) {
-//     //     header("location: /login.php");
-//     // } else {
-//     //     header("location: /index.php");
-//     // }
-// }
+if (isset($_POST['emailCheck'])) {
+    $emailcheck = $_POST['email'];
+    $sql = "SELECT * from users WHERE email='$emailcheck'";
+    
+    $config = parse_ini_file('db.ini');
+    $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['schema']);
+    if ($conn->connect_error) {
+        $errorMsg = "Connection failed: " . $conn->connect_error;
+        die($errorMsg);
+    } else {
+        $result = $conn->query($sql);
+        if (!$result) {
+            $errorMsg = "Database error: " . $conn->error;
+            return $errorMsg;
+        } else {
+            $rowCount = $result->num_rows;
+            if ($rowCount > 0) {
+                print("taken");
+            } else {
+                print("notTaken");
+            }
+        }
+        $conn->close();
+        exit();
+    }
+}
 
-function dbconnect($dbhost, $dbuser, $dbpassword, $dbschema) {
-    // die($dbhost . $dbuser . $dbpassword . $dbschema);
+function dbconnect() {
+    global $dbhost, $dbuser, $dbpassword, $dbschema;
+    die($dbhost . $dbuser . $dbpassword . $dbschema);
     $dbconn = new mysqli($dbhost, $dbuser, $dbpassword, $dbschema);
     if($dbconn->connect_errno) {
-        die("Failed to connect to database");
+        die($dbconn->connect_errno);
     }
     return $dbconn;
 }

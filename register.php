@@ -1,12 +1,14 @@
-<!DOCTYPE html>
 <?php
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
 ?>
+<!DOCTYPE html>
 <html>
     <?php
         include($_SERVER['DOCUMENT_ROOT'].'/incl/head.inc.php');
     ?>
+    <script defer type="text/javascript" src="js/register.js"></script>
     <body>
+
         <?php
             include($_SERVER['DOCUMENT_ROOT'].'/incl/nav.inc.php');
         ?>
@@ -23,7 +25,6 @@
                 </div>
                 <div class="card-body">
                     <form action="auth/process_register.php" method="post">
-                        <?php echo displayErrors(); ?>
                         <div class="form-group">
                             <label for="fname">
                                 First Name:
@@ -42,6 +43,7 @@
                             <label for="username">
                                 Username:
                             </label>
+                            <span class="form-error"></span>
                             <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username"  value="<?php echo $username; ?>" required>
                         </div>
                         
@@ -49,6 +51,7 @@
                             <label for="email">
                                 Email:
                             </label>
+                            <span class="form-error"></span>
                             <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email"  value="<?php echo $email; ?>" required>
                         </div>
                         
@@ -74,7 +77,8 @@
                         </div>
                         
                         <div class="form-group">
-                            <button class="btn btn-primary" type="submit">Submit</button>
+                            <div id="formerrors"></div>
+                            <button class="btn btn-primary" id="regbtn" type="submit">Submit</button>
                         </div>
                     </form>
                 </div>

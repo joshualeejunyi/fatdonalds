@@ -17,14 +17,13 @@
     foreach($_POST as $key=>$value) {
         if ($key != "fname") {
             if (empty($value)) {
-                print_r($key);
                 $errorMsg .= $fields[$key] . " is required.<br>";
                 $success = false;
             } else {
                 if ($key != "pwd_confirm" && $key != "agree" && $key != "pwd") {
                     $dbfields[$key] = $value;
                 }
-                if ($key == "pwd") {
+                if ($key === "pwd") {
                     $dbfields[$key] = password_hash($value, PASSWORD_DEFAULT);
                 }
             }
@@ -34,7 +33,7 @@
         
         $value = sanitize_input($value);
         
-        if ($key == "email") {
+        if ($key === "email") {
             if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
                 $errorMsg .= "Invalid Email Format. <br>";
                 $success = false;
@@ -52,9 +51,7 @@
     if ($success){
         $dbresult = saveMemberToDB();
 
-        print_r($dbresult);
-
-        if ($dbresult) {
+        if ($dbresult === true) {
             echo "<div class='jumbotron text-center'>";
             echo "<h4 class='display-4'>Registration Successful!</h4>";
             echo "<p><b>Email: " . $email ."</b>";
@@ -102,11 +99,9 @@
             
             if (!$conn->query($sql)) {
                 $errorMsg = "Database error: " . $conn->error;
-                die($errorMsg);
-                return false;
+                return $errorMsg;
             }
 
-            print_r("SUCCESS");
             $conn->close();
         }
         return true;
