@@ -49,7 +49,6 @@ if (empty($_POST["product_category"]))
 else
 {
     $product_category = sanitize_input($_POST["product_category"]);
-    $product_image = sanitize_input($_POST["product_image"]);
 }
 
 
@@ -163,7 +162,7 @@ function saveProductToDB()
         }     
         else     
         {         
-            $sql = "INSERT INTO product_table (product_name, product_description, product_category, product_status,$product_image)";
+            $sql = "INSERT INTO product_table (product_name, product_description, product_category, product_status,product_image)";
             $sql .= " VALUES ('$product_name', '$product_description', '$product_category', '$product_status',$product_image)"; 
         }
  

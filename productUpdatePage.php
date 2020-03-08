@@ -7,8 +7,6 @@
     <?php
     include "nav.inc.php";
     ?>
-
-    
         <main class="container">
             <h1>Product Insert Page</h1>
             <p>
@@ -33,10 +31,9 @@
                     <input class="form-control" type="text" id="product_status" name="product_status" required placeholder="Enter product status E.g. Popular, Sale, Recommended">
                 </div>
 
-                
                 <div class="form-group">
                     <label for="product_image">Product image:</label>
-                    <input type="file" id="product_image"  name="product_image">
+                    <input type="file" id="product_image" name="product_image">
                 </div>
                 
                 <div class="form-group">
