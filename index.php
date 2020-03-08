@@ -1,5 +1,5 @@
 <?php  
-    include('auth/auth.php');
+    include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
 ?>
 <!DOCTYPE html>
 <html>

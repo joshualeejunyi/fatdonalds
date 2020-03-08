@@ -1,5 +1,5 @@
 <?php  
-    include('auth/auth.php');
+    include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
 
     if (isLoggedIn()) {
         header('location: /deliver.php');

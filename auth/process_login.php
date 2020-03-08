@@ -46,6 +46,7 @@
             $_SESSION["lname"] = $lname;
             $_SESSION["user"] = true;
             $_SESSION["admin"] = false;
+            unset($_SESSION["msg"]);
 
             if ($user === "customer") {
                 header('location: /deliver.php');

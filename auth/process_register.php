@@ -1,4 +1,6 @@
 <?php
+    include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
+
     $email = $errorMsg = "";
     $success = true;
     $agreevar = false;
@@ -91,8 +93,7 @@
         global $fname, $lname, $email, $pwd, $errorMsg, $success;
         global $dbfields;
         
-        $config = parse_ini_file('db.ini');
-        $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['schema']);
+        $conn = dbconnect();
         if ($conn->connect_error) {
             $errorMsg = "Connection failed: " . $conn->connect_error;
             die($errorMsg);
