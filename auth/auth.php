@@ -40,7 +40,7 @@
     }
 
     function dbconnect() {
-        $config = parse_ini_file('db.ini');
+        $config = parse_ini_file($_SERVER['DOCUMENT_ROOT'].'/auth/db.ini');
         $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['schema']);
         return $conn;
     }

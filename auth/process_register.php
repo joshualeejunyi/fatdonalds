@@ -49,10 +49,15 @@
         $dbresult = saveMemberToDB();
 
         if ($dbresult === true) {
-            echo "<div class='jumbotron text-center'>";
-            echo "<h4 class='display-4'>Registration Successful!</h4>";
-            echo "<p><b>Email: " . $email ."</b>";
-            echo "</div>";
+            // echo "<div class='jumbotron text-center'>";
+            // echo "<h4 class='display-4'>Registration Successful!</h4>";
+            // echo "<p><b>Email: " . $email ."</b>";
+            // echo "</div>";
+
+            $_SESSION["user"] = true;
+            $_SESSION["username"] = $dbfields["username"];
+            header('location: /deliver.php');
+
         } else {
             echo "<div class='jumbotron text-center'>";
             echo "<h4 class='display-4'>RIP :( </h4>";

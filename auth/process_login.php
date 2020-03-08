@@ -23,15 +23,16 @@
                 $fname = $row["firstname"];
                 $lname = $row["lastname"];
                 $password = $row["password"];
+                $user = $row["usertype"];
 
                 if (!password_verify($pwd, $password)) {
-                    $errorMsg = "Email not found or password doesn't match";
+                    $errorMsg = "Email not found or password doesn't match.";
                     $_SESSION['msg'] = $errorMsg;
                     $success = false;
                 }
                 
             } else {
-                $errorMsg = "Email not found or password doesn't match";
+                $errorMsg = "Email not found or password doesn't match.";
                 $_SESSION['msg'] = $errorMsg;
                 $success = false;
             }
@@ -44,7 +45,14 @@
             $_SESSION["fname"] = $fname;
             $_SESSION["lname"] = $lname;
             $_SESSION["user"] = true;
-            header('location: /deliver.php');
+            $_SESSION["admin"] = false;
+
+            if ($user === "customer") {
+                header('location: /deliver.php');
+            } else if ($user === "admin") {
+                $_SESSION["admin"] = true;
+                header('location: /admin/products.php');
+            }
         } else {
             header('location: /login.php');
         }
