@@ -42,8 +42,8 @@
         $conn->close();
         
         if($success === true) {
-            $_SESSION["fname"] = $fname;
-            $_SESSION["lname"] = $lname;
+            // $_SESSION["fname"] = $fname;
+            // $_SESSION["lname"] = $lname;
             $_SESSION["user"] = true;
             $_SESSION["admin"] = false;
             unset($_SESSION["msg"]);

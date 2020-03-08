@@ -9,8 +9,6 @@
     if ($_SESSION["admin"] === true) {
         header('location: /admin/products.php');
     }
-
-
 ?>
 <!DOCTYPE html>
 <html>

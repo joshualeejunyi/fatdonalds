@@ -40,7 +40,7 @@
     }
 
     function dbconnect() {
-        $config = parse_ini_file('../../private/db.ini');
+        $config = parse_ini_file('../../private/db-config.ini');
         $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['schema']);
         $conn->select_db("fatdonalds");
         return $conn;
