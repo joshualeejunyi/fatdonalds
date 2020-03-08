@@ -16,7 +16,11 @@
                 <?php
                     include($_SERVER['DOCUMENT_ROOT'].'/incl/admintop.inc.php');
                 ?>  
-                <h2>Products</h2>
+                <section>
+                    <h2>Products</h2>
+                    <a href="/admin/upload.php" class="btn btn-primary">Upload Product</a>
+                </section>
+
                 <div class="row">
                 <?php
                     $conn = dbconnect();
