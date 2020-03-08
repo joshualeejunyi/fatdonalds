@@ -1,3 +1,10 @@
+<?php  
+    include('auth/auth.php');
+
+    if (isLoggedIn()) {
+        header('location: /deliver.php');
+    }
+?>
 <!DOCTYPE html>
 <html>
     <?php
@@ -23,13 +30,12 @@
                             echo "<div class='alert alert-danger'>" . $_SESSION['msg'] . "</div>";
                         }
                     ?>
-                    <form action="process_login.php" method="post">
+                    <form action="auth/process_login.php" method="post">
                         <div class="form-group">  
                             <label for="email">
                                 Email:
                             </label>
                             <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required>
-                            <!--<input type="text" class="form-control" id="email" name="email" placeholder="Enter Email" required>-->
 
                         </div>
                         <div class="form-group">
@@ -37,7 +43,6 @@
                                 Password:
                             </label>
                             <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Enter Password" required>
-                            <!--<input type="password" class="form-control" id="pwd" name="pwd" placeholder="Enter Password">-->
                         </div>
                         <div class="form-group">
                             <button class="btn btn-primary" type="submit">Login</button>

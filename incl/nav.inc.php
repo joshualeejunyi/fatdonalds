@@ -18,9 +18,23 @@
             <li class="nav-item active">
                 <a class="nav-link" href="contact.php">Contact Us</a>
             </li>
+            <li class="nav-item active">
+                <a class="nav-link btn btn-primary" id="fdbtn" href="deliver.php">FatDelivery</a>
+                <a class="nav-link" id="fdbtnmobile" href="deliver.php">FatDelivery</a>
+            </li>
+            <?php
+                if (isLoggedIn()) {
+            ?>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/auth/logout.php">Logout</a>
+                </li>
+            <?php
+                }
+            ?>
+            
         </ul>
-        <form action="/deliver.php">
+        <!-- <form id="deliverbtn" action="deliver.php">
             <button class="btn btn-primary">FatDelivery</button>
-        </form>
+        </form> -->
     </div>
 </nav>

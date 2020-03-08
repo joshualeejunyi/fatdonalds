@@ -1,7 +1,4 @@
 <?php
-    include($_SERVER['DOCUMENT_ROOT'].'/incl/head.inc.php');
-    include($_SERVER['DOCUMENT_ROOT'].'/incl/nav.inc.php');
-
     $email = $errorMsg = "";
     $success = true;
     $agreevar = false;

@@ -1,3 +1,21 @@
 .container {
     margin-top: 5vh;
 }
+
+#fdbtn {
+    display: block;
+}
+
+#fdbtnmobile {
+    display: none; 
+}
+
+@media only screen and (max-width: 600px) {
+    #fdbtn {
+        display: none;
+    }
+
+    #fdbtnmobile {
+        display: block;
+    }
+}
