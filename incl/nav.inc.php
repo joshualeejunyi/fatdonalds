@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-end">
-    <a class="navbar-brand" href="/">FatDonald's.</a>
+    <a class="navbar-brand" href="/">FatDonald's</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse flex-grow-0 ml-auto mr-1" id="navbarSupportedContent">
         <ul class="navbar-nav text-right">
             <li class="nav-item active">
-                <a class="nav-link" href="about.php">About</a>
+                <a class="nav-link" href="about.php">About Us</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="menu.php">Our Menu</a>
