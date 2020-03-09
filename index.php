@@ -97,6 +97,7 @@
                       </div>
                     </div>                      
                 </div>
+                <p>why is this red</p>
                 </article>
             </section>
             <?php  
