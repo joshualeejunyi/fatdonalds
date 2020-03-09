@@ -18,9 +18,29 @@
             <li class="nav-item active">
                 <a class="nav-link" href="contact.php">Contact Us</a>
             </li>
+            
+            <?php
+                if (isLoggedIn()) {
+            ?>
+                <li class="nav-item active dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        My Account
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/auth/logout.php">Logout</a>
+                    </div>
+                    
+                </li>
+            <?php
+                } else {
+            ?>
+                <li class="nav-item active">
+                    <a class="nav-link btn btn-primary" id="fdbtn" href="deliver.php">FatDelivery</a>
+                    <a class="nav-link" id="fdbtnmobile" href="deliver.php">FatDelivery</a>
+                </li>
+            <?php
+                }
+            ?>
         </ul>
-        <form action="/deliver.php">
-            <button class="btn btn-primary">FatDelivery</button>
-        </form>
     </div>
 </nav>

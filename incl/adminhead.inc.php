@@ -10,7 +10,7 @@ session_start();
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
           crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/admin.css">
     <!--jQuery-->
     <script defer
     src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -23,6 +23,9 @@ session_start();
     integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm"
     crossorigin="anonymous">
     </script>
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
     <link rel="icon" href="images/favicon.png" sizes="32x32" type="image/png">
+    <script defer type="text/javascript" src="/js/admin.js"></script>
 </head>

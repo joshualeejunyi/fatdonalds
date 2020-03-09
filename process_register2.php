@@ -1,6 +1,4 @@
 <?php
-    include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
-
     $email = $errorMsg = "";
     $success = true;
     $agreevar = false;
@@ -51,15 +49,10 @@
         $dbresult = saveMemberToDB();
 
         if ($dbresult === true) {
-            // echo "<div class='jumbotron text-center'>";
-            // echo "<h4 class='display-4'>Registration Successful!</h4>";
-            // echo "<p><b>Email: " . $email ."</b>";
-            // echo "</div>";
-
-            $_SESSION["user"] = true;
-            $_SESSION["username"] = $dbfields["username"];
-            header('location: /deliver.php');
-
+            echo "<div class='jumbotron text-center'>";
+            echo "<h4 class='display-4'>Registration Successful!</h4>";
+            echo "<p><b>Email: " . $email ."</b>";
+            echo "</div>";
         } else {
             echo "<div class='jumbotron text-center'>";
             echo "<h4 class='display-4'>RIP :( </h4>";
@@ -90,23 +83,38 @@
     }
     
     function saveMemberToDB() {
-        global $fname, $lname, $email, $pwd, $errorMsg, $success;
+        global $fname, $lname, $email, $pwd, $username, $errorMsg, $success;
         global $dbfields;
         
-        $conn = dbconnect();
-        if ($conn->connect_error) {
-            $errorMsg = "Connection failed: " . $conn->connect_error;
-            die($errorMsg);
-        } else {
-            $sql = 'INSERT INTO users (email, username, password, firstname, lastname, usertype) VALUES("' . $dbfields['email'] . '", "' . $dbfields["username"] . '", "' . $dbfields["pwd"] . '", "' . $dbfields["fname"] . '", "' . $dbfields["lname"] . '", "customer");';
+        $config = parse_ini_file('db.ini');
+        
+        $servername = $config['servername'];
+        $user = $config['username'];
+        $password = $config['password'];
+        $schema = $config['schema'];
+        
+        try{
+            $conn = new PDO("mysql:host=$servername;dbname=$schema", $user , $password);
+        
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $stmt = $conn->prepare('INSERT INTO users (email, username, password, firstname, lastname, usertype) VALUES("' . $dbfields['email'] . '", "' . $dbfields["username"] . '", "' . $dbfields["pwd"] . '", "' . $dbfields["fname"] . '", "' . $dbfields["lname"] . '", "customer");');
             
-            if (!$conn->query($sql)) {
-                $errorMsg = "Database error: " . $conn->error;
-                return $errorMsg;
-            }
-
-            $conn->close();
+            $stmt->bind_param(':email', $email);
+            $stmt->bind_param(':username', $username);
+            $stmt->bind_param(':password', $pwd);
+            $stmt->bind_param(':firstname', $fname);
+            $stmt->bind_param(':lastname', $lname);
+            
+            $stmt->execute();
         }
-        return true;
+        catch(PDOException $e){
+            echo "Error: " . $e->getMessage();
+      
+    
+            }
+        $conn = null;
     }
+    
+    
+    
 ?>

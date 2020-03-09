@@ -1,3 +1,10 @@
+<?php  
+    include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
+
+    if (isLoggedIn()) {
+        header('location: /deliver.php');
+    }
+?>
 <!DOCTYPE html>
 <html>
     <?php
@@ -13,23 +20,22 @@
                     <h5 class="card-title">
                         Login
                     </h5>
-                    <?php
-                        if ($_SESSION['msg']) {
-                            
-                        }
-                    ?>
                     <p>
                     Don't have an account? Register <a href="/register.php">here!</a>
                     </p>
                 </div>
                 <div class="card-body">
-                    <form action="process_login.php" method="post">
+                    <?php
+                        if ($_SESSION['msg']) {
+                            echo "<div class='alert alert-danger'>" . $_SESSION['msg'] . "</div>";
+                        }
+                    ?>
+                    <form action="auth/process_login.php" method="post">
                         <div class="form-group">  
                             <label for="email">
                                 Email:
                             </label>
                             <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required>
-                            <!--<input type="text" class="form-control" id="email" name="email" placeholder="Enter Email" required>-->
 
                         </div>
                         <div class="form-group">
@@ -37,7 +43,6 @@
                                 Password:
                             </label>
                             <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Enter Password" required>
-                            <!--<input type="password" class="form-control" id="pwd" name="pwd" placeholder="Enter Password">-->
                         </div>
                         <div class="form-group">
                             <button class="btn btn-primary" type="submit">Login</button>
