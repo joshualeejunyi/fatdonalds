@@ -1,5 +1,8 @@
 <?php
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
+    include($_SERVER['DOCUMENT_ROOT'].'/admin/admin.php');
+
+
 
     unset($_SESSION['msg']);
     unset($_SESSION['error']);
@@ -11,21 +14,11 @@
         $prodname = sanitize_input($_POST['productname']);
         $prodcat = sanitize_input($_POST['productcat']);
         $proddesc = sanitize_input($_POST['productdesc']);
-        $target_file = $target_dir . basename($_FILES["imagefile"]["name"]);
-        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-        $check = getimagesize($_FILES["imagefile"]["tmp_name"]);
-        if($check === false) {
-            $errorMsg .= "File is not an image";
-            $_SESSION['error'] = $errorMsg;
-            header('location: /admin/upload.php');
-        }
+        $check = processImage($_FILES["imagefile"]);
 
-        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
-            die("Sorry, only JPG, JPEG, PNG & GIF files are allowed.");
-        } else {
+        if ($check === true) {
             $conn = dbconnect();
-            // print_r($conn);
             if ($conn->connect_error) {
                 die($conn->connect_errno);
             } else {
@@ -46,10 +39,4 @@
         }
     }
 
-    function sanitize_input($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
 ?>
