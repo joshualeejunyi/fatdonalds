@@ -1,49 +1,75 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <?php
+    include "HeadInclude.php";
+    ?>  
+    <script defer src="ContactUs/contactUsJS.js"></script>
     <style>
-      /* Set the size of the div element that contains the map */
-      #map {
-        height: 400px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-       }
+     <?php  
+    include "ContactUs/contactUsCss.css"; 
+    ?> 
     </style>
-  </head>
-  <body>
-    <h2>Contact Us at these locations!</h2>
-    <!--The div element for the map -->
-    <div id="map"></div>
+    
     <script>
-// Initialize and add the map
-function initMap() {
-  // The location of Uluru
-  var NYPSIT = {lat: 1.377710, lng: 103.849523};
-  var WorstFoodSg = {lat: 1.405281, lng: 104.030924};
-  var BehindBars = {lat: 1.357958, lng: 103.973517};
-  var OwO = {lat: 1.335018, lng: 103.706517};
-  var UwU = {lat: 30.602503, lng: 114.342270};
-  // The map, centered at Uluru
-  var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 8, center: NYPSIT});
-  // The marker, positioned at Uluru
-  var marker = new google.maps.Marker({position: NYPSIT, map: map});
-  var marker2 = new google.maps.Marker({position: WorstFoodSg, map: map});
-  var marker3 = new google.maps.Marker({position: BehindBars, map: map});
-  var marker4 = new google.maps.Marker({position: OwO, map: map});
-  var marker5 = new google.maps.Marker({position: UwU, map: map});
-}
-
-
-
-
-
+    <?php
+     include "contactUs/contactUsJS.js";
+     ?>
     </script>
     
-<!--    you guys dont chibai this my api key dont playplay-->
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuzdwZdjHBM2Pm9_0UPI3jiz7c2qIrs2M&callback=initMap">
-
     </script>
+  </head>
+  <body>
+    <?php  
+    include "nav.inc.php"; 
+    ?> 
+            <main class='container'>
+            <section id='MapContainer'>
+                <h2>Locate Us!</h2>
+                <div class="row">
+                    
+
+                <div class="panel-group col-3" id="page_container" style="overflow-y: auto">
+                <input class="form-control" id="anythingSearch" type="text" placeholder="Type to search page: ">
+                        
+                <div id="accordionpanels">
+
+
+
+                    <button class="accordion">Section 1</button>
+                    <div class="panel">
+                      <p>654Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+
+                    <button class="accordion">Section 2</button>
+                    <div class="panel" >
+                      <p>987Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+
+                    <button class="accordion">Section 3</button>
+                    <div class="panel">
+                      <p>0Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+
+                </div>
+            
+                    </div>
+
+                    <div class="col">
+                        <div class="card-img-top" style="width: 50rem">
+                            <div id="map"></div>
+                        </div>
+                    </div>
+                   
+                </section>
+                 
+            <?php  
+            include "footer.inc.php"; 
+            ?> 
+        </main>
+    <div id="map"></div>
   </body>
 </html>
 

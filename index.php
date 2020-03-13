@@ -18,7 +18,7 @@
 <!--        Slideshow container-->
     <body>
         <?php
-         include "SlideShow/PhpSlideshow.php";
+         include "SlideShow/bootstrapPhpSlideshow.php";
          ?>
     </body>
         <main class='container'>
@@ -97,7 +97,6 @@
                       </div>
                     </div>                      
                 </div>
-                <p>why is this red</p>
                 </article>
             </section>
             <?php  
