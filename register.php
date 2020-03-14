@@ -79,6 +79,7 @@
                             <div id="formerrors"></div>
                             <button class="btn btn-primary" id="regbtn" type="submit">Submit</button>
                         </div>
+                        
                     </form>
                 </div>
             </div>

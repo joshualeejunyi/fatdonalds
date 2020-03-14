@@ -6,7 +6,7 @@
     $success = true;
     $agreevar = false;
     
-    $fields = array("fname" => "First Name", "lname" => "Last Name", "email" => "Email", "username" => "Username", "pwd" => "Password", "pwd_confirm" => "Confirm Password");
+    $fields = array("fname" => "First Name", "lname" => "Last Name", "email" => "Email", "username" => "Username", "pwd" => "Password", "pwd_confirm" => "Confirm Password", "usertype" => "Usertype");
     $dbfields = [];
     
     if (!checkpassword($_POST["pwd"], $_POST["pwd_confirm"])) {
@@ -86,7 +86,7 @@
     }
     
     function saveMemberToDB() {
-        global $fname, $lname, $email, $pwd, $errorMsg, $success;
+        global $fname, $lname, $email, $pwd,$usertype, $errorMsg, $success;
         global $dbfields;
 
         if ($_SESSION['admin'] != true) {
