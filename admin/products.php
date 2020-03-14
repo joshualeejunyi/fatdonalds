@@ -1,27 +1,35 @@
-<?php  
+<?php
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
     unset($_SESSION['msg']);
     unset($_SESSION['error']);
     $catFilter = $_POST['catfilter'];
+    $keyword = $_POST['keyword'];
+
+
+    if ($catFilter === "") {
+        $catFilter = null;
+    }
     
+    if ($_SESSION['admin'] != true) {
+        header('HTTP/1.0 404 not found'); 
+        include($_SERVER['DOCUMENT_ROOT'].'/auth/404.html');
+    } else {
+        include($_SERVER['DOCUMENT_ROOT'].'/incl/adminhead.inc.php');
+
 ?>
-<!DOCTYPE html>
-<html>
-    <?php
-        include($_SERVER['DOCUMENT_ROOT'].'/incl/head.inc.php');
-    ?>
     <body>
-        <?php
-            include($_SERVER['DOCUMENT_ROOT'].'/incl/nav.inc.php');
-        ?>
-                <main class="container">
-         <?php
-         include ($_SERVER['DOCUMENT_ROOT'].'/php/Slideshow.php');
-         ?>
-             <section id="content">
-                             <section>
+        <main class="container">
+            <?php
+            include($_SERVER['DOCUMENT_ROOT'].'/incl/adminnav.inc.php');
+            ?>
+            <section id="content">
+                <?php
+                    include($_SERVER['DOCUMENT_ROOT'].'/incl/admintop.inc.php');
+                ?>  
+                <section>
                     <h2>Products</h2>
                 </section>
+
                 <div id="accordion">
                     <div class="card">
                         <div class="card-header">
@@ -53,31 +61,34 @@
                                                 <option value="">-</option>
                                             <?php
                                                 }
-                                            ?>
-                                            <?php 
 
-                                                $conn = dbconnect();
-                                                if ($conn->connect_error) {
-                                                    die($conn->connect_errno);
-                                                } else {
-                                                    $sql = "SELECT DISTINCT productCategory from products;";
-                                                    $result = $conn->query($sql);
-                                                    if ($result->num_rows > 0) {
-                                                        while($row = $result->fetch_assoc()) {
+                                                try {
+                                                    $conn = dbconnect();
+                                                    $stmt = $conn->prepare("SELECT DISTINCT productCategory from products");
+                                                    $result = $stmt->execute();
+
+                                                    if ($stmt->rowCount()>0) {
+                                                        foreach($stmt as $row) {
                                             ?>
-                                                            <option 
-                                                                value="<?php echo $row["productCategory"]?>"
-                                                                <?php 
-                                                                    if ($catFilter === $row["productCategory"]) { 
-                                                                        echo selected; 
-                                                                    } ?>
-                                                            >
-                                                                <?php echo $row["productCategory"]?>
-                                                            </option>
+                                                <option 
+                                                    value="<?php echo $row["productCategory"]?>"
+                                                    <?php 
+                                                        if ($catFilter === $row["productCategory"]) { 
+                                                            echo selected; 
+                                                        } ?>
+                                                >
+                                                    <?php echo $row["productCategory"]?>
+                                                </option>
                                             <?php
+
                                                         }
-                                                        $conn->close();
                                                     }
+                                                } catch (PDOException $e) {
+                                                    $errorMsg = "Connection failed: " . $e;
+                                                    $_SESSION['msg'] = $errorMsg;
+                                                } finally {
+                                                    $conn = null;
+                                                    $stmt = null;
                                                 }
                                             ?>
                                         </select>
@@ -97,18 +108,68 @@
 
                 <div class="row datacards">
                 <?php
+                    try {
+                        $conn = dbconnect();
+
+                        $queries = [];
+                        $parameters = [];
+
+                        if ($keyword !== null) {
+                            $queries[] = 'productName LIKE ?';
+                            $parameters[] = '%' . $keyword . '%';
+                        }
+
+                        if ($catFilter !== null) {
+                            $queries[] = 'productCategory = ?';
+                            $parameters[] = $catFilter;
+                        }
+
+                        $sql = "SELECT * from products";
+
+                        if ($queries) {
+                            $sql .= " WHERE ".implode(" AND ", $queries);
+                        }
+
+                        $stmt = $conn->prepare($sql);
+                        $stmt->execute($parameters);
+                        if ($stmt->rowCount()>0) {
+                            foreach($stmt as $row) {
+                                ?>
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-3 cardcol">
+                                    <div class="card mb-3 h-100">
+                                        <?php
+                                        echo '<img class="card-img" src="data:image/jpeg;base64,'.base64_encode($row["productIMG"]).'"/>';
+                                        ?>
+                                        <div class="card-body">
+                                            <h5 class="card-title"><?php echo $row["productName"];?></h5>
+                                            <p class="card-text"><?php echo $row["productDesc"];?></p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <a class="btn btn-success" href="/admin/editproduct.php?id=<?php echo $row["productID"]?>">Edit</a>
+                                            <a class="btn btn-danger" onclick="return confirmDelete()" href="/admin/deleteproduct.php?id=<?php echo $row["productID"]?>">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        }
+
+                    } catch (PDOException $e) {
+                        $errorMsg = "Connection failed: " . $e;
+                        $_SESSION['msg'] = $errorMsg;
+                    } finally {
+                        $conn = null;
+                        $stmt = null;
+                    }
+                ?>
+
+                <?php
 
                     $conn = dbconnect();
                     if ($conn->connect_error) {
                         die($conn->connect_errno);
                     } else {
                         $sql = "SELECT * from products";
-
-                        if ($catFilter !== null) {
-                            $sql .= " WHERE productCategory = '$catFilter'";
-                        }
-
-                        print_r($sql);
 
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
@@ -136,9 +197,10 @@
                     }
                 ?>
                 </div>
-                 </section>
-         </main>
+            </section>
+        </main>
     </body>
-</html>
-
+<?php
+    }
+?>
 
