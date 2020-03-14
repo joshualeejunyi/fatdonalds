@@ -84,7 +84,7 @@
         return $data;
     }
     
-    function saveMemberToDB() {
+    function saveMemberToDB($usertype) {
         global $fname, $lname, $email, $pwd, $errorMsg, $success;
         global $dbfields;
 
