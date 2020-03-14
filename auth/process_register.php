@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
 
     $email = $errorMsg = "";
@@ -84,14 +85,20 @@
         return $data;
     }
     
-    function saveMemberToDB($usertype) {
+    function saveMemberToDB() {
         global $fname, $lname, $email, $pwd, $errorMsg, $success;
         global $dbfields;
+
+        if ($_SESSION['admin'] != true) {
+            $usertype = "customer";
+        } else {
+            $usertype = "admin";
+        }
 
         try {
             $conn = dbconnect();
             $stmt = $conn->prepare("INSERT INTO users (email, username, password, firstname, lastname, usertype) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$dbfields["email"], $dbfields["username"], $dbfields["pwd"], $dbfields["fname"], $dbfields["lname"], "customer"]);
+            $stmt->execute([$dbfields["email"], $dbfields["username"], $dbfields["pwd"], $dbfields["fname"], $dbfields["lname"], $usertype]);
 
             
         } catch (PDOException $e) {

@@ -6,7 +6,7 @@
     <?php
         include($_SERVER['DOCUMENT_ROOT'].'/incl/head.inc.php');
     ?>
-    <script defer type="text/javascript" src="js/register.js"></script>
+    <script type="text/javascript" src="js/register.js"></script>
     <body>
 
         <?php

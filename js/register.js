@@ -15,11 +15,14 @@ $('document').ready(function(){
                 'username' : username,
             }, 
             success: function(response){
+                alert(response);
                 if (response === 'taken') {
+                    alert("ERM");
                     usernameState = false;
                     $('#username').addClass("is-invalid");
                     $('#username').siblings(".form-error").html('<div><small class="text-danger">Sorry, Username is taken.</small></div>');
                 } else if (response === 'notTaken') {
+                    alert("OOPS");
                     usernameState = true;
                     $('#username').removeClass("is-invalid");
                     $('#username').siblings(".form-error").html('');
