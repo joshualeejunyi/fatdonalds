@@ -48,7 +48,7 @@
 
         $conn = new PDO("mysql:host=$servername;dbname=$schema", $user , $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // $conn->select_db("fatdonalds");
+        $conn->exec("use fatdonalds");
         return $conn;
     }
 
