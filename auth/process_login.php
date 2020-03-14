@@ -6,20 +6,14 @@
         $email = $_POST["email"];
         $pwd = $_POST["pwd"];
         $success = true;
-        
-        $conn = dbconnect();
-        
-        if ($conn->connect_error) {
-            $errorMsg = "Connection failed: " . $conn->connect_error;
-            die($errorMsg);
-            $success = false;
-        } else {
-            $sql = "SELECT * FROM users WHERE ";
-            $sql .= "email='$email'";
-            
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
+
+        try {
+            $conn = dbconnect();
+            $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+            $stmt->execute([$email]);
+
+            if ($stmt->rowCount() > 0) {
+                $row = $stmt->fetch();
                 $fname = $row["firstname"];
                 $lname = $row["lastname"];
                 $password = $row["password"];
@@ -30,17 +24,21 @@
                     $_SESSION['msg'] = $errorMsg;
                     $success = false;
                 }
-                
+
             } else {
                 $errorMsg = "Email not found or password doesn't match.";
                 $_SESSION['msg'] = $errorMsg;
                 $success = false;
             }
-            $result->free_result();
+        } catch (PDOException $e) {
+            $errorMsg = "Connection failed: " . $e->getMessage();
+            die($errorMsg);
+            $success = false;
+        } finally {
+            $stmt = null;
+            $conn = null;
         }
-        
-        $conn->close();
-        
+
         if($success === true) {
             // $_SESSION["fname"] = $fname;
             // $_SESSION["lname"] = $lname;

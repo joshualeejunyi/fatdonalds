@@ -12,12 +12,11 @@
         <?php
             include($_SERVER['DOCUMENT_ROOT'].'/incl/nav.inc.php');
         ?>
-    
         <main class="container">
             <div class="card">
                 <div class="card-header text-center">
                     <h5 class="card-title">
-                        Login
+                        Register
                     </h5>
                     <p>
                     For existing members, please go to the <a href="/login.php">Sign In Page</a>

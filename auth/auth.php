@@ -41,8 +41,14 @@
 
     function dbconnect() {
         $config = parse_ini_file('../../private/db-config.ini');
-        $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['schema']);
-        $conn->select_db("fatdonalds");
+        $servername = $config['servername'];
+        $user = $config['username'];
+        $password = $config['password'];
+        $schema = $config['schema'];
+
+        $conn = new PDO("mysql:host=$servername;dbname=$schema", $user , $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // $conn->select_db("fatdonalds");
         return $conn;
     }
 

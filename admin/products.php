@@ -3,12 +3,15 @@
     unset($_SESSION['msg']);
     unset($_SESSION['error']);
     $catFilter = $_POST['catfilter'];
+    $keyword = $_POST['keyword'];
     
     if ($_SESSION['admin'] != true) {
         header('HTTP/1.0 404 not found'); 
         include($_SERVER['DOCUMENT_ROOT'].'/auth/404.html');
     } else {
         include($_SERVER['DOCUMENT_ROOT'].'/incl/adminhead.inc.php');
+
+    // SOURCE https://phpdelusions.net/pdo_examples/dynamical_where
 ?>
     <body>
         <main class="container">
@@ -36,8 +39,13 @@
                         <div id="actions" class="collapse" data-parent="#accordion">
                             <div class="card-body">
                                 <form method="post">
+                                    <h5><b><u>Filter</u></b></h5>
                                     <div class="form-group">
-                                        <label for="filter">Filter Category:</label>
+                                        <label for="keyword">Product Name:</label>
+                                        <input type="text" class="form-control" name="keyword"></input>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="catfilter">Category:</label>
                                         <select class="form-control" name="catfilter">
                                             <?php
                                                 if ($catFilter === null) {
@@ -103,6 +111,8 @@
                         if ($catFilter !== null) {
                             $sql .= " WHERE productCategory = '$catFilter'";
                         }
+
+                        print_r($sql);
 
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
