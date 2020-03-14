@@ -6,7 +6,7 @@
     $success = true;
     $agreevar = false;
     
-    $fields = array("fname" => "First Name", "lname" => "Last Name", "email" => "Email", "username" => "Username", "pwd" => "Password", "pwd_confirm" => "Confirm Password", "usertype" => "Usertype");
+    $fields = array("fname" => "First Name", "lname" => "Last Name", "email" => "Email", "username" => "Username", "pwd" => "Password", "pwd_confirm" => "Confirm Password",);
     $dbfields = [];
     
     if (!checkpassword($_POST["pwd"], $_POST["pwd_confirm"])) {
@@ -52,8 +52,11 @@
         $dbresult = saveMemberToDB();
 
         if ($dbresult === true) {
-            $_SESSION["user"] = true;
-            $_SESSION["username"] = $dbfields["username"];
+            if ($_SESSION['admin'] != true) {
+                $_SESSION["user"] = true;
+                $_SESSION["username"] = $dbfields["username"];    
+            }
+            
             header('location: /deliver.php');
 
         } else {
@@ -86,7 +89,7 @@
     }
     
     function saveMemberToDB() {
-        global $fname, $lname, $email, $pwd,$usertype, $errorMsg, $success;
+        global $fname, $lname, $email, $pwd, $errorMsg, $success;
         global $dbfields;
 
         if ($_SESSION['admin'] != true) {
