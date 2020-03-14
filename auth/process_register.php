@@ -101,8 +101,9 @@
         try {
             $conn = dbconnect();
             $stmt = $conn->prepare("INSERT INTO users (email, username, password, firstname, lastname, usertype) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$dbfields["email"], $dbfields["username"], $dbfields["pwd"], $dbfields["fname"], $dbfields["lname"], $usertype]);
+            $result = $stmt->execute([$dbfields["email"], $dbfields["username"], $dbfields["pwd"], $dbfields["fname"], $dbfields["lname"], $usertype]);
 
+            return $result;
             
         } catch (PDOException $e) {
             $errorMsg = "Connection failed: " . $e;

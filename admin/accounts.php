@@ -35,7 +35,7 @@
                         </p>
                     </div>
                     <div class="card-body">
-                        <form action="auth/process_register.php" method="post">
+                        <form action="../auth/process_register.php" method="post">
                             <div class="form-group">
                                 <label for="fname">
                                     First Name:
