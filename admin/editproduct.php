@@ -1,24 +1,29 @@
 <?php
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
-    if(isset($_GET['id']))
-    {
-       $productID=$_GET['id'];
+    if(isset($_GET['id'])) {
+        $productID=$_GET['id'];
 
-       $conn = dbconnect();
-        if ($conn->connect_error) {
-            die($conn->connect_errno);
-        } else {
-            $sql = "SELECT productName, productCategory, productDesc from products WHERE productid = '$productID'";
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
+        try {
+            $conn = dbconnect();
+            $stmt = $conn->prepare("SELECT * FROM products WHERE productID = ?");
+            $stmt->execute([$productID]);
+
+            if ($stmt->rowCount() > 0) {
+                $row = $stmt->fetch();
                 $prodname = $row["productName"];
                 $prodcat = $row["productCategory"];
                 $proddesc = $row["productDesc"];
             }
+
+        } catch (PDOExcption $e) {
+            $errorMsg = "Product Not Found: " . $e;
+            $_SESSION['msg'] = $errorMsg;
+            print_r($e);
+        } finally {
+            $stmt = null;
+            $conn = null;
         }
-        $conn->close();
-    }  
+    }
     
     if ($_SESSION['admin'] != true) {
         header('HTTP/1.0 404 not found'); 

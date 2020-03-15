@@ -5,7 +5,7 @@
     $catFilter = $_POST['catfilter'];
     $keyword = $_POST['keyword'];
     
-    if ($_SESSION['admin'] != true) {
+    if ($_SESSION['admin'] !== true) {
         header('HTTP/1.0 404 not found'); 
         include($_SERVER['DOCUMENT_ROOT'].'/auth/404.html');
     } else {
