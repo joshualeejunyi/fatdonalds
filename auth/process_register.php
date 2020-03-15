@@ -1,11 +1,12 @@
 <?php
+    session_start();
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
 
     $email = $errorMsg = "";
     $success = true;
     $agreevar = false;
     
-    $fields = array("fname" => "First Name", "lname" => "Last Name", "email" => "Email", "username" => "Username", "pwd" => "Password", "pwd_confirm" => "Confirm Password");
+    $fields = array("fname" => "First Name", "lname" => "Last Name", "email" => "Email", "username" => "Username", "pwd" => "Password", "pwd_confirm" => "Confirm Password",);
     $dbfields = [];
     
     if (!checkpassword($_POST["pwd"], $_POST["pwd_confirm"])) {
@@ -51,13 +52,11 @@
         $dbresult = saveMemberToDB();
 
         if ($dbresult === true) {
-            // echo "<div class='jumbotron text-center'>";
-            // echo "<h4 class='display-4'>Registration Successful!</h4>";
-            // echo "<p><b>Email: " . $email ."</b>";
-            // echo "</div>";
-
-            $_SESSION["user"] = true;
-            $_SESSION["username"] = $dbfields["username"];
+            if ($_SESSION['admin'] != true) {
+                $_SESSION["user"] = true;
+                $_SESSION["username"] = $dbfields["username"];    
+            }
+            
             header('location: /deliver.php');
 
         } else {
@@ -92,21 +91,27 @@
     function saveMemberToDB() {
         global $fname, $lname, $email, $pwd, $errorMsg, $success;
         global $dbfields;
-        
-        $conn = dbconnect();
-        if ($conn->connect_error) {
-            $errorMsg = "Connection failed: " . $conn->connect_error;
-            die($errorMsg);
-        } else {
-            $sql = 'INSERT INTO users (email, username, password, firstname, lastname, usertype) VALUES("' . $dbfields['email'] . '", "' . $dbfields["username"] . '", "' . $dbfields["pwd"] . '", "' . $dbfields["fname"] . '", "' . $dbfields["lname"] . '", "customer");';
-            
-            if (!$conn->query($sql)) {
-                $errorMsg = "Database error: " . $conn->error;
-                return $errorMsg;
-            }
 
-            $conn->close();
+        if ($_SESSION['admin'] != true) {
+            $usertype = "customer";
+        } else {
+            $usertype = "admin";
         }
-        return true;
+
+        try {
+            $conn = dbconnect();
+            $stmt = $conn->prepare("INSERT INTO users (email, username, password, firstname, lastname, usertype) VALUES (?, ?, ?, ?, ?, ?)");
+            $result = $stmt->execute([$dbfields["email"], $dbfields["username"], $dbfields["pwd"], $dbfields["fname"], $dbfields["lname"], $usertype]);
+
+            return $result;
+            
+        } catch (PDOException $e) {
+            $errorMsg = "Connection failed: " . $e;
+            $_SESSION['msg'] = $errorMsg;
+        } finally {
+            $conn = null;
+            $stmt = null;
+        }
+
     }
 ?>
