@@ -9,6 +9,7 @@
 
         try {
             $conn = dbconnect();
+            
             $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
             $stmt->execute([$email]);
 
@@ -32,7 +33,7 @@
             }
         } catch (PDOException $e) {
             $errorMsg = "Connection failed: " . $e->getMessage();
-            die($errorMsg);
+            $_SESSION['msg'] = $errorMsg;
             $success = false;
         } finally {
             $stmt = null;

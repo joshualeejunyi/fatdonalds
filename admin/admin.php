@@ -26,14 +26,10 @@
     }
 
     function processImage($image) {
-        print_r("HELLO");
         $target_file = $target_dir . basename($image["name"]);
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-        print_r($imageFileType);
-
         $check = getimagesize($image["tmp_name"]);
-        print_r($check);
         if($check === false) {
             $errorMsg .= "File is not an image";
             $_SESSION['error'] = $errorMsg;

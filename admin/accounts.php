@@ -46,7 +46,6 @@
                 
                 <table border='1' width="100%" cellspacing="0" cellpadding="0">
                     <tr style="font-size: 15px;">
-                        
                         <th>Email</th>
                         <th>Username</th>
                         <th>Password</th>

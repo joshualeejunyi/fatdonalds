@@ -2,8 +2,6 @@
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
     include($_SERVER['DOCUMENT_ROOT'].'/admin/admin.php');
 
-
-
     unset($_SESSION['msg']);
     unset($_SESSION['error']);
     
@@ -26,28 +24,27 @@
         }
 
         if ($check !== false) {
-            $conn = dbconnect();
-            if ($conn->connect_error) {
-                die($conn->connect_errno);
-            } else {
-                if ($nofile === true) {
-                    $sql = "UPDATE products SET productName = '$prodname', productCategory = '$prodcat', productDesc = '$proddesc' WHERE productID = " . $prodid;
-                } else {
-                    $imagetmp=addslashes(file_get_contents($_FILES['imagefile']['tmp_name']));
-                    $sql = "UPDATE products SET productName = '$prodname', productCategory = '$prodcat', productDesc = '$proddesc', productIMG = '$imagetmp' WHERE productID = " . $prodid;
-                }
+            try {
+                $conn = dbconnect();
 
-                if (!$conn->query($sql)) {
-                    $errorMsg = "Database error: " . $conn->error;
-                    $_SESSION['error'] = $errorMsg;
-                    header('location: /admin/editproduct.php?id='.$prodid);
+                if ($nofile === true) {
+                    $stmt = $conn->prepare("UPDATE products SET productName = ?, productCategory = ?, productDesc = ? WHERE productID = ?");
+                    $stmt->execute([$prodname, $prodcat, $proddesc, $prodid]);
                 } else {
-                    $_SESSION['msg'] = "Product Updated Successfully";
-                    header('location: /admin/editproduct.php?id='.$prodid);
+                    $imagedata = file_get_contents($_FILES['imagefile']['tmp_name']);
+                    $stmt = $conn->prepare("UPDATE products SET productName = ?, productCategory = ?, productDesc = ?, productIMG = ? WHERE productID = ?");
+                    $stmt->execute([$prodname, $prodcat, $proddesc, $imagedata, $prodid]);
                 }
-    
-                $conn->close();
+            } catch (PDOException $e) {
+                $errorMsg = "Product Not Found: " . $e;
+                $_SESSION['error'] = $errorMsg;
+                header('location: /admin/editproduct.php?id='.$prodid);
+            } finally {
+                $stmt = null;
+                $conn = null;
             }
+            $_SESSION['msg'] = "Product Updated Successfully";
+            header('location: /admin/editproduct.php?id='.$prodid);
         }
     }
 ?>

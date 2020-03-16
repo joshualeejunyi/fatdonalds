@@ -15,6 +15,7 @@ $('document').ready(function(){
                 'username' : username,
             }, 
             success: function(response){
+                console.log(response);
                 if (response === 'taken') {
                     usernameState = false;
                     $('#username').addClass("is-invalid");

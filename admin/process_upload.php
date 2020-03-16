@@ -2,8 +2,6 @@
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
     include($_SERVER['DOCUMENT_ROOT'].'/admin/admin.php');
 
-
-
     unset($_SESSION['msg']);
     unset($_SESSION['error']);
     
@@ -18,25 +16,22 @@
         $check = processImage($_FILES["imagefile"]);
 
         if ($check === true) {
-            $conn = dbconnect();
-            if ($conn->connect_error) {
-                die($conn->connect_errno);
-            } else {
-                $imagetmp=addslashes(file_get_contents($_FILES['imagefile']['tmp_name']));
-                $sql = "INSERT INTO products (productName, productCategory, productDesc, productIMG) VALUES ('$prodname', '$prodcat', '$proddesc', '$imagetmp')";
-
-                if (!$conn->query($sql)) {
-                    $errorMsg = "Database error: " . $conn->error;
-                    $_SESSION['error'] = $errorMsg;
-                    header('location: /admin/upload.php');
-                } else {
-                    $_SESSION['msg'] = "Product Uploaded Successfully";
-                    header('location: /admin/upload.php');
-                }
-    
-                $conn->close();
+            try {
+                $conn = dbconnect();
+                $imagedata = file_get_contents($_FILES['imagefile']['tmp_name']);
+                $stmt = $conn->prepare("INSERT INTO products (productName, productCategory, productDesc, productIMG) VALUES (?, ?, ?, ?)");
+                $stmt->execute([$prodname, $prodcat, $proddesc, $imagedata]);
+                
+            } catch (PDOException $e) {
+                $errorMsg = "Product Not Found: " . $e;
+                $_SESSION['error'] = $errorMsg;
+                header('location: /admin/upload.php');
+            } finally {
+                $conn = null;
+                $stmt = null;
             }
+            $_SESSION['msg'] = "Product Uploaded Successfully";
+            header('location: /admin/upload.php');
         }
     }
-
 ?>

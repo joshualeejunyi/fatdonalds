@@ -1,11 +1,12 @@
 <?php
+    session_start();
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
 
     $email = $errorMsg = "";
     $success = true;
     $agreevar = false;
     
-    $fields = array("fname" => "First Name", "lname" => "Last Name", "email" => "Email", "username" => "Username", "pwd" => "Password", "pwd_confirm" => "Confirm Password", "usertype" => "Usertype");
+    $fields = array("fname" => "First Name", "lname" => "Last Name", "email" => "Email", "username" => "Username", "pwd" => "Password", "pwd_confirm" => "Confirm Password",);
     $dbfields = [];
     
     if (!checkpassword($_POST["pwd"], $_POST["pwd_confirm"])) {
@@ -51,8 +52,11 @@
         $dbresult = saveMemberToDB();
 
         if ($dbresult === true) {
-            $_SESSION["user"] = true;
-            $_SESSION["username"] = $dbfields["username"];
+            if ($_SESSION['admin'] != true) {
+                $_SESSION["user"] = true;
+                $_SESSION["username"] = $dbfields["username"];    
+            }
+            
             header('location: /deliver.php');
 
         } else {
@@ -85,14 +89,21 @@
     }
     
     function saveMemberToDB() {
-        global $fname, $lname, $email, $pwd,$usertype, $errorMsg, $success;
+        global $fname, $lname, $email, $pwd, $errorMsg, $success;
         global $dbfields;
+
+        if ($_SESSION['admin'] != true) {
+            $usertype = "customer";
+        } else {
+            $usertype = "admin";
+        }
 
         try {
             $conn = dbconnect();
             $stmt = $conn->prepare("INSERT INTO users (email, username, password, firstname, lastname, usertype) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$dbfields["email"], $dbfields["username"], $dbfields["pwd"], $dbfields["fname"], $dbfields["lname"], "customer"]);
+            $result = $stmt->execute([$dbfields["email"], $dbfields["username"], $dbfields["pwd"], $dbfields["fname"], $dbfields["lname"], $usertype]);
 
+            return $result;
             
         } catch (PDOException $e) {
             $errorMsg = "Connection failed: " . $e;
