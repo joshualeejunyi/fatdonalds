@@ -158,10 +158,11 @@
                                                                     echo '<img class="card-img" src="data:image/jpeg;base64,'.base64_encode($row["productIMG"]).'"/>';
                                                                 ?>
                                                                     <div class="card-header">
-                                                                        <?php echo $row["productName"];?>
+                                                                        <h4><?php echo $row["productName"];?></h4>
                                                                     </div>
                                                                     <div class="card-body">
                                                                         <p class="card-text"><?php echo $row["productDesc"];?></p>
+                                                                        <h5 class="card-text">Price: $<?php echo $row["productPrice"];?></h5>
                                                                     </div>
                                                                     <div class="card-footer">
                                                                         <a class="btn btn-success" href="/admin/editproduct.php?id=<?php echo $row["productID"]?>">Edit</a>
