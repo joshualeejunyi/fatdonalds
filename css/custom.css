@@ -23,7 +23,7 @@ a,button{outline: 0 !important;}
 a:hover,a:focus{ text-decoration: none}
 
 /* Background Transition */
-.classic_btn,.info_btn,.social .fa {
+.classic_btn,.social .fa {
     transition: background .3s ease-in-out;
     -webkit-transition: background .3s ease-in-out;
     -o-transition: background .3s ease-in-out;
@@ -138,21 +138,16 @@ nav.navbar.bootsnav {
 /* Footer */
 footer {
     background: #454646 none repeat scroll 0 0;
-    padding-bottom: 42px;
 }
 footer h4 {
     font-family: 'Maitree', serif;
     margin-top: 20px;
     text-transform: capitalize;
 }
-/* Basic Info */
-.basic_info, .contact_us, .subscribe {
-    margin-top: 38px;
+/* Info */
+.info {
+    margin-top: 30px;
     overflow: hidden;
-}
-.footer_logo {
-    margin-left: 20px;
-    width: 160px;
 }
 
 /* scrollup */
@@ -262,10 +257,6 @@ footer h4 {
         margin-right: 15px;;
     }
 
-    #lock > h2 {
-        font-size: 26px;
-    }
-
     address > p {
         font-size: 14px;
         width: 100%;
@@ -316,15 +307,9 @@ footer h4 {
     #carousel .carousel-caption > p {
         margin-right: 0;
     }
-    #carousel .carousel-caption > p,#carousel .carousel-caption > .info_btn_shadow {
+    #carousel .carousel-caption > p,#carousel .carousel-caption {
         margin-top: 20px;
     }
-
-    #lock {
-        padding: 50px 40px 40px;
-        line-height: 24px;
-    }
-
 }
 
 @media (max-width: 479px) {
@@ -366,10 +351,5 @@ footer h4 {
         font-size: 16px;
         line-height: 20px;
         margin: 15px 0 0;
-    }
-
-    #lock > h2 {
-        font-size: 20px;
-        line-height: 30px;
     }
 }
