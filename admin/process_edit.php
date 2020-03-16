@@ -13,6 +13,16 @@
         $prodname = sanitize_input($_POST['productname']);
         $prodcat = sanitize_input($_POST['productcat']);
         $proddesc = sanitize_input($_POST['productdesc']);
+        $prodprice = sanitize_input($_POST['productprice']);
+
+        if(isset($_POST['promo'])) {
+            $promo = 1;
+            $promoprice = sanitize_input($_POST['promoprice']);
+        } else {
+            $promo = 0;
+            $promoprice = 0;
+        }
+
         $nofile = false;
 
         if ($_FILES["imagefile"]["error"] !== 4) {
@@ -28,12 +38,12 @@
                 $conn = dbconnect();
 
                 if ($nofile === true) {
-                    $stmt = $conn->prepare("UPDATE products SET productName = ?, productCategory = ?, productDesc = ? WHERE productID = ?");
-                    $stmt->execute([$prodname, $prodcat, $proddesc, $prodid]);
+                    $stmt = $conn->prepare("UPDATE products SET productName = ?, productCategory = ?, productPrice = ?, productDesc = ?, promo = ?, promoPrice = ? WHERE productID = ?");
+                    $stmt->execute([$prodname, $prodcat, $prodprice, $proddesc, $promo, $promoprice, $prodid]);
                 } else {
                     $imagedata = file_get_contents($_FILES['imagefile']['tmp_name']);
-                    $stmt = $conn->prepare("UPDATE products SET productName = ?, productCategory = ?, productDesc = ?, productIMG = ? WHERE productID = ?");
-                    $stmt->execute([$prodname, $prodcat, $proddesc, $imagedata, $prodid]);
+                    $stmt = $conn->prepare("UPDATE products SET productName = ?, productCategory = ?, productPrice = ?, productDesc = ?, promo = ?, promoPrice = ?, productIMG = ? WHERE productID = ?");
+                    $stmt->execute([$prodname, $prodcat, $prodprice, $proddesc, $promo, $promoprice, $imagedata, $prodid]);
                 }
             } catch (PDOException $e) {
                 $errorMsg = "Product Not Found: " . $e;
