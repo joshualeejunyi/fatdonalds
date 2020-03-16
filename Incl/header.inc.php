@@ -6,6 +6,11 @@
                     <h3>-welcome to-</h3>
                     <h1>FATDONALDS</h1>
             </div>
+                
+<!--            <div class="col-md-8 col-md-offset-2">
+            <div class="banner">
+                <img src="../images/logo.png" alt=""/>
+            </div>-->
         </div>
     </div>
 </header>

@@ -2,10 +2,10 @@
 jQuery(document).ready(function ($) {
 
 //for Preloader
-
-    $(window).load(function () {
-        $("#loading").fadeOut(500);
-    });
+//
+//    $(window).load(function () {
+//        $("#loading").fadeOut(500);
+//    });
 
 
 

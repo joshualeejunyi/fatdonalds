@@ -1,14 +1,14 @@
 <!DOCTYPE html>
     <head>
         <meta charset="utf-8">
-        <title>Fatdonalds</title>
+        <title>FatDonalds</title>
         
         <!-- Mobile Specific Meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         
         <!-- Stylesheets -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
         <link rel="stylesheet" href="fonts/flaticon.css" />
 
         <!-- Custom stylesheet -->
@@ -25,58 +25,18 @@
             include "incl/header.inc.php";
         ?>  
 
+        <br />
+        
         <!-- Block Content -->
         <section id="block">
             <div class="container">
-
-                <!-- First section -->
-                <!-- Carousel -->
-                <div id="carousel" class="carousel slide" data-ride="carousel">
-                    <!-- Indicators -->
-                    <ol class="carousel-indicators">
-                        <li data-target="#carousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#carousel" data-slide-to="1"></li>
-                        <li data-target="#carousel" data-slide-to="2"></li>
-                    </ol>
-
-                    <!-- carousel inner -->
-                    <div class="carousel-inner" role="listbox">
-                        <div class="item active">
-                            <img src="images/cheeseburger.jpg" alt="Burger">
-
-                            <div class="carousel-caption">
-                                <h2>Fat Sugar</h2>
-                                <h3>Daily dose of diabetes</h3>
-
-                                <p>Our world renowned Chef makes this over-the-top, Caramelized burger with two juicy stacked patties, thick-cut bacon, kimchi and a spicy homemade sauce.</p>
-
-                            </div>
-                        </div>
-                        <div class="item">
-                            <img src="images/cheeseburger.jpg" alt="Burger">
-
-                            <div class="carousel-caption">
-                                <h2>Fat Sugar</h2>
-                                <h3>Daily dose of diabetes</h3>
-
-                                <p>Our world renowned Chef makes this over-the-top, Caramelized burger with two juicy stacked patties, thick-cut bacon, kimchi and a spicy homemade sauce.</p>
-
-                            </div>
-                        </div>
-                        <div class="item">
-                            <img src="images/cheeseburger.jpg" alt="Burger">
-
-                            <div class="carousel-caption">
-                                <h2>Fat Sugar</h2>
-                                <h3>Daily dose of diabetes</h3>
-
-                                <p>Our world renowned Chef makes this over-the-top, Caramelized burger with two juicy stacked patties, thick-cut bacon, kimchi and a spicy homemade sauce.</p>
-
-                            </div>
-                        </div>
-                    </div><!-- carousel inner end -->
-                </div><!-- Carousel end-->
-
+                <?php
+                    include "slideshow.php";
+                ?>
+                <br />
+                <?php
+                    include "slideshow.php";
+                ?>
                 <!-- Second section -->
                 <div class="row second_sec">
                     <div class="col-sm-6">
@@ -110,8 +70,8 @@
         </div><!-- End off scroll up->
 
         <!-- JavaScript -->
-        <script src="http://code.jquery.com/jquery-1.12.1.min.js"></script>		
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>		
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
         
         <!--main js-->
