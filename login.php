@@ -51,9 +51,6 @@
                 </div>
             </div>
         </main>
-        
-        <?php
-            include "footer.inc.php";
-        ?>
+
     </body>
 </html>

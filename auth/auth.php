@@ -1,7 +1,7 @@
 <?php
     session_start();
     function dbconnect() {
-        $config = parse_ini_file($_SERVER['DOCUMENT_ROOT']."../private/db-config.ini");
+        $config = parse_ini_file($_SERVER['DOCUMENT_ROOT']."/../private/db-config.ini");
         $servername = $config['servername'];
         $user = $config['username'];
         $password = $config['password'];
