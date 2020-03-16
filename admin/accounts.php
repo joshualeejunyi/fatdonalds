@@ -9,30 +9,8 @@
         include($_SERVER['DOCUMENT_ROOT'].'/auth/404.html');
     } else {
         include($_SERVER['DOCUMENT_ROOT'].'/incl/adminhead.inc.php');
-        $success = true;
-        try{
-            $conn = dbconnect();
-            $stmt = $conn->prepare("SELECT * from users order by usertype");
-            $stmt->exec();
-            if ($stmt->rowCount() > 0) {
-            $row = $stmt->fetch();
-            $email = $row["email"];
-            $username = $row["username"];
-            $password = $row["password"];
-            $fname = $row["fname"];
-            $lname = $row["lname"];
-            $usertype = $row["usertype"];
-            }
 
-        }catch (PDOException $e) {
-        $errorMsg = "Connection failed: " . $e->getMessage();
-        print_r($errorMsg);
-        die($errorMsg);
-        $success = false;
-        }
-        $conn = null;
 ?>
-
     <body>
         <main class="container">
             <?php
@@ -54,25 +32,35 @@
                         <th>User Type</th>
                     </tr>
                     <?php
-                    for ($i = 0; $i < count($row);$i++){
-                        $email = $row[$i]['email'];
-                        $username = $row[$i]['username'];
-                        $password = $row[$i]['password'];
-                        $fname = $row[$i]['fname'];
-                        $lname = $row[$i]['lname'];
-                        $usertype = $row[$i]['usertype'];
-                    
+                        try{
+                            $conn = dbconnect();
+                            $stmt = $conn->prepare("SELECT * FROM users ORDER BY usertype");
+                            $stmt->execute();
+                            if ($stmt->rowCount() > 0) {
+                                foreach($stmt as $row){
+                                ?>
+                                    <tr>
+                                        <td><?php echo $row["email"];?></td>
+                                        <td><?php echo $username;?></td>
+                                        <td><?php echo $fname;?></td>
+                                        <td><?php echo $lname;?></td>
+                                        <td><?php echo $usertype;?></td>
+                                    </tr>
+                                <?php
+                                }
+                                
+                            }
+                
+                        } catch (PDOException $e) {
+                            $errorMsg = "Connection failed: " . $e->getMessage();
+                            print_r($errorMsg);
+                            die($errorMsg);
+                        } finally {
+                            $conn = null;
+                            $stmt = null;
+                        }
+
                     ?>
-                    <tr>
-                        <td><?php echo $email;?></td>
-                        <td><?php echo $username;?></td>
-                        <td><?php echo $password;?></td>
-                        <td><?php echo $fname;?></td>
-                        <td><?php echo $lname;?></td>
-                        <td><?php echo $usertype;?></td>
-                    <?php }?>
-                    </tr>
-                    
                 </table>
             </section>
         </main>
