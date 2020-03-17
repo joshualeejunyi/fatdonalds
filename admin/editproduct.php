@@ -10,12 +10,12 @@
 
             if ($stmt->rowCount() > 0) {
                 $row = $stmt->fetch();
-                $prodname = $row["productName"];
-                $prodcat = $row["productCategory"];
-                $proddesc = $row["productDesc"];
-                $productprice = $row["productPrice"];
+                $prodname = $row["name"];
+                $prodcat = $row["category"];
+                $proddesc = $row["description"];
+                $productprice = $row["price"];
                 $promo = $row["promo"];
-                $promoprice = $row["promoPrice"];
+                $promoprice = $row["promoprice"];
             }
 
         } catch (PDOExcption $e) {

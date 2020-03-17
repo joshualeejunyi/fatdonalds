@@ -1,5 +1,7 @@
 <?php
-    session_start();
+    if(!isset($_SESSION)) { 
+        session_start(); 
+    } 
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
 
     if (isset($_POST['usernameCheck'])) {
@@ -58,9 +60,9 @@
         <main class="container">
             <div class="card formcard">
                 <div class="card-header text-center">
-                    <h5 class="card-title">
+                    <h2 class="card-title">
                         Register
-                    </h5>
+                    </h2>
                     <p>
                     For existing members, please go to the <a href="/login.php">Sign In Page</a>
                     </p>

@@ -1,5 +1,7 @@
 <?php
-    session_start();
+    if(!isset($_SESSION)) { 
+        session_start(); 
+    } 
     function dbconnect() {
         $config = parse_ini_file($_SERVER['DOCUMENT_ROOT']."/../private/db-config.ini");
         $servername = $config['servername'];

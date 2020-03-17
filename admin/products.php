@@ -2,13 +2,24 @@
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
     unset($_SESSION['msg']);
     unset($_SESSION['error']);
-    $catFilter = $_POST['catfilter'];
-    $keyword = $_POST['keyword'];
-    
-    if ($catFilter === "") {
-        $catFilter = null;
+
+    if (isset($_POST['catfilter'])) {
+        if ($_POST['catfilter'] === "") {
+            $catFilter = null;
+        } else {
+            $catFilter = $_POST['catfilter'];
+        }
     }
-        if ($_SESSION['admin'] !== true) {
+
+    if (isset($_POST['keyword'])) {
+        if ($_POST['keyword'] === "") {
+            $keyword = null;
+        } else {
+            $keyword = $_POST['keyword'];
+        }
+    }
+
+    if ($_SESSION['admin'] !== true) {
             header('HTTP/1.0 404 not found'); 
             include($_SERVER['DOCUMENT_ROOT'].'/auth/404.html');
     } else {
@@ -61,20 +72,20 @@
 
                                                 try {
                                                     $conn = dbconnect();
-                                                    $stmt = $conn->prepare("SELECT DISTINCT productCategory from products");
+                                                    $stmt = $conn->prepare("SELECT DISTINCT category from products");
                                                     $result = $stmt->execute();
 
                                                     if ($stmt->rowCount()>0) {
                                                         foreach($stmt as $row) {
                                             ?>
                                                 <option 
-                                                    value="<?php echo $row["productCategory"]?>"
+                                                    value="<?php echo $row["category"]?>"
                                                     <?php 
-                                                        if ($catFilter === $row["productCategory"]) { 
+                                                        if ($catFilter === $row["category"]) { 
                                                             echo selected; 
                                                         } ?>
                                                 >
-                                                    <?php echo $row["productCategory"]?>
+                                                    <?php echo $row["category"]?>
                                                 </option>
                                             <?php
 
@@ -112,27 +123,28 @@
                         $parameters = [];
 
                         if ($keyword !== null) {
-                            $queries[] = 'productName LIKE ?';
+                            $queries[] = 'name LIKE ?';
                             $parameters[] = '%' . $keyword . '%';
                         }
 
                         if ($catFilter !== null) {
-                            $queries[] = 'productCategory = ?';
+                            $queries[] = 'category = ?';
                             $parameters[] = $catFilter;
-                            $catstmt = $conn->prepare("SELECT DISTINCT productCategory from products WHERE productCategory = ? ORDER BY productCategory ASC");
+                            $catstmt = $conn->prepare("SELECT DISTINCT category from products WHERE category = ? ORDER BY category ASC");
                             $catstmt->execute([$catFilter]);
                         } else {
-                            $catstmt = $conn->prepare("SELECT DISTINCT productCategory from products ORDER BY productCategory ASC");
+                            $catstmt = $conn->prepare("SELECT DISTINCT category from products ORDER BY category ASC");
                             $catstmt->execute();
                         }
 
                         $sql = "SELECT * from products";
 
+
                         if ($queries) {
                             $sql .= " WHERE ".implode(" AND ", $queries);
                         }
 
-                        $sql .= " ORDER BY productCategory ASC;";
+                        $sql .= " ORDER BY category ASC;";
 
                         $stmt = $conn->prepare($sql);
                         $stmt->execute($parameters);
@@ -144,25 +156,27 @@
                                     <div class="col-12 cardcol">
                                         <div class="card mb-3 h-100">
                                             <div class="card-header text-white bg-dark">
-                                                <?php echo $catrow["productCategory"];?>
+                                                <?php echo $catrow["category"];?>
                                             </div>
                                             <div class="card-group">
                                                 <?php
                                                     $stmt->execute($parameters);
                                                     foreach($stmt as $row) {
-                                                        if ($row["productCategory"] === $catrow["productCategory"]) {
+                                                        if ($row["category"] === $catrow["category"]) {
                                                 ?>
-                                                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                                                                <div class="card mb-3 h-100">
+                                                            <div class="col-12 col-lg-6 col-xl-3">
+                                                                <div class="card mb-3 h-100 prodcard">
                                                                 <?php
-                                                                    echo '<img class="card-img" src="data:image/jpeg;base64,'.base64_encode($row["productIMG"]).'"/>';
+                                                                    echo '<img class="card-img" src="data:image/jpeg;base64,'.base64_encode($row["productimage"]).'"/>';
                                                                 ?>
                                                                     <div class="card-header">
-                                                                        <h4><?php echo $row["productName"];?></h4>
+                                                                        <h4><?php echo $row["name"];?></h4>
                                                                     </div>
-                                                                    <div class="card-body p-3">
-                                                                        <p class="card-text"><?php echo $row["productDesc"];?></p>
-                                                                        <h5 class="card-text">Price: $<?php echo $row["productPrice"];?></h5>
+                                                                    <div class="card-body">
+                                                                        <div class="card-text">
+                                                                            <p><?php echo $row["description"];?></p>
+                                                                            <h5>Price: $<?php echo $row["price"];?></h5>
+                                                                        </div>
                                                                     </div>
                                                                     <div class="card-footer">
                                                                         <a class="btn btn-success" href="/admin/editproduct.php?id=<?php echo $row["productID"]?>">Edit</a>

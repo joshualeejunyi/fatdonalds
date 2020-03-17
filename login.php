@@ -17,9 +17,9 @@
         <main class="container">
             <div class="card formcard">
                 <div class="card-header text-center">
-                    <h5 class="card-title">
+                    <h2 class="card-title">
                         Login
-                    </h5>
+                    </h2>
                     <p>
                     Don't have an account? Register <a href="/register.php">here!</a>
                     </p>

@@ -38,11 +38,11 @@
                 $conn = dbconnect();
 
                 if ($nofile === true) {
-                    $stmt = $conn->prepare("UPDATE products SET productName = ?, productCategory = ?, productPrice = ?, productDesc = ?, promo = ?, promoPrice = ? WHERE productID = ?");
+                    $stmt = $conn->prepare("UPDATE products SET name = ?, category = ?, price = ?, description = ?, promo = ?, promoprice = ? WHERE productID = ?");
                     $stmt->execute([$prodname, $prodcat, $prodprice, $proddesc, $promo, $promoprice, $prodid]);
                 } else {
                     $imagedata = file_get_contents($_FILES['imagefile']['tmp_name']);
-                    $stmt = $conn->prepare("UPDATE products SET productName = ?, productCategory = ?, productPrice = ?, productDesc = ?, promo = ?, promoPrice = ?, productIMG = ? WHERE productID = ?");
+                    $stmt = $conn->prepare("UPDATE products SET name = ?, category = ?, price = ?, description = ?, promo = ?, promoprice = ?, productimage = ? WHERE productID = ?");
                     $stmt->execute([$prodname, $prodcat, $prodprice, $proddesc, $promo, $promoprice, $imagedata, $prodid]);
                 }
             } catch (PDOException $e) {

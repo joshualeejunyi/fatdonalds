@@ -1,8 +1,10 @@
 <?php  
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
 
-    if ($_SESSION["admin"] === true) {
-        header('location: /admin/products.php');
+    if (isset($_SESSION["admin"])) {
+        if ($_SESSION["admin"] === true) {
+            header('location: /admin/products.php');
+        }
     }
 
 ?>
@@ -60,8 +62,4 @@
             </section>
         </main>
     </body>
-
-    <style>
-    
-    </style>
 </html>
