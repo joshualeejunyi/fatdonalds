@@ -1,29 +1,28 @@
 <!DOCTYPE html>
-    <head>
-        <meta charset="utf-8">
-        <title>FatDonalds</title>
-        
-        <!-- Mobile Specific Meta -->
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        
-        <!-- Stylesheets -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-        <link rel="stylesheet" href="fonts/flaticon.css" />
-
-        <!-- Custom stylesheet -->
-        <link rel="stylesheet" href="css/custom.css" />
-        
-    </head>
+    <?php include "incl/header.inc.php"; ?>
     <body data-spy="scroll" data-target="#navbar-menu" data-offset="100">
 
         <?php
             include "incl/nav.inc.php";
         ?>
         
-        <?php
-            include "incl/header.inc.php";
-        ?>  
+        <header>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="banner">
+                            <h3>-welcome to-</h3>
+                            <h1>FATDONALDS</h1>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-md-offset-2 ">
+                        <div class="banner_logo">
+                            <img src="../images/logo2.png" alt="" style="height: auto; width: auto;"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
 
         <br />
         
@@ -73,7 +72,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>		
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-        
         <!--main js-->
         <script type="text/javascript" src="js/main.js"></script>
     </body>	

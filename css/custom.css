@@ -10,7 +10,7 @@ body {
     color: #fff;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, .navbar-brand {
     text-transform: uppercase;
     font-family: 'Luckiest Guy', cursive;
     margin: 0;
@@ -23,7 +23,12 @@ a,button{outline: 0 !important;}
 a:hover,a:focus{ text-decoration: none}
 
 /* Header */
-header{background: url(../images/header_bg.jpg)no-repeat;background-size: cover; color: #f1f1f1;overflow: hidden;}
+header{
+    background: url(../images/image.jpg) no-repeat;
+    background-size: cover; 
+    color: #f1f1f1;
+    overflow: hidden;
+}
 nav.navbar.bootsnav {
     background-color: #444;
     border: 0 none;
@@ -98,6 +103,7 @@ nav.navbar.bootsnav {
 footer {
     background: #454646 none repeat scroll 0 0;
 }
+
 footer h4 {
     font-family: 'Maitree', serif;
     font-size: 14px;
