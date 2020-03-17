@@ -24,9 +24,6 @@
             include($_SERVER['DOCUMENT_ROOT'].'/incl/nav.inc.php');
         ?>
             <main class='container'>
-<!--        <div id="bg">
-                <img src="images/What-Is-a-Fry-Oil-Study.png" alt="">
-            </div>-->
             <div id='page-wrap'>
                 <h2>Locate Us!</h2>
                 <div class="row">
