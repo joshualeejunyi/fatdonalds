@@ -160,7 +160,7 @@
                                                                     <div class="card-header">
                                                                         <h4><?php echo $row["productName"];?></h4>
                                                                     </div>
-                                                                    <div class="card-body">
+                                                                    <div class="card-body p-3">
                                                                         <p class="card-text"><?php echo $row["productDesc"];?></p>
                                                                         <h5 class="card-text">Price: $<?php echo $row["productPrice"];?></h5>
                                                                     </div>
