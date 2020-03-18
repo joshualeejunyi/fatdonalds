@@ -22,12 +22,16 @@ function initMap() {
   var marker3 = new google.maps.Marker({position: Vivo, map: map});
   var marker4 = new google.maps.Marker({position: SafraJurong, map: map});
   var marker5 = new google.maps.Marker({position: Zoo, map: map});
- 
   
-    marker.addListener('click', function() {
-  map.setZoom(8);
-  map.setCenter(marker.getPosition());
-    });
+
+//google.maps.event.addListener(marker, 'click', function() {
+//map.panTo(this.getPosition());
+//map.setZoom(9);
+//  });   
+  
+map.setZoom(17);
+map.panTo(marker.position);
+  
   
 }
 
@@ -48,33 +52,30 @@ for (i = 0; i < acc.length; i++) {
 }
 }
 
-function searchbarz(){
- //FIlter anything
-  $("#anythingSearch").on("keyup", function () {
-    var value = $(this).val().toLowerCase();
-    //Hide
-    $(".panel").css("max-height", 0);
-    $(".accordion").hide();
-    
-    $("#accordionpanels > .accordion").filter(function () {
-//        console.log($(this).text());
-//        console.log($(this).text().toLowerCase().indexOf(value) > -1);
-      return $(this).text().toLowerCase().indexOf(value) > -1;
-    }).show();
-    $("#accordionpanels > .accordion").filter(function () {
-      return $(this).text().toLowerCase().indexOf(value) > -1;
-    }).next().css("max-height", "308px");
-        // Show .panel
-    $("#accordionpanels > .panel > p").filter(function() {
-        return $(this).text().toLowerCase().indexOf(value) > -1;
-    }).parent().css("max-height", "0px");
+$('.collapse').not(':first').collapse(); // Collapse all but the first row on the page.
 
-    // Show related button
-    $("#accordionpanels > .panel > p").filter(function() {
-        return $(this).text().toLowerCase().indexOf(value) > -1;
-    }).parent().prev().show();
+// This section makes the search work.
+(function() {
+  var searchTerm, panelContainerId;
+  $('#anythingSearch').on('change keyup', function() {
+    searchTerm = $(this).val();
+    $('#accordion > .panel').each(function() {
+      panelContainerId = '#' + $(this).attr('id');
+
+      // Makes search to be case insesitive 
+      $.extend($.expr[':'], {
+        'contains': function(elem, i, match, array) {
+          return (elem.textContent || elem.innerText || '').toLowerCase()
+            .indexOf((match[3] || "").toLowerCase()) >= 0;
+        }
+      });
+
+      // END Makes search to be case insesitive
+
+      // Show and Hide Triggers
+      $(panelContainerId + ':not(:contains(' + searchTerm + '))').hide(); //Hide the rows that done contain the search query.
+      $(panelContainerId + ':contains(' + searchTerm + ')').show(); //Show the rows that do!
+
+    });
   });
-  
-}
-
-
+}());
