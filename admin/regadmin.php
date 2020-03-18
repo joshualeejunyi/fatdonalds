@@ -79,14 +79,23 @@
                                 </label>
                                 <input type="password" class="form-control" id="pwd_confirm" name="pwd_confirm" placeholder="Confirm Password" required>
                             </div>
-                        
+                            <div>
+                                <label for="usertype">
+                                    Usertype:
+                                </label>
+                                <select id="usertype" name="usertype">
+                                    <option value="customer">Customer</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
                             <div class="form-check">
                                 <label>
                                     <input type="checkbox" name="agree" required>
                                     Agree to terms and  conditions.
                                 </label>
                             </div>
-                        
+                            
+                            
                             <div class="form-group">
                                 <div id="formerrors"></div>
                                 <button class="btn btn-primary" id="regbtn" type="submit">Submit</button>

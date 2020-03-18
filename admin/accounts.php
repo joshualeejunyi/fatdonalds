@@ -22,15 +22,18 @@
                 ?>  
                 <h2>User Accounts</h2>
                 
-                <table border='1' width="100%" cellspacing="0" cellpadding="0">
+                <table class="table table-striped table-dark">
+                    <thead>
                     <tr style="font-size: 15px;">
-                        <th>Email</th>
-                        <th>Username</th>
-                        <th>Password</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>User Type</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">User Type</th>
+                        <th scope ="col">Actions</th>
                     </tr>
+                    </thead>
+                    <tbody>
                     <?php
                         try{
                             $conn = dbconnect();
@@ -41,13 +44,26 @@
                                 ?>
                                     <tr>
                                         <td><?php echo $row["email"];?></td>
-                                        <td><?php echo $username;?></td>
-                                        <td><?php echo $fname;?></td>
-                                        <td><?php echo $lname;?></td>
-                                        <td><?php echo $usertype;?></td>
+                                        <td><?php echo $row["username"];?></td>
+                                        <td><?php echo $row["firstname"];?></td>
+                                        <td><?php echo $row["lastname"];?></td>
+                                        <td><?php echo $row["usertype"];?></td>
+                                        <td>
+                                            <form action="deleteaccount.php" method="get">
+                                                <input type="hidden" name="email" value="<?php echo $row["email"];?>"/>
+                                                <input type="submit" value="Delete"/>
+                                            </form>
+                                            <form action ="editaccount.php" method="get">
+                                                <input type="hidden" name="email" value="<?php echo $row["email"];?>"/>
+                                                <input type="submit" value="Edit"/>
+                                            </form>
+                                        </td>
+                                        
                                     </tr>
+                                    
                                 <?php
                                 }
+                                
                                 
                             }
                 
@@ -61,7 +77,9 @@
                         }
 
                     ?>
+                    </tbody>
                 </table>
+                <p class="message"><a href="regadmin.php">Register an account></a></p>
             </section>
         </main>
     </body>
