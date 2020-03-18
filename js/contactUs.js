@@ -23,16 +23,117 @@ function initMap() {
   var marker4 = new google.maps.Marker({position: SafraJurong, map: map});
   var marker5 = new google.maps.Marker({position: Zoo, map: map});
   
+  
+    var contentString = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+
+        '<h4 id="firstHeading" class="firstHeading">FatDonalds @ NYP</h4>'+
+        '<div id="bodyContent">'+
+        '<h5>Location: </h5>'+
+        '<p>180 Ang Mo Kio Ave 8, Singapore 569830</p>'+
+        '<h6>Operating Hours: </h6>'+
+        '<p>Daily : 0800hrs to 0800hrs</p>'+
+        '</div> </div>';
 
-//google.maps.event.addListener(marker, 'click', function() {
-//map.panTo(this.getPosition());
-//map.setZoom(9);
-//  });   
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+
+            var contentString2 = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+
+        '<h4 id="firstHeading" class="firstHeading">FatDonalds @ T4</h4>'+
+        '<div id="bodyContent">'+
+        '<h5>Location: </h5>'+
+        '<p>10 Airport Blvd, Terminal 4, Singapore 819665</p>'+
+        '<h6>Operating Hours: </h6>'+
+        '<p>Daily : 0900hrs to 2100hrs</p>'+
+        '</div> </div>';
+    var infowindow2 = new google.maps.InfoWindow({
+          content: contentString2
+        });
+    
+        var contentString3 = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+
+        '<h4 id="firstHeading" class="firstHeading">FatDonalds @ Vivo</h4>'+
+        '<div id="bodyContent">'+
+        '<h5>Location: </h5>'+
+        '<p>1 Harbourfront Walk, Singapore 098585</p>'+
+        '<h6>Operating Hours: </h6>'+
+        '<p>Daily : 1000hrs to 2200hrs</p>'+
+        '</div> </div>';
+    var infowindow3 = new google.maps.InfoWindow({
+          content: contentString3
+        });
+    
+    
+    var contentString4 = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+
+        '<h4 id="firstHeading" class="firstHeading">FatDonalds @ SAFRA Jurong</h4>'+
+        '<div id="bodyContent">'+
+        '<h5>Location: </h5>'+
+        '<p>333 Boon Lay Way, Singapore 649848</p>'+
+        '<h6>Operating Hours: </h6>'+
+        '<p>Daily : 0900hrs to 2100hrs</p>'+
+        '</div> </div>';
+    var infowindow4 = new google.maps.InfoWindow({
+          content: contentString4
+        });
   
-map.setZoom(17);
-map.panTo(marker.position);
   
   
+  
+  
+    var contentString5 = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+
+        '<h4 id="firstHeading" class="firstHeading">Fresh @ SG</h4>'+
+        '<div id="bodyContent">'+
+        '<h5>Location: </h5>'+
+        '<p>80 Mandai Lake Rd, 729826</p>'+
+        '<h6>Operating Hours: </h6>'+
+        '<p>Daily : 0830hrs to 1800hrs</p>'+
+        '</div> </div>';
+    var infowindow5 = new google.maps.InfoWindow({
+          content: contentString5
+        });
+        
+        
+        
+        
+        
+    marker.addListener('click', function() {
+      map.setZoom(15);
+      map.setCenter(marker.getPosition());
+      infowindow.open(map, marker);
+    });
+    marker2.addListener('click', function() {
+       map.setZoom(15);
+       map.setCenter(marker.getPosition());
+       infowindow2.open(map, marker2);
+     });
+    marker3.addListener('click', function() {
+      map.setZoom(15);
+      map.setCenter(marker.getPosition());
+      infowindow3.open(map, marker3);
+    });
+    marker4.addListener('click', function() {
+       map.setZoom(15);
+       map.setCenter(marker.getPosition());
+       infowindow4.open(map, marker4);
+     });
+    marker5.addListener('click', function() {
+      map.setZoom(15);
+      map.setCenter(marker.getPosition());
+      infowindow5.open(map, marker5);
+      
+    });
+    
+    
+    
+    
 }
 
 function accordion() {
