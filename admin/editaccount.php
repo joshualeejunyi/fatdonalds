@@ -59,15 +59,10 @@
                         <form action="/admin/process_editaccount.php" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="oldemail">
-                                    Old Email:
-                                </label>
-                                <input type ="email" class="form-control" id="oldemail" name="oldemail" readonly="readonly" value="<?php echo $email?>">
-                            <div class="form-group">  
-                                <label for="email">
                                     Email:
                                 </label>
-                                <input type="email" class="form-control" id="email" name="email" value="<?php echo $email?>" required >
-                            </div>
+                                <input type ="email" class="form-control" id="email" name="email" readonly="readonly" value="<?php echo $email?>">
+                            
                             <div class="form-group">  
                                 <label for="username">
                                     Username:

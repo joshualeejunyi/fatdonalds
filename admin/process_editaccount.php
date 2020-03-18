@@ -9,7 +9,6 @@
         header('HTTP/1.0 404 not found'); 
         include($_SERVER['DOCUMENT_ROOT'].'/auth/404.html');
     } else {
-        $oldemail = sanitize_input($_POST['oldemail']);
         $email = sanitize_input($_POST['email']);
         $username = sanitize_input($_POST['username']);
         $password = sanitize_input($_POST['password']);
@@ -20,15 +19,14 @@
 
         if (!checkpassword($password,$confirm_password)) {
             $errorMsg .= "Passwords are not the same. <br>";
-            $check = false;
     }
 
-        if ($check !== false) {
+        else {
             try {
                 $conn = dbconnect();
 
-                    $stmt = $conn->prepare("UPDATE users SET email = ?, username = ?, password = ?, firstname = ?, lastname = ?, usertype = ? WHERE email = ?");
-                    $stmt->execute([$email, $username, $password, $fname, $lname, $usertype, $oldemail]);
+                $stmt = $conn->prepare("UPDATE users SET email = ?, username = ?, password = ?, firstname = ?, lastname = ?, usertype = ? WHERE email = ?");
+                $stmt->execute([$email, $username, $password, $fname, $lname, $usertype, $email]);
 
             } catch (PDOException $e) {
                 $errorMsg = "Account Not Found: " . $e;
