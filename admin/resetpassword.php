@@ -18,9 +18,9 @@
             }
 
         } catch (PDOExcption $e) {
-            $errorMsg = "Error: " . $e;
-            $_SESSION['editaccerror'] = $errorMsg;
-            header('location: /admin/editaccount.php?id='.$username);
+            $errorMsg = "Account Not Found: " . $e;
+            $_SESSION['passerror'] = $errorMsg;
+            header('location: /admin/resetpassword?id='.$username);
         } finally {
             $stmt = null;
             $conn = null;
@@ -44,70 +44,62 @@
                 ?>  
                    <section class="card">
                     <div class="card-header text-center">
-                        <h4 class="card-title">Edit Account</h2>
+                        <h4 class="card-title">Reset Password</h2>
                     </div>
                     <div class="card-body">
                         <?php
-                            if ($_SESSION['editaccmsg']) {
-                                echo "<div class='alert alert-success'>" . $_SESSION['editaccmsg'] . "</div>";
+                            if ($_SESSION['passmsg']) {
+                                echo "<div class='alert alert-success'>" . $_SESSION['passmsg'] . "</div>";
                             }
-                            if ($_SESSION['editaccerror']) {{
-                                echo "<div class='alert alert-danger'>" . $_SESSION['editaccerror'] . "</div>";
+                            if ($_SESSION['passerror']) {{
+                                echo "<div class='alert alert-danger'>" . $_SESSION['passerror'] . "</div>";
                             }}
                         ?>
-                        <form action="/admin/process_editaccount.php" method="post" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="oldemail">
+                        <form action="/admin/process_reset.php" method="post">
+                            <div class="form-group">  
+                                <label for="email">
                                     Email:
                                 </label>
-                                <input type ="email" class="form-control" id="email" name="email" readonly="readonly" value="<?php echo $email?>">
-                            
-                        
+                                <input type="email" class="form-control" id="email" name="email" value="<?php echo $email?>" readonly>
+                            </div>
                             <div class="form-group">  
                                 <label for="username">
                                     Username:
                                 </label>
-                                <input type="text" class="form-control" id="username" name="username" value="<?php echo $username?>" required>
+                                <input type="text" class="form-control" id="username" name="username" value="<?php echo $username?>" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="firstname">
                                     First Name:
                                 </label>
-                                <input type="text" class="form-control" name="fname" id="fname" value="<?php echo $fname ?>">
+                                <input type="text" class="form-control" name="fname" id="fname" value="<?php echo $fname ?>" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="lastname">
                                     Last Name:
                                 </label>
-                                <input type="text" class="form-control" name="lname" id="lname" value="<?php echo $lname ?>" required>
+                                <input type="text" class="form-control" name="lname" id="lname" value="<?php echo $lname ?>" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="usertype">
                                     User Type:
                                 </label>
-                                <select class="form-control" name="usertype">
-                                    <?php
-                                        if ($usertype === "admin") {
-                                    ?>
-                                        <option value="admin" selected>Administrator</option>
-                                        <option value="customer">Customer</option>
-                                    <?php
-                                        } else {
-                                    ?>
-                                        <option value="admin">Administrator</option>
-                                        <option value="customer" selected>Customer</option>
-                                    <?php
-                                        }
-                                    ?>
-                                </select>
+                                <input type="text" class="form-control" name="usertype" id="usertype" value="<?php echo $usertype?>" readonly>
+                            <div class="form-group">
+                                <label for="pwd">
+                                    Password:
+                                </label>
+                                <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Enter Password" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="pwd_confirm">
+                                    Confirm Password:
+                                </label>
+                                <input type="password" class="form-control" id="pwd_confirm" name="pwd_confirm" placeholder="Confirm Password" required>
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-primary" type="submit">Update</button>
-                            </div>
-                            <hr>
-                            <h5>OR:</h5>
-                            <div class="form-group">
-                                <a href="/admin/resetpassword.php?id=<?php echo $username?>" class="btn btn-danger">Reset Password</a>
+                                <button class="btn btn-danger" type="submit">Reset Password</button>
                             </div>
                         </form>
                     </div>

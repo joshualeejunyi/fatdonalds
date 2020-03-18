@@ -30,16 +30,54 @@
         </header>
         
         <main class="container">
-            <section id="block">
-                <div class="container">
-                    <!-- Blog section -->
-                    <div class="card">
-                    <h5>About Description, Dec 7, 2017</h5>
-                    <br />
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse volutpat nisl a est aliquet suscipit a ut velit. Donec finibus augue quis pellentesque pellentesque. Curabitur scelerisque tristique est maximus pharetra. Etiam et placerat est. Nullam efficitur ante at ex fringilla lacinia. Suspendisse fringilla nisi ac pellentesque finibus. Nulla consequat, magna ac elementum accumsan, mauris nulla vestibulum metus, eu sagittis est mi sed ex. Sed gravida semper dolor, non blandit nibh rhoncus non. Sed rutrum tellus hendrerit lectus finibus, eu luctus dui bibendum. Nulla in imperdiet metus, in pulvinar nibh. Pellentesque egestas, velit eget pellentesque ultrices, nunc augue hendrerit est, sit amet elementum neque orci et mi. Nullam vehicula in nisi et pharetra. Pellentesque ut orci at augue tempor fermentum. Integer rutrum ullamcorper mollis.</p>
-                    <p>Maecenas condimentum id orci vitae placerat. Cras consequat massa enim, sit amet volutpat odio porttitor sed. Donec rutrum suscipit sapien, at varius dui lacinia in. Donec convallis nunc in magna semper rutrum. Nam vel augue lorem. Curabitur eu egestas dolor, eu dictum risus. Ut at eros at tellus fermentum facilisis vel eu diam. Suspendisse laoreet sem vel nisi finibus rhoncus. Morbi eget nibh a ipsum gravida sagittis. Nam aliquet tincidunt consequat. Nam at accumsan dui, sit amet lobortis est. Quisque gravida massa vitae nisi blandit, scelerisque placerat dolor porttitor. Quisque interdum leo id fringilla suscipit. Pellentesque sed tincidunt magna, ac vehicula odio.</p>
+            <section class="row">
+                <div class="card-group">
+                    <div class="col-12 col-lg-6 col-xl-3">
+                        <div class="card mb-3 h-100 about-card">
+                            <div class="card-header text-white bg-dark text-center">
+                                <h4>
+                                    Our History
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    Fatdonald's was established in 2020 when a bunch of cyber security students gathered and thought: "What if our careers don't work out?"
+
+                                    <br>
+
+                                    As such, Fatdonald's was born: a satire about how we have been focused too much on our careers and not our health.
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <br />
+                        <div class="col-12 col-lg-6 col-xl-4">
+                        <div class="card mb-3 h-100 about-card">
+                            <div class="card-header text-white bg-dark text-center">
+                                <h4>
+                                    Our Vision
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    We envision a world with 100% healthy people, by giving them food so absurdly fat that they reflect on all their life choices.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 col-xl-4">
+                        <div class="card mb-3 h-100 about-card">
+                            <div class="card-header text-white bg-dark text-center">
+                                <h4>
+                                    Our Mission
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    To create really good but fattening food.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>

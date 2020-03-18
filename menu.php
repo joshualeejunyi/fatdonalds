@@ -1,7 +1,5 @@
 <?php
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
-    unset($_SESSION['msg']);
-    unset($_SESSION['error']);
 
     if (isset($_POST['catfilter'])) {
         if ($_POST['catfilter'] === "") {
@@ -45,10 +43,13 @@
         </header>
         <main class="container">
             <section id="content">
-            
-
+                <?php
+                    if ($_SESSION['menuerror']) {
+                        echo "<div class='alert alert-danger'>" . $_SESSION['menuerror'] . "</div>";
+                    }
+                ?>
                 <div id="accordion"">
-                    <div class="card">
+                    <div class="card bg-dark">
                         <div class="card-header text-white bg-dark">
                             <h5 class="mb-0">
                                 <button class="btn btn-primary" data-toggle="collapse" data-target="#actions" aria-expanded="true" aria-controls="actions">
@@ -100,8 +101,8 @@
                                                         }
                                                     }
                                                 } catch (PDOException $e) {
-                                                    $errorMsg = "Connection failed: " . $e;
-                                                    $_SESSION['msg'] = $errorMsg;
+                                                    $errorMsg = "Server Error";
+                                                    $_SESSION['menuerror'] = $errorMsg;
                                                 } finally {
                                                     $conn = null;
                                                     $stmt = null;
@@ -160,7 +161,7 @@
                                     <div class="col-12 cardcol">
                                         <div class="card mb-3 h-100">
                                             <div class="card-header text-white bg-dark">
-                                                <?php echo $catrow["category"];?>
+                                                <h4><?php echo $catrow["category"];?></h4>
                                             </div>
                                             <div class="card-group">
                                                 <?php
@@ -173,7 +174,7 @@
                                                                 <?php
                                                                     echo '<img class="card-img" src="data:image/jpeg;base64,'.base64_encode($row["productimage"]).'"/>';
                                                                 ?>
-                                                                    <div class="card-header">
+                                                                    <div class="card-header prod-name">
                                                                         <h4><?php echo $row["name"];?></h4>
                                                                     </div>
                                                                     <div class="card-body p-3 proddesc">
@@ -194,8 +195,8 @@
                                 }
                             }
                     } catch (PDOException $e) {
-                        $errorMsg = "Connection failed: " . $e;
-                        $_SESSION['msg'] = $errorMsg;
+                        $errorMsg = "Server Error";
+                        $_SESSION['menuerror'] = $errorMsg;
                     } finally {
                         $conn = null;
                         $stmt = null;
@@ -204,5 +205,8 @@
                 </div>
             </section>
         </main>
+        <?php
+        include($_SERVER['DOCUMENT_ROOT'].'/incl/footer.inc.php');
+        ?>
     </body>
-
+</html>

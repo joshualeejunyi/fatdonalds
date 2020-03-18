@@ -3,13 +3,17 @@
         session_start(); 
     } 
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
+    include($_SERVER['DOCUMENT_ROOT'].'/admin/admin.php');
+
 
     $email = $errorMsg = "";
     $success = true;
     $agreevar = false;
+
     
     $fields = array("fname" => "First Name", "lname" => "Last Name", "email" => "Email", "username" => "Username", "pwd" => "Password", "pwd_confirm" => "Confirm Password",);
     $dbfields = [];
+
     
     if (!checkpassword($_POST["pwd"], $_POST["pwd_confirm"])) {
         $errorMsg .= "Passwords are not the same. <br>";
@@ -54,44 +58,37 @@
         $dbresult = saveMemberToDB();
 
         if ($dbresult === true) {
-            if ($_SESSION['admin'] != true) {
+            if ($_SESSION['admin'] !== true) {
                 $_SESSION["user"] = true;
                 $_SESSION["username"] = $dbfields["username"];    
+                header('location: /deliver.php');
+            } else {
+                $_SESSION['regmsg'] = "Account Created Successfully";
+                header('location: /admin/accounts.php');
             }
             
-            header('location: /deliver.php');
 
         } else {
-            echo "<div class='jumbotron text-center'>";
-            echo "<h4 class='display-4'>RIP :( </h4>";
-            echo "<h5>The following errors were detected:</h5>";
-            echo "<p class='display-5'><b>" . $errorMsg . "</b></p>";
+            $_SESSION['regerror'] = "Failed to Create Account";
+            header('location: /register.php');
         }
         
     } else {
-        echo "<div class='jumbotron text-center'>";
-        echo "<h4 class='display-4'>RIP :( </h4>";
-        echo "<h5>The following errors were detected:</h5>";
-        echo "<p class='display-5'><b>" . $errorMsg . "</b></p>";
-    }
-    
-    function checkpassword($pwd1, $pwd2) {
-        if ($pwd1 === $pwd2) {
-            return true;
-        } else {
-            return false;
-        }
+        $_SESSION['regerror'] = $errorMsg;
+        header('location: /register.php');
     }
     
     function saveMemberToDB() {
         global $fname, $lname, $email, $pwd, $errorMsg, $success;
         global $dbfields;
 
-        if ($_SESSION['admin'] != true) {
-            $usertype = "customer";
+        if ($_SESSION['admin'] !== true) {
+            $usertype = $_POST["usertype"];
         } else {
-            $usertype = "admin";
+            $usertype = "customer";
         }
+
+        print_r($usertype);
 
         try {
             $conn = dbconnect();
@@ -101,8 +98,8 @@
             return $result;
             
         } catch (PDOException $e) {
-            $errorMsg = "Connection failed: " . $e;
-            $_SESSION['msg'] = $errorMsg;
+            $errorMsg = "Connection to Server Failed.";
+            $_SESSION['regerror'] = $errorMsg;
         } finally {
             $conn = null;
             $stmt = null;

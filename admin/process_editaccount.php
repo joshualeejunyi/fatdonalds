@@ -2,49 +2,32 @@
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
     include($_SERVER['DOCUMENT_ROOT'].'/admin/admin.php');
 
-    unset($_SESSION['msg']);
-    unset($_SESSION['error']);
-    
-    if ($_SESSION['admin'] != true) {
+    if ($_SESSION['admin'] !== true) {
         header('HTTP/1.0 404 not found'); 
         include($_SERVER['DOCUMENT_ROOT'].'/auth/404.html');
     } else {
         $email = sanitize_input($_POST['email']);
         $username = sanitize_input($_POST['username']);
-        $password = sanitize_input($_POST['password']);
-        $confirm_password = sanitize_input($_POST['confirm_password']);
-        $fname = sanitive_input($_POST['fname']);
-        $lname = sanitive_input($_POST['lname']);
-        $usertype = sanitive_input($_POST['usertype']);
+        $fname = sanitize_input($_POST['fname']);
+        $lname = sanitize_input($_POST['lname']);
+        $usertype = sanitize_input($_POST['usertype']);
 
-        if (!checkpassword($password,$confirm_password)) {
-            $errorMsg .= "Passwords are not the same. <br>";
-    }
 
-        else {
-            try {
-                $conn = dbconnect();
+        try {
+            $conn = dbconnect();
 
-                $stmt = $conn->prepare("UPDATE users SET email = ?, username = ?, password = ?, firstname = ?, lastname = ?, usertype = ? WHERE email = ?");
-                $stmt->execute([$email, $username, $password, $fname, $lname, $usertype, $email]);
+            $stmt = $conn->prepare("UPDATE users SET email = ?, username = ?, firstname = ?, lastname = ?, usertype = ? WHERE email = ?");
+            $stmt->execute([$email, $username, $fname, $lname, $usertype, $email]);
 
-            } catch (PDOException $e) {
-                $errorMsg = "Account Not Found: " . $e;
-                $_SESSION['error'] = $errorMsg;
-                header('location: /admin/account.php');
-            } finally {
-                $stmt = null;
-                $conn = null;
-            }
-            $_SESSION['msg'] = "Account Updated Successfully";
-            header('location: /admin/account.php');
+        } catch (PDOException $e) {
+            $errorMsg = "Error: " . $e;
+            $_SESSION['editaccerror'] = $errorMsg;
+            header('location: /admin/editaccount.php?id='.$username);
+        } finally {
+            $stmt = null;
+            $conn = null;
         }
-    }
-        function checkpassword($pwd1, $pwd2) {
-        if ($pwd1 === $pwd2) {
-            return true;
-        } else {
-            return false;
-        }
+        $_SESSION['editaccmsg'] = "Account Updated Successfully";
+        header('location: /admin/editaccount.php?id='.$username);
     }
 ?>

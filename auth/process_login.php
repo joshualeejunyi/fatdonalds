@@ -24,18 +24,18 @@
 
                 if (!password_verify($pwd, $password)) {
                     $errorMsg = "Email not found or password doesn't match.";
-                    $_SESSION['msg'] = $errorMsg;
+                    $_SESSION['loginerr'] = $errorMsg;
                     $success = false;
                 }
 
             } else {
                 $errorMsg = "Email not found or password doesn't match.";
-                $_SESSION['msg'] = $errorMsg;
+                $_SESSION['loginerr'] = $errorMsg;
                 $success = false;
             }
         } catch (PDOException $e) {
-            $errorMsg = "Connection failed: " . $e->getMessage();
-            $_SESSION['msg'] = $errorMsg;
+            $errorMsg = "Connection to Server Failed";
+            $_SESSION['loginerr'] = $errorMsg;
             $success = false;
         } finally {
             $stmt = null;
@@ -47,7 +47,6 @@
             // $_SESSION["lname"] = $lname;
             $_SESSION["user"] = true;
             $_SESSION["admin"] = false;
-            unset($_SESSION["msg"]);
 
             if ($user === "customer") {
                 header('location: /deliver.php');

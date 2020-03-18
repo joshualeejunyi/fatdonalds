@@ -1,7 +1,5 @@
 <?php
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
-    unset($_SESSION['msg']);
-    unset($_SESSION['error']);
     
     if ($_SESSION['admin'] !== true) {
         header('HTTP/1.0 404 not found'); 
@@ -20,20 +18,14 @@
                 <?php
                     include($_SERVER['DOCUMENT_ROOT'].'/incl/admintop.inc.php');
                 ?>  
-                <section>
-                    <h2>Create Account</h2>
-                </section>
                 <div class="card">
                     <div class="card-header text-center">
-                        <h5 class="card-title">
-                            Register
-                        </h5>
-                        <p>
-                        Account creation only for admin. To register a standard account, please go to <a href="/register.php">Register Page</a>
-                        </p>
+                        <h2 class="card-title">
+                            Create Account
+                        </h2>
                     </div>
                     <div class="card-body">
-                        <form action="auth/process_register.php" method="post">
+                        <form action="/auth/process_register.php" method="post">
                             <div class="form-group">
                                 <label for="fname">
                                     First Name:
@@ -77,15 +69,17 @@
                                 </label>
                                 <input type="password" class="form-control" id="pwd_confirm" name="pwd_confirm" placeholder="Confirm Password" required>
                             </div>
-                            <div>
+
+                            <div class="form-group">
                                 <label for="usertype">
-                                    Usertype:
+                                    User Type:
                                 </label>
-                                <select id="usertype" name="usertype">
+                                <select class="form-control" name="usertype">
+                                    <option value="admin">Administrator</option>
                                     <option value="customer">Customer</option>
-                                    <option value="admin">Admin</option>
                                 </select>
                             </div>
+                        
                             <div class="form-check">
                                 <label>
                                     <input type="checkbox" name="agree" required>

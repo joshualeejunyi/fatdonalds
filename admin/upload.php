@@ -1,7 +1,7 @@
 <?php
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
     
-    if ($_SESSION['admin'] != true) {
+    if ($_SESSION['admin'] !== true) {
         header('HTTP/1.0 404 not found'); 
         include($_SERVER['DOCUMENT_ROOT'].'/auth/404.html');
     } else {
@@ -22,11 +22,11 @@
                     </div>
                     <div class="card-body">
                         <?php
-                            if ($_SESSION['msg']) {
-                                echo "<div class='alert alert-success'>" . $_SESSION['msg'] . "</div>";
+                            if ($_SESSION['uploadmsg']) {
+                                echo "<div class='alert alert-success'>" . $_SESSION['uploadmsg'] . "</div>";
                             }
-                            if ($_SESSION['error']) {{
-                                echo "<div class='alert alert-danger'>" . $_SESSION['error'] . "</div>";
+                            if ($_SESSION['uploaderror']) {{
+                                echo "<div class='alert alert-danger'>" . $_SESSION['uploaderror'] . "</div>";
                             }}
                         ?>
                         <form action="/admin/process_upload.php" method="post" enctype="multipart/form-data">

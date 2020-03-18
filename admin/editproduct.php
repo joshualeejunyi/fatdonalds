@@ -19,16 +19,16 @@
             }
 
         } catch (PDOExcption $e) {
-            $errorMsg = "Product Not Found: " . $e;
-            $_SESSION['msg'] = $errorMsg;
-            print_r($e);
+            $errorMsg = "Error: " . $e;
+            $_SESSION['editproderror'] = $errorMsg;
+            header('location: /admin/editproduct.php?id='.$productID);
         } finally {
             $stmt = null;
             $conn = null;
         }
     }
     
-    if ($_SESSION['admin'] != true) {
+    if ($_SESSION['admin'] !== true) {
         header('HTTP/1.0 404 not found'); 
         include($_SERVER['DOCUMENT_ROOT'].'/auth/404.html');
     } else {
@@ -49,11 +49,11 @@
                     </div>
                     <div class="card-body">
                         <?php
-                            if ($_SESSION['msg']) {
-                                echo "<div class='alert alert-success'>" . $_SESSION['msg'] . "</div>";
+                            if ($_SESSION['editprodmsg']) {
+                                echo "<div class='alert alert-success'>" . $_SESSION['editprodmsg'] . "</div>";
                             }
-                            if ($_SESSION['error']) {{
-                                echo "<div class='alert alert-danger'>" . $_SESSION['error'] . "</div>";
+                            if ($_SESSION['editproderror']) {{
+                                echo "<div class='alert alert-danger'>" . $_SESSION['editproderror'] . "</div>";
                             }}
                         ?>
                         <form action="/admin/process_edit.php" method="post" enctype="multipart/form-data">

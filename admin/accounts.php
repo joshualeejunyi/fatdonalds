@@ -1,9 +1,6 @@
 <?php
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
-    unset($_SESSION['msg']);
-    unset($_SESSION['error']);
 
-    
     if ($_SESSION['admin'] !== true) {
         header('HTTP/1.0 404 not found'); 
         include($_SERVER['DOCUMENT_ROOT'].'/auth/404.html');
@@ -21,6 +18,17 @@
                     include($_SERVER['DOCUMENT_ROOT'].'/incl/admintop.inc.php');
                 ?>  
                 <h2>User Accounts</h2>
+
+                <?php
+                    if ($_SESSION['delmsg']) {
+                        echo "<div class='alert alert-success'>" . $_SESSION['delmsg'] . "</div>";
+                    }
+                    if ($_SESSION['delerror']) {
+                        echo "<div class='alert alert-danger'>" . $_SESSION['delerror'] . "</div>";
+                    }
+                ?>
+
+                <a href="/admin/register.php" class="btn btn-primary">Register New Account</a>
                 
                 <table class="table table-striped table-dark">
                     <thead>
@@ -49,14 +57,8 @@
                                         <td><?php echo $row["lastname"];?></td>
                                         <td><?php echo $row["usertype"];?></td>
                                         <td>
-                                            <form action="deleteaccount.php" method="get">
-                                                <input type="hidden" name="email" value="<?php echo $row["email"];?>"/>
-                                                <input type="submit" value="Delete"/>
-                                            </form>
-                                            <form action ="editaccount.php" method="get">
-                                                <input type="hidden" name="email" value="<?php echo $row["email"];?>"/>
-                                                <input type="submit" value="Edit"/>
-                                            </form>
+                                            <a class="btn btn-success" href="/admin/editaccount.php?id=<?php echo $row["username"]?>">Edit</a>
+                                            <a class="btn btn-danger" onclick="return confirmDelete()" href="/admin/deleteaccount.php?id=<?php echo $row["username"]?>">Delete</a>
                                         </td>
                                         
                                     </tr>

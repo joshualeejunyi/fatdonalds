@@ -60,6 +60,34 @@
                     <span class="carousel-control-next-icon"></span>
                 </a>
             </section>
+
+            <section>
+                <div class="row second_sec">
+                    <div class="col-sm-6">
+                        <a href="/menu.php">
+                            <div class="menu">
+                                <div class="inner_content">
+                                    <span class="flaticon flaticon-fast-food"></span>
+                                    <h2>menu</h2>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="/news.php">
+                            <div class="news">
+                                <div class="inner_content">
+                                    <span class="flaticon flaticon-newspaper"></span>
+                                    <h2>news</h2>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section><!-- Block Content end-->
         </main>
+        <?php
+        include($_SERVER['DOCUMENT_ROOT'].'/incl/footer.inc.php');
+        ?>
     </body>
 </html>
