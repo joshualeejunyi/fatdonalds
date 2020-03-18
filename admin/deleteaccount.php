@@ -6,19 +6,19 @@
         include($_SERVER['DOCUMENT_ROOT'].'/auth/404.html');
     } else {
         if(isset($_GET['id'])) {
-            $productID = $_GET['id'];
+            $username = $_GET['id'];
 
             try {
                 $conn = dbconnect();
-                $stmt = $conn->prepare("DELETE FROM products WHERE productid = ?");
-                $stmt->execute([$productID]);
+                $stmt = $conn->prepare("DELETE FROM users WHERE username = ?");
+                $stmt->execute([$username]);
                 unset($_SESSION['error']);
-                $_SESSION['prodmsg'] = "Product Deleted Successfully";
+                $_SESSION['delmsg'] = "Account Deleted Successfully";
                 header('location: /admin/accounts.php');
     
             } catch (PDOException $e) {
                 $errorMsg = "Connection failed: " . $e->getMessage();
-                $_SESSION['proderror'] = $errorMsg;
+                $_SESSION['delerror'] = $errorMsg;
                 header('location: /admin/accounts.php');
             } finally {
                 $stmt = null;
@@ -26,7 +26,7 @@
             }
         } else {
             $errorMsg = "ID Not Set";
-            $_SESSION['proderror'] = $errorMsg;
+            $_SESSION['delerror'] = $errorMsg;
             header('location: /admin/accounts.php');
         }
     }

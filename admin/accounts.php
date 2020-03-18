@@ -1,9 +1,6 @@
 <?php
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
-    unset($_SESSION['msg']);
-    unset($_SESSION['error']);
 
-    
     if ($_SESSION['admin'] !== true) {
         header('HTTP/1.0 404 not found'); 
         include($_SERVER['DOCUMENT_ROOT'].'/auth/404.html');
@@ -21,16 +18,30 @@
                     include($_SERVER['DOCUMENT_ROOT'].'/incl/admintop.inc.php');
                 ?>  
                 <h2>User Accounts</h2>
+
+                <?php
+                    if ($_SESSION['delmsg']) {
+                        echo "<div class='alert alert-success'>" . $_SESSION['delmsg'] . "</div>";
+                    }
+                    if ($_SESSION['delerror']) {
+                        echo "<div class='alert alert-danger'>" . $_SESSION['delerror'] . "</div>";
+                    }
+                ?>
+
+                <a href="/admin/register.php" class="btn btn-primary">Register New Account</a>
                 
-                <table border='1' width="100%" cellspacing="0" cellpadding="0">
+                <table class="table table-striped table-dark">
+                    <thead>
                     <tr style="font-size: 15px;">
-                        <th>Email</th>
-                        <th>Username</th>
-                        <th>Password</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>User Type</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">User Type</th>
+                        <th scope ="col">Actions</th>
                     </tr>
+                    </thead>
+                    <tbody>
                     <?php
                         try{
                             $conn = dbconnect();
@@ -41,13 +52,20 @@
                                 ?>
                                     <tr>
                                         <td><?php echo $row["email"];?></td>
-                                        <td><?php echo $username;?></td>
-                                        <td><?php echo $fname;?></td>
-                                        <td><?php echo $lname;?></td>
-                                        <td><?php echo $usertype;?></td>
+                                        <td><?php echo $row["username"];?></td>
+                                        <td><?php echo $row["firstname"];?></td>
+                                        <td><?php echo $row["lastname"];?></td>
+                                        <td><?php echo $row["usertype"];?></td>
+                                        <td>
+                                            <a class="btn btn-success" href="/admin/editaccount.php?id=<?php echo $row["username"]?>">Edit</a>
+                                            <a class="btn btn-danger" onclick="return confirmDelete()" href="/admin/deleteaccount.php?id=<?php echo $row["username"]?>">Delete</a>
+                                        </td>
+                                        
                                     </tr>
+                                    
                                 <?php
                                 }
+                                
                                 
                             }
                 
@@ -61,6 +79,7 @@
                         }
 
                     ?>
+                    </tbody>
                 </table>
             </section>
         </main>

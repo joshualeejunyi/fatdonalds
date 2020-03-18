@@ -28,4 +28,12 @@
         unset($_SESSION['user']);
         header("location: /login.php");
     }
+    
+    function checkpassword($pwd1, $pwd2) {
+        if ($pwd1 === $pwd2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 ?>

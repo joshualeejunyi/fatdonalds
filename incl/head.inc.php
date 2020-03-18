@@ -28,4 +28,5 @@
     </script>
     <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Roboto&display=swap" rel="stylesheet"> 
     <link rel="icon" href="images/favicon.png" sizes="32x32" type="image/png">
+    <script defer type="text/javascript" src="/js/scroll.js"></script>
 </head>

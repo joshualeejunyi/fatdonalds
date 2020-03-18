@@ -26,8 +26,8 @@
                 </div>
                 <div class="card-body">
                     <?php
-                        if ($_SESSION['msg']) {
-                            echo "<div class='alert alert-danger'>" . $_SESSION['msg'] . "</div>";
+                        if ($_SESSION['loginerr']) {
+                            echo "<div class='alert alert-danger'>" . $_SESSION['loginerr'] . "</div>";
                         }
                     ?>
                     <form action="auth/process_login.php" method="post">

@@ -35,9 +35,8 @@
             }
 
         } catch (PDOException $e) {
-            $errorMsg = "Connection failed: " . $e->getMessage();
-            $_SESSION['msg'] = $errorMsg;
-            print_r($errorMsg);
+            $errorMsg = "Failed to Connect to Database";
+            $_SESSION['regerror'] = $errorMsg;
         } finally {
             $stmt = null;
             $conn = null;
@@ -68,6 +67,11 @@
                     </p>
                 </div>
                 <div class="card-body">
+                    <?php
+                        if ($_SESSION['regerror']) {
+                            echo "<div class='alert alert-danger'>" . $_SESSION['regerror'] . "</div>";
+                        }
+                    ?>
                     <form action="auth/process_register.php" method="post">
                         <div class="form-group">
                             <label for="fname">

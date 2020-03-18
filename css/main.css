@@ -5,8 +5,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 body {
+    font-size: 16px;
+    line-height: 18px;
     font-family: 'Roboto', sans-serif;
-    background: #fafafa;
+    background: #efe9dd;
+    color: #fff;
+}
+
+/* Header */
+header{
+    background: url(/images/head.jpg) no-repeat;
+    background-size: cover; 
+    overflow: hidden;
+    color: #f1f1f1;
+    margin-bottom: 3vh;
 }
 
 p {
@@ -43,6 +55,7 @@ p {
 
 .formcard {
     margin-top: 3vh;
+    color: #000;
 }
 
 #fdbtn {
@@ -53,13 +66,13 @@ p {
     display: none; 
 }
 
-
-.card {
-    height: 30%;
+.prod-name {
+    color: black;
 }
 
 .card {
-    height: 30%;
+    height: 50%;
+    overflow: auto;
 }
 
 .card-img {
@@ -68,11 +81,15 @@ p {
     object-fit: cover;
 }
 
-.card-footer .btn {
-    margin-bottom: 0.1em;
-    display: flex; 
-    justify-content: center;
+.card-body {
+    overflow: auto;
 }
+
+.card-footer .btn {
+    justify-content: center;
+    width: 100%;
+}
+
 
 .card-group {
     padding: 1%;
@@ -84,6 +101,7 @@ p {
 
 .datacards {
     margin-top: 1vh;
+    color: black;
 }
 
 .proddesc {
@@ -94,6 +112,101 @@ p {
     height: 50vh !important;
 }
 
+.about-card {
+    min-height: 40vh;
+}
+
+/* Second Section */
+.menu, .news {
+    margin-top: 35px;
+    height: 190px;
+    padding: 75px 0 40px;
+    color: #fff;
+}
+.menu{
+    background: url(../images/menu_bg.jpg) no-repeat;
+    background-size: 100% 100%;
+}
+
+.news{
+    background: url(../images/sides_bg.jpg)no-repeat;
+    background-size: 100% 100%;
+}
+
+.inner_content {
+    display: block;
+    margin: 0 auto;
+    width: 220px;
+}
+.second_sec .flaticon:before {
+    font-size: 65px;
+}
+.second_sec .flaticon {
+    display: inline-block;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+.second_sec h2 {
+    display: inline-block;
+}
+.inner_content .flaticon-fast-food,.inner_content .flaticon-newspaper {
+    margin-left: 15px;
+}
+
+
+
+/* Footer */
+.footer_info {
+    font-size: 14px;
+}
+
+footer {
+    margin-top: 5vh;
+    width: 100%;
+    background: #343a40 none repeat scroll 0 0;
+}
+
+footer h4 {
+    font-size: 14px;
+    margin-top: 20px;
+    font-family: 'Robot', sans-serif;
+}
+
+/* scrollup */
+.scrollup{
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    opacity: .3;
+    position: fixed;
+    bottom: 20px;
+    right: 25px;
+    color: #fff;
+    cursor: pointer;
+    background-color: #000;
+    z-index: 1000;
+    transition: opacity .5s, background-color .5s;
+    -moz-transition: opacity .5s, background-color .5s;
+    -webkit-transition: opacity .5s, background-color .5s;
+}
+
+.scrollup:hover {
+    background: maroon;
+    opacity: 1;
+}
+
+.scrollup i {
+    font-size: 13px;
+    position: absolute;
+    opacity: 1;
+    color: #fff;
+    left: 50%;
+    top: 50%;
+    margin-top: -7px;
+    margin-left: -6px;
+    text-decoration: none;
+
+}
 
 @media only screen and (max-width: 768px) {
     #fdbtn {
@@ -102,5 +215,9 @@ p {
 
     #fdbtnmobile {
         display: block;
+    }
+
+    footer {
+        text-align: center;
     }
 }
