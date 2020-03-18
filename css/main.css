@@ -112,10 +112,6 @@ p {
     height: 50vh !important;
 }
 
-.about-card {
-    min-height: 40vh;
-}
-
 /* Second Section */
 .menu, .news {
     margin-top: 35px;
