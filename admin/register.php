@@ -86,7 +86,8 @@
                                     Agree to terms and  conditions.
                                 </label>
                             </div>
-                        
+                            
+                            
                             <div class="form-group">
                                 <div id="formerrors"></div>
                                 <button class="btn btn-primary" id="regbtn" type="submit">Submit</button>

@@ -81,6 +81,7 @@
                     ?>
                     </tbody>
                 </table>
+                <p class="message"><a href="regadmin.php">Register an account></a></p>
             </section>
         </main>
     </body>
