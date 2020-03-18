@@ -1,6 +1,21 @@
 <?php
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
 
+    if (isset($_POST['usertype'])) {
+        if ($_POST['usertype'] === "") {
+            $usertype = null;
+        } else {
+            $usertype = $_POST['usertype'];
+        }
+    }
+
+    if (isset($_POST['email'])) {
+        if ($_POST['email'] === "") {
+            $email = null;
+        } else {
+            $email = $_POST['email'];
+        }
+    }
     if ($_SESSION['admin'] !== true) {
         header('HTTP/1.0 404 not found'); 
         include($_SERVER['DOCUMENT_ROOT'].'/auth/404.html');
@@ -27,9 +42,96 @@
                         echo "<div class='alert alert-danger'>" . $_SESSION['delerror'] . "</div>";
                     }
                 ?>
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <button class="btn btn-dark" data-toggle="collapse" data-target="#actions" aria-expanded="true" aria-controls="actions">
+                                Actions
+                                </button>
+                            </h5>
+                        </div>
 
-                <a href="/admin/register.php" class="btn btn-primary">Register New Account</a>
+                        <div id="actions" class="collapse" data-parent="#accordion">
+                            <div class="card-body">
+                                <form method="post">
+                                    <h5><b><u>Filter</u></b></h5>
+                                    <div class="form-group">
+                                        <label for="email">Email:</label>
+                                        <input type="text" class="form-control" name="email"></input>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="usertype">User type:</label>
+                                        <select class="form-control" name="usertype">
+                                            
+                                                <option value="">-</option>
+                                            
+                                                <option
+                                                    value="customer">Customer
+                                                </option>
+                                                <option value="admin">Admin</option>
+                                                <?php
+                                            
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-success" type="submit">Filter</button>
+                                        <a href="" class="btn btn-danger">Clear Filter</a>
+                                    </div>
+                                </form>
+                                
+                                <hr>
+                                <a href="/admin/register.php" class="btn btn-primary">Register New Account</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 
+                <?php
+                    try {
+                        $conn = dbconnect();
+
+                        $queries = [];
+                        $parameters = [];
+
+                        if ($email !== null) {
+                            $queries[] = 'email LIKE ?';
+                            $parameters[] = '%' . $email . '%';
+                        }
+
+                        if ($usertype !== null) {
+                            $queries[] = 'usertype = ?';
+                            $parameters[] = $usertype;
+                            $catstmt = $conn->prepare("SELECT DISTINCT usertype from users WHERE usertype = ? ORDER BY usertype ASC");
+                            $catstmt->execute([$catFilter]);
+                        } else {
+                            $catstmt = $conn->prepare("SELECT DISTINCT usertype from users ORDER BY usertype ASC");
+                            $catstmt->execute();
+                        }
+
+                        $sql = "SELECT * from users";
+
+
+                        if ($queries) {
+                            $sql .= " WHERE ".implode(" AND ", $queries);
+                        }
+
+                        $sql .= " ORDER BY usertype ASC;";
+
+                        $stmt = $conn->prepare($sql);
+                        $stmt->execute($parameters);
+                    }catch (PDOException $e) {
+                            $errorMsg = "Connection failed: " . $e->getMessage();
+                            print_r($errorMsg);
+                            die($errorMsg);
+                        } finally {
+                            $conn = null;
+                            $stmt = null;
+                        }
+    
+                    
+                ?>
                 <table class="table table-striped table-dark">
                     <thead>
                     <tr style="font-size: 15px;">
@@ -87,4 +189,5 @@
     </body>
 <?php
     }
+    
 ?>
