@@ -1,5 +1,7 @@
 <?php
-    session_start(); 
+    if(!isset($_SESSION)) { 
+        session_start(); 
+    } 
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
     authenticateUser();
     function authenticateUser() {

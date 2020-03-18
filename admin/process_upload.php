@@ -19,7 +19,7 @@
             try {
                 $conn = dbconnect();
                 $imagedata = file_get_contents($_FILES['imagefile']['tmp_name']);
-                $stmt = $conn->prepare("INSERT INTO products (productName, productCategory, productDesc, productIMG) VALUES (?, ?, ?, ?)");
+                $stmt = $conn->prepare("INSERT INTO products (name, category, description, productimage) VALUES (?, ?, ?, ?)");
                 $stmt->execute([$prodname, $prodcat, $proddesc, $imagedata]);
                 
             } catch (PDOException $e) {

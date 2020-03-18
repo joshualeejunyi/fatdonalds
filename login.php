@@ -15,11 +15,11 @@
             include($_SERVER['DOCUMENT_ROOT'].'/incl/nav.inc.php');
         ?>
         <main class="container">
-            <div class="card">
+            <div class="card formcard">
                 <div class="card-header text-center">
-                    <h5 class="card-title">
+                    <h2 class="card-title">
                         Login
-                    </h5>
+                    </h2>
                     <p>
                     Don't have an account? Register <a href="/register.php">here!</a>
                     </p>
@@ -51,9 +51,6 @@
                 </div>
             </div>
         </main>
-        
-        <?php
-            include "footer.inc.php";
-        ?>
+
     </body>
 </html>

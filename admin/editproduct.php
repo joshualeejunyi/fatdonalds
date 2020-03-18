@@ -10,9 +10,12 @@
 
             if ($stmt->rowCount() > 0) {
                 $row = $stmt->fetch();
-                $prodname = $row["productName"];
-                $prodcat = $row["productCategory"];
-                $proddesc = $row["productDesc"];
+                $prodname = $row["name"];
+                $prodcat = $row["category"];
+                $proddesc = $row["description"];
+                $productprice = $row["price"];
+                $promo = $row["promo"];
+                $promoprice = $row["promoprice"];
             }
 
         } catch (PDOExcption $e) {
@@ -77,6 +80,35 @@
                                     Description:
                                 </label>
                                 <textarea class="form-control" name="productdesc" id="productdesc" rows="3"><?php echo $proddesc ?></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="productprice">
+                                    Price:
+                                </label>
+                                <input type="number" step="any" class="form-control" id="productprice" name="productprice" value="<?php echo $productprice?>" required>
+                            </div>
+                            <div class="form-check">
+                                <?php 
+                                    if ($promo === "1") {
+                                ?>
+                                    <input type="checkbox" name="promo" checked>
+                                <?php
+                                    } else {
+                                ?>
+                                    <input type="checkbox" name="promo">
+                                <?php    
+                                }
+                                ?>
+                                    
+                                <label>
+                                    Promotion
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="promoprice">
+                                    Price:
+                                </label>
+                                <input type="number" step="any" class="form-control" id="promoprice" name="promoprice" value="<?php echo $promoprice?>">
                             </div>
                             <div class="form-group">
                                 <label for="imagefile">

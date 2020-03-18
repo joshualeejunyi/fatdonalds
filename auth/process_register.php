@@ -1,5 +1,7 @@
 <?php
-    session_start();
+    if(!isset($_SESSION)) { 
+        session_start(); 
+    } 
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
 
     $email = $errorMsg = "";
@@ -79,13 +81,6 @@
         } else {
             return false;
         }
-    }
-    
-    function sanitize_input($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
     }
     
     function saveMemberToDB() {

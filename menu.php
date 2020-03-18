@@ -19,31 +19,40 @@
         }
     }
 
-    if ($_SESSION['admin'] !== true) {
-            header('HTTP/1.0 404 not found'); 
-            include($_SERVER['DOCUMENT_ROOT'].'/auth/404.html');
-    } else {
-        include($_SERVER['DOCUMENT_ROOT'].'/incl/adminhead.inc.php');
-?>
-    <body>
-        <main class="container">
-            <?php
-            include($_SERVER['DOCUMENT_ROOT'].'/incl/adminnav.inc.php');
-            ?>
-            <section id="content">
-                <?php
-                    include($_SERVER['DOCUMENT_ROOT'].'/incl/admintop.inc.php');
-                ?>  
-                <section>
-                    <h2>Products</h2>
-                </section>
+    if (isset($_SESSION["admin"])) {
+        if ($_SESSION["admin"] === true) {
+            header('location: /admin/products.php');
+        }
+    }
 
-                <div id="accordion">
+?>
+
+<!DOCTYPE html>
+<html>
+    <?php
+        include($_SERVER['DOCUMENT_ROOT'].'/incl/head.inc.php');
+        include($_SERVER['DOCUMENT_ROOT'].'/incl/nav.inc.php');
+    ?>
+    <body>
+        <header>
+            <div class="row">
+                <div class="col">
+                    <div class="banner">
+                        <h1>Our Menu</h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="container">
+            <section id="content">
+            
+
+                <div id="accordion"">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header text-white bg-dark">
                             <h5 class="mb-0">
-                                <button class="btn btn-dark" data-toggle="collapse" data-target="#actions" aria-expanded="true" aria-controls="actions">
-                                Actions
+                                <button class="btn btn-primary" data-toggle="collapse" data-target="#actions" aria-expanded="true" aria-controls="actions">
+                                Filter
                                 </button>
                             </h5>
                         </div>
@@ -51,7 +60,6 @@
                         <div id="actions" class="collapse" data-parent="#accordion">
                             <div class="card-body">
                                 <form method="post">
-                                    <h5><b><u>Filter</u></b></h5>
                                     <div class="form-group">
                                         <label for="keyword">Product Name:</label>
                                         <input type="text" class="form-control" name="keyword"></input>
@@ -106,9 +114,6 @@
                                         <a href="" class="btn btn-danger">Clear Filter</a>
                                     </div>
                                 </form>
-                                
-                                <hr>
-                                <a href="/admin/upload.php" class="btn btn-primary">Upload New Product</a>
                             </div>
                         </div>
                     </div>
@@ -138,7 +143,6 @@
                         }
 
                         $sql = "SELECT * from products";
-
 
                         if ($queries) {
                             $sql .= " WHERE ".implode(" AND ", $queries);
@@ -172,15 +176,9 @@
                                                                     <div class="card-header">
                                                                         <h4><?php echo $row["name"];?></h4>
                                                                     </div>
-                                                                    <div class="card-body">
-                                                                        <div class="card-text">
-                                                                            <p><?php echo $row["description"];?></p>
-                                                                            <h5>Price: $<?php echo $row["price"];?></h5>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="card-footer">
-                                                                        <a class="btn btn-success" href="/admin/editproduct.php?id=<?php echo $row["productID"]?>">Edit</a>
-                                                                        <a class="btn btn-danger" onclick="return confirmDelete()" href="/admin/deleteproduct.php?id=<?php echo $row["productID"]?>">Delete</a>
+                                                                    <div class="card-body p-3 proddesc">
+                                                                        <p class="card-text"><?php echo $row["description"];?></p>
+                                                                        <h5 class="card-text">Price: $<?php echo $row["price"];?></h5>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -207,7 +205,4 @@
             </section>
         </main>
     </body>
-<?php
-    }
-?>
 
