@@ -58,7 +58,7 @@
                                     <h5><b><u>Filter</u></b></h5>
                                     <div class="form-group">
                                         <label for="email">Email:</label>
-                                        <input type="text" class="form-control" name="email"></input>
+                                        <input type="text" class="form-control" name="email"> 
                                     </div>
                                     <div class="form-group">
                                         <label for="usertype">User type:</label>
@@ -92,35 +92,22 @@
                     try {
                         $conn = dbconnect();
 
-                        $queries = [];
-                        $parameters = [];
-
+                        
                         if ($email !== null) {
-                            $queries[] = 'email LIKE ?';
-                            $parameters[] = '%' . $email . '%';
+                            $utstmt = $conn->prepare("SELECT * from users WHERE email = ?");
+                            $utstmt->execute([$email]);
                         }
 
-                        if ($usertype !== null) {
-                            $queries[] = 'usertype = ?';
-                            $parameters[] = $usertype;
-                            $catstmt = $conn->prepare("SELECT DISTINCT usertype from users WHERE usertype = ? ORDER BY usertype ASC");
-                            $catstmt->execute([$catFilter]);
+                        else if ($usertype !== null) {
+                            $utstmt = $conn->prepare("SELECT * from users WHERE usertype = ? ORDER BY usertype ASC");
+                            $utstmt->execute([$usertype]);
                         } else {
-                            $catstmt = $conn->prepare("SELECT DISTINCT usertype from users ORDER BY usertype ASC");
-                            $catstmt->execute();
+                            $utstmt = $conn->prepare("SELECT DISTINCT * from users ORDER BY usertype ASC");
+                            $utstmt->execute();
                         }
-
-                        $sql = "SELECT * from users";
-
-
-                        if ($queries) {
-                            $sql .= " WHERE ".implode(" AND ", $queries);
-                        }
-
-                        $sql .= " ORDER BY usertype ASC;";
-
-                        $stmt = $conn->prepare($sql);
-                        $stmt->execute($parameters);
+                        
+                        
+                        
                     }catch (PDOException $e) {
                             $errorMsg = "Connection failed: " . $e->getMessage();
                             print_r($errorMsg);
@@ -145,12 +132,8 @@
                     </thead>
                     <tbody>
                     <?php
-                        try{
-                            $conn = dbconnect();
-                            $stmt = $conn->prepare("SELECT * FROM users ORDER BY usertype");
-                            $stmt->execute();
-                            if ($stmt->rowCount() > 0) {
-                                foreach($stmt as $row){
+                            if ($utstmt->rowCount() > 0) {
+                                foreach($utstmt as $row){
                                 ?>
                                     <tr>
                                         <td><?php echo $row["email"];?></td>
@@ -171,14 +154,7 @@
                                 
                             }
                 
-                        } catch (PDOException $e) {
-                            $errorMsg = "Connection failed: " . $e->getMessage();
-                            print_r($errorMsg);
-                            die($errorMsg);
-                        } finally {
-                            $conn = null;
-                            $stmt = null;
-                        }
+                         
 
                     ?>
                     </tbody>
