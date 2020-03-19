@@ -30,9 +30,9 @@
         </header>
         
         <main class="container">
-            <section class="row">
-                <div class="card-group">
-                    <div class="col-12 col-lg-6 col-xl-3">
+            <section class="row about-card">
+                <div class="card-deck">
+                    <div class="col">
                         <div class="card mb-3 h-100 about-card">
                             <div class="card-header text-white bg-dark text-center">
                                 <h4>
@@ -50,7 +50,7 @@
                             </div>
                         </div>
                     </div>
-                        <div class="col-12 col-lg-6 col-xl-4">
+                    <div class="col">
                         <div class="card mb-3 h-100 about-card">
                             <div class="card-header text-white bg-dark text-center">
                                 <h4>
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-6 col-xl-4">
+                    <div class="col">
                         <div class="card mb-3 h-100 about-card">
                             <div class="card-header text-white bg-dark text-center">
                                 <h4>
@@ -81,5 +81,8 @@
                 </div>
             </section>
         </main>
+        <?php
+        include($_SERVER['DOCUMENT_ROOT'].'/incl/footer.inc.php');
+        ?>
     </body>
 </html>
