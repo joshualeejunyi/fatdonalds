@@ -106,7 +106,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="promoprice">
-                                    Price:
+                                    Promotional Price:
                                 </label>
                                 <input type="number" step="any" class="form-control" id="promoprice" name="promoprice" value="<?php echo $promoprice?>">
                             </div>

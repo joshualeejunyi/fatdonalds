@@ -9,6 +9,16 @@
         $prodname = sanitize_input($_POST['productname']);
         $prodcat = sanitize_input($_POST['productcat']);
         $proddesc = sanitize_input($_POST['productdesc']);
+        $prodprice = sanitize_input($_POST['productprice']);
+
+        if(isset($_POST['promo'])) {
+            $promo = 1;
+            $promoprice = sanitize_input($_POST['promoprice']);
+        } else {
+            $promo = 0;
+            $promoprice = 0;
+        }
+
 
         $check = processImage($_FILES["imagefile"]);
 
@@ -16,8 +26,8 @@
             try {
                 $conn = dbconnect();
                 $imagedata = file_get_contents($_FILES['imagefile']['tmp_name']);
-                $stmt = $conn->prepare("INSERT INTO products (name, category, description, productimage) VALUES (?, ?, ?, ?)");
-                $stmt->execute([$prodname, $prodcat, $proddesc, $imagedata]);
+                $stmt = $conn->prepare("INSERT INTO products (name, category, price, description, promo, promoprice, productimage) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                $stmt->execute([$prodname, $prodcat, $prodprice, $proddesc, $promo, $promoprice, $imagedata]);
                 
             } catch (PDOException $e) {
                 $errorMsg = "Product Not Found: " . $e;

@@ -49,6 +49,24 @@
                                 <textarea class="form-control" name="productdesc" id="productdesc" rows="3"></textarea>
                             </div>
                             <div class="form-group">
+                                <label for="productprice">
+                                    Price:
+                                </label>
+                                <input type="number" step="any" class="form-control" id="productprice" name="productprice" value="<?php echo $productprice?>" required>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" name="promo">
+                                <label>
+                                    Promotion
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="promoprice">
+                                    Promotional Price:
+                                </label>
+                                <input type="number" step="any" class="form-control" id="promoprice" name="promoprice" value="<?php echo $promoprice?>">
+                            </div>
+                            <div class="form-group">
                                 <label for="imagefile">
                                     Image:
                                 </label>
