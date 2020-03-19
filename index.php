@@ -84,7 +84,7 @@
                         </a>
                     </div>
                 </div>
-            </section><!-- Block Content end-->
+            </section>
         </main>
         <?php
         include($_SERVER['DOCUMENT_ROOT'].'/incl/footer.inc.php');

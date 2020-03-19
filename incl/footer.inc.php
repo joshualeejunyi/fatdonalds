@@ -1,7 +1,7 @@
  <div class="scrollup">
     <a href="#"><i class="fa fa-chevron-up"></i></a>
 </div>
-<footer>
+<footer class="page-footer">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-sm-4 col-xs-12 col-lg-offset-1 pull-right">

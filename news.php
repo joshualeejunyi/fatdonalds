@@ -27,4 +27,7 @@
             </div>
         </main>
     </body>
+    <?php
+        include($_SERVER['DOCUMENT_ROOT'].'/incl/footer.inc.php');
+    ?>
 </html>

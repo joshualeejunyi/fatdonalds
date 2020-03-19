@@ -16,7 +16,7 @@
                 <a class="nav-link" href="news.php">News</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="contact.php">Contact Us</a>
+                <a class="nav-link" href="locate.php">Locate Us</a>
             </li>
             
             <?php

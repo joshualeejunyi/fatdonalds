@@ -42,7 +42,7 @@
             </div>
         </header>
         <main class="container">
-            <section id="content">
+            <section>
                 <?php
                     if ($_SESSION['menuerror']) {
                         echo "<div class='alert alert-danger'>" . $_SESSION['menuerror'] . "</div>";

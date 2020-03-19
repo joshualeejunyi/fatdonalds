@@ -9,7 +9,7 @@ body {
     line-height: 18px;
     font-family: 'Roboto', sans-serif;
     background: #efe9dd;
-    color: #fff;
+    color: #ffffff;
 }
 
 /* Header */
@@ -157,6 +157,10 @@ p {
 }
 
 footer {
+    clear: both;
+    position: relative;
+    height: 10vh;
+    margin-bottom: -20vh;
     margin-top: 5vh;
     width: 100%;
     background: #343a40 none repeat scroll 0 0;
@@ -202,6 +206,43 @@ footer h4 {
     margin-left: -6px;
     text-decoration: none;
 
+}
+
+.locate-card {
+    color: black;
+}
+
+#map {
+    height: 400px;  /* The height is 400 pixels */
+    width: 100%;  /* The width is the width of the web page */
+}
+         
+.scroll {
+    max-height: 100px;
+    overflow-y: auto;
+}
+  
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+
+.about-card {
+    width: 100%;
+    text-align: center;
+}
+  
+  
+@media (max-width: 500px) {
+    .dropdown-menu{
+        height:200px;
+        overflow-y:auto;
+    }
+  
+    .active {
+        max-height: max-height;
+    }
 }
 
 @media only screen and (max-width: 768px) {
