@@ -1,0 +1,260 @@
+h1, h2, h3, h4, h5, h6 {
+    text-transform: uppercase;
+    font-family: 'Luckiest Guy', cursive;
+    margin: 0;
+}
+
+body {
+    font-size: 16px;
+    line-height: 18px;
+    font-family: 'Roboto', sans-serif;
+    background: #efe9dd;
+    color: #ffffff;
+}
+
+/* Header */
+header{
+    background: url(/images/head.jpg) no-repeat;
+    background-size: cover; 
+    overflow: hidden;
+    color: #f1f1f1;
+    margin-bottom: 3vh;
+}
+
+p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+.center-block {
+    float:none
+}
+
+.banner {
+    text-align: center;
+    margin: 0 auto;
+    padding: 2%;
+}
+
+.banner h3 {
+    letter-spacing: 0.3em;
+}
+
+.carousel {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.carousel-img {
+    width:100%; 
+    height:100%
+}
+
+.formcard {
+    margin-top: 3vh;
+    color: #000;
+}
+
+#fdbtn {
+    display: block;
+}
+
+#fdbtnmobile {
+    display: none; 
+}
+
+.prod-name {
+    color: black;
+}
+
+.card {
+    height: 50%;
+    overflow: auto;
+}
+
+.card-img {
+    width: 100%;
+    height: 40%;
+    object-fit: cover;
+}
+
+.card-body {
+    overflow: auto;
+}
+
+.card-footer .btn {
+    justify-content: center;
+    width: 100%;
+}
+
+
+.card-group {
+    padding: 1%;
+}
+
+.card-body {
+    height: 100%; 
+}
+
+.datacards {
+    margin-top: 1vh;
+    color: black;
+}
+
+.proddesc {
+    word-wrap: break-word;
+}
+
+.prodcard {
+    height: 50vh !important;
+}
+
+/* Second Section */
+.menu, .news {
+    margin-top: 35px;
+    height: 190px;
+    padding: 75px 0 40px;
+    color: #fff;
+}
+.menu{
+    background: url(../images/menu_bg.jpg) no-repeat;
+    background-size: 100% 100%;
+}
+
+.news{
+    background: url(../images/sides_bg.jpg)no-repeat;
+    background-size: 100% 100%;
+}
+
+.inner_content {
+    display: block;
+    margin: 0 auto;
+    width: 220px;
+}
+.second_sec .flaticon:before {
+    font-size: 65px;
+}
+.second_sec .flaticon {
+    display: inline-block;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+.second_sec h2 {
+    display: inline-block;
+}
+.inner_content .flaticon-fast-food,.inner_content .flaticon-newspaper {
+    margin-left: 15px;
+}
+
+
+
+/* Footer */
+.footer_info {
+    font-size: 14px;
+}
+
+footer {
+    clear: both;
+    position: relative;
+    height: 10vh;
+    margin-bottom: -20vh;
+    margin-top: 5vh;
+    width: 100%;
+    background: #343a40 none repeat scroll 0 0;
+}
+
+footer h4 {
+    font-size: 14px;
+    margin-top: 20px;
+    font-family: 'Robot', sans-serif;
+}
+
+/* scrollup */
+.scrollup{
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    opacity: .3;
+    position: fixed;
+    bottom: 20px;
+    right: 25px;
+    color: #fff;
+    cursor: pointer;
+    background-color: #000;
+    z-index: 1000;
+    transition: opacity .5s, background-color .5s;
+    -moz-transition: opacity .5s, background-color .5s;
+    -webkit-transition: opacity .5s, background-color .5s;
+}
+
+.scrollup:hover {
+    background: maroon;
+    opacity: 1;
+}
+
+.scrollup i {
+    font-size: 13px;
+    position: absolute;
+    opacity: 1;
+    color: #fff;
+    left: 50%;
+    top: 50%;
+    margin-top: -7px;
+    margin-left: -6px;
+    text-decoration: none;
+
+}
+
+.locate-card {
+    color: black;
+}
+
+#map {
+    height: 400px;  /* The height is 400 pixels */
+    width: 100%;  /* The width is the width of the web page */
+}
+         
+.scroll {
+    max-height: 100px;
+    overflow-y: auto;
+}
+  
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+
+.about-card {
+    width: 100%;
+    text-align: center  ;
+}
+  
+  
+@media (max-width: 500px) {
+    .dropdown-menu{
+        height:200px;
+        overflow-y:auto;
+    }
+  
+    .active {
+        max-height: max-height;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    #fdbtn {
+        display: none;
+    }
+
+    #fdbtnmobile {
+        display: block;
+    }
+
+    footer {
+        text-align: center;
+    }
+}
