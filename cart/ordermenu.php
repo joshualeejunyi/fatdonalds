@@ -2,65 +2,68 @@
 include($_SERVER['DOCUMENT_ROOT'] . '/FatDonalds/auth/auth.php');
 session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['hidden_ID'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['hidden_ID']))
+{
     
-   if (!isset($_SESSION['cartLog'])) {
+    if (!isset($_SESSION['cartLog'])) {
         $_SESSION['cartLog'] = array();
     }
+    
     if (isset($_SESSION['cartLog'][$id])) 
     {
         // do nothing - already in session
         console.log("duplicate");
-        $_SESSION['cartLog'][$id][$counter]++ ;
+        $_SESSION['cartLog'][$id]['quanity']++;
         $stmt = null;
         $conn = null;
         exit();
     } 
     else 
     {
-        $_SESSION['cartLog'][$id] = array('startingPosition' => 0, 'available' => 'Y');
-    }
-    
-    if (in_array($_SESSION['cartLog'],$_POST['hidden_ID']))
-    {
-        console.log("duplicate");
-        $stmt = null;
-        $conn = null;
-        exit();
-    }
-    $_SESSION['id'] = $_POST['hidden_ID'];
-    $id = $_POST['hidden_ID'];
-    
-    $idSaveArray=array("id"=>$id);
-    array_push($_SESSION['cartLog'],$idSaveArray); // Items added to cart
+        
+        $sql = "SELECT * FROM products WHERE productID = '" . $id . "'";
+        $conn = dbconnect();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
 
-
-    $sql = "SELECT * FROM products WHERE productID = '" . $id . "'";
-    $conn = dbconnect();
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-
-    if ($stmt->rowCount() > 0) {
-        foreach ($stmt as $row) {
-            echo '<tr>';
-            echo '<td>' . $row['name'] . '</td>';
-            echo '<td>$' . $row['price'] . '</td>';
-            echo '</tr>';
+        if ($stmt->rowCount() > 0) 
+        {
+            foreach ($stmt as $row) {
+                echo '<tr>';
+                echo '<td>' . $row['name'] . '</td>';
+                echo '<td>$' . $row['price'] . '</td>';
+                echo '</tr>';
+                $_SESSION['cartLog'][$id] = array('productID' => $row['productID'], 'price' => $row['price'], 'quanity' => 1);
+                console.log($_SESSION['cartLog'][$id]);
+            }
         }
     }
+//
+//    $_SESSION['id'] = $_POST['hidden_ID'];
+//    $id = $_POST['hidden_ID'];
+//    
+//    $idSaveArray=array("id"=>$id);
+//    array_push($_SESSION['cartLog'],$idSaveArray); // Items added to cart
 
-//    echo '</tr></table>';
+
+//    $sql = "SELECT * FROM products WHERE productID = '" . $id . "'";
+//    $conn = dbconnect();
+//    $stmt = $conn->prepare($sql);
+//    $stmt->execute();
+//
+//    if ($stmt->rowCount() > 0) {
+//        foreach ($stmt as $row) {
+//            echo '<tr>';
+//            echo '<td>' . $row['name'] . '</td>';
+//            echo '<td>$' . $row['price'] . '</td>';
+//            echo '</tr>';
+//        }
+//    }
 
     $stmt = null;
     $conn = null;
     exit();
 }
-//    if($_SERVER["REQUEST_METHOD"] == "POST") {
-////        $_SESSION['hidden_ID'] = $_POST['hidden_ID'];
-//        $id = $_POST['hidden_ID'];
-//        $query = mysql_query('SELECT * FROM products WHERE productID ="'.$id);
-//        $row = mysql_num_rows($query);
-//    }
 ?>
 
 
