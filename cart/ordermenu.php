@@ -1,34 +1,66 @@
 <?php
-    include($_SERVER['DOCUMENT_ROOT'] . '/auth/auth.php');
-    session_start();
+include($_SERVER['DOCUMENT_ROOT'] . '/FatDonalds/auth/auth.php');
+session_start();
 
-    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['hidden_ID'])) {
-        $_SESSION['id'] = $_POST['hidden_ID'];
-        $id = $_POST['hidden_ID'];
-        $sql = "SELECT * FROM products WHERE productID = '". $id . "'";
-        $conn = dbconnect();
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        echo '<table border="1"><tr>';
-        if ($stmt->rowCount() > 0) {
-            foreach ($stmt as $row) {
-                echo '<td>' . $row['productName'] . '</td>';
-                echo '<td>' . $row['productPrice'] . '</td>';
-            }
-        }
-
-        echo '</tr></table>';
-
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['hidden_ID'])) {
+    
+   if (!isset($_SESSION['cartLog'])) {
+        $_SESSION['cartLog'] = array();
+    }
+    if (isset($_SESSION['cartLog'][$id])) 
+    {
+        // do nothing - already in session
+        console.log("duplicate");
+        $_SESSION['cartLog'][$id][$counter]++ ;
+        $stmt = null;
+        $conn = null;
+        exit();
+    } 
+    else 
+    {
+        $_SESSION['cartLog'][$id] = array('startingPosition' => 0, 'available' => 'Y');
+    }
+    
+    if (in_array($_SESSION['cartLog'],$_POST['hidden_ID']))
+    {
+        console.log("duplicate");
         $stmt = null;
         $conn = null;
         exit();
     }
-    //    if($_SERVER["REQUEST_METHOD"] == "POST") {
-    ////        $_SESSION['hidden_ID'] = $_POST['hidden_ID'];
-    //        $id = $_POST['hidden_ID'];
-    //        $query = mysql_query('SELECT * FROM products WHERE productID ="'.$id);
-    //        $row = mysql_num_rows($query);
-    //    }
+    $_SESSION['id'] = $_POST['hidden_ID'];
+    $id = $_POST['hidden_ID'];
+    
+    $idSaveArray=array("id"=>$id);
+    array_push($_SESSION['cartLog'],$idSaveArray); // Items added to cart
+
+
+    $sql = "SELECT * FROM products WHERE productID = '" . $id . "'";
+    $conn = dbconnect();
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
+    if ($stmt->rowCount() > 0) {
+        foreach ($stmt as $row) {
+            echo '<tr>';
+            echo '<td>' . $row['name'] . '</td>';
+            echo '<td>$' . $row['price'] . '</td>';
+            echo '</tr>';
+        }
+    }
+
+//    echo '</tr></table>';
+
+    $stmt = null;
+    $conn = null;
+    exit();
+}
+//    if($_SERVER["REQUEST_METHOD"] == "POST") {
+////        $_SESSION['hidden_ID'] = $_POST['hidden_ID'];
+//        $id = $_POST['hidden_ID'];
+//        $query = mysql_query('SELECT * FROM products WHERE productID ="'.$id);
+//        $row = mysql_num_rows($query);
+//    }
 ?>
 
 
@@ -43,10 +75,16 @@
     </head>
     <body>
         <main class="container">
-            <div id="auto">
-                <!--                     //insert table here-->
+            <div>
+                <table id="auto" border="1">
+                    <tr>
+                        <td> Name: </td>
+                        <td> Price: </td>
+                    </tr>
+                <!--//insert table here-->
+                </table>
             </div> 
-            
+
             <section id="content">
                 <div class="col-md-8 text-right header-box">
 
@@ -56,65 +94,65 @@
                 </section>
                 <div id="actions" class="collapsed" data-parent="#accordion">
                     <div class="card-body">
-<?php
-try {
-    $conn = dbconnect();
+                        <?php
+                        try {
+                            $conn = dbconnect();
 
-    $queries = [];
-    $parameters = [];
+                            $queries = [];
+                            $parameters = [];
 
-    if ($keyword !== null) {
-        $queries[] = 'productName LIKE ?';
-        $parameters[] = '%' . $keyword . '%';
-    }
+                            if ($keyword !== null) {
+                                $queries[] = 'name LIKE ?';
+                                $parameters[] = '%' . $keyword . '%';
+                            }
 
-    if ($catFilter !== null) {
-        $queries[] = 'productCategory = ?';
-        $parameters[] = $catFilter;
-        $catstmt = $conn->prepare("SELECT DISTINCT productCategory from products WHERE productCategory = ? ORDER BY productCategory ASC");
-        $catstmt->execute([$catFilter]);
-    } else {
-        $catstmt = $conn->prepare("SELECT DISTINCT productCategory from products ORDER BY productCategory ASC");
-        $catstmt->execute();
-    }
+                            if ($catFilter !== null) {
+                                $queries[] = 'category = ?';
+                                $parameters[] = $catFilter;
+                                $catstmt = $conn->prepare("SELECT DISTINCT category from products WHERE category = ? ORDER BY category ASC");
+                                $catstmt->execute([$catFilter]);
+                            } else {
+                                $catstmt = $conn->prepare("SELECT DISTINCT category from products ORDER BY category ASC");
+                                $catstmt->execute();
+                            }
 
-    $sql = "SELECT * from products";
+                            $sql = "SELECT * from products";
 
-    if ($queries) {
-        $sql .= " WHERE " . implode(" AND ", $queries);
-    }
+                            if ($queries) {
+                                $sql .= " WHERE " . implode(" AND ", $queries);
+                            }
 
-    $sql .= " ORDER BY productCategory ASC;";
+                            $sql .= " ORDER BY category ASC;";
 
-    $stmt = $conn->prepare($sql);
-    $stmt->execute($parameters);
+                            $stmt = $conn->prepare($sql);
+                            $stmt->execute($parameters);
 
-    if ($catstmt->rowCount() > 0) {
-        if ($stmt->rowCount() > 0) {
-            foreach ($catstmt as $catrow) {
-                ?>
+                            if ($catstmt->rowCount() > 0) {
+                                if ($stmt->rowCount() > 0) {
+                                    foreach ($catstmt as $catrow) {
+                                        ?>
                                         <div class="col-12 cardcol">
                                             <div class="card mb-3 h-100">
                                                 <button class="collapsible">
-                                        <?php echo $catrow["productCategory"]; ?>
+                                                    <?php echo $catrow["category"]; ?>
                                                 </button>
-                                        <?php
-                                        $stmt->execute($parameters);
-                                        foreach ($stmt as $row) {
-                                            if ($row["productCategory"] === $catrow["productCategory"]) {
-                                                ?>         
+                                                <?php
+                                                $stmt->execute($parameters);
+                                                foreach ($stmt as $row) {
+                                                    if ($row["category"] === $catrow["category"]) {
+                                                        ?>         
 
                                                         <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                                                             <div class="card mb-3 h-100">
-                                                            <?php
-                                                            echo '<img class="card-img" src="data:image/jpeg;base64,' . base64_encode($row["productIMG"]) . '"/>';
-                                                            ?>
+                                                                <?php
+                                                                echo '<img class="card-img" src="data:image/jpeg;base64,' . base64_encode($row["productimage"]) . '"/>';
+                                                                ?>
                                                                 <div class="card-header">
-                                                                    <h4><?php echo $row["productName"]; ?></h4>
+                                                                    <h4><?php echo $row["name"]; ?></h4>
                                                                 </div>
                                                                 <div class="card-body">
-                                                                    <p class="card-text"><?php echo $row["productDesc"]; ?></p>
-                                                                    <h5 class="card-text">Price: $<?php echo $row["productPrice"]; ?></h5>
+                                                                    <p class="card-text"><?php echo $row["description"]; ?></p>
+                                                                    <h5 class="card-text">Price: $<?php echo $row["price"]; ?></h5>
                                                                 </div>
                                                                 <div class="card-footer">
                                                                     <input type="hidden" value="<?php echo $row["productID"] ?>"/> 
@@ -122,24 +160,24 @@ try {
                                                                 </div>                                                              
                                                             </div>
                                                         </div>
-                        <?php
-                    }
-                }
-                ?>
+                                                        <?php
+                                                    }
+                                                }
+                                                ?>
                                             </div>        
                                         </div>
-                <?php
-            }
-        }
-    }
-} catch (PDOException $e) {
-    $errorMsg = "Connection failed: " . $e;
-    $_SESSION['msg'] = $errorMsg;
-} finally {
-    $conn = null;
-    $stmt = null;
-}
-?>
+                                        <?php
+                                    }
+                                }
+                            }
+                        } catch (PDOException $e) {
+                            $errorMsg = "Connection failed: " . $e;
+                            $_SESSION['msg'] = $errorMsg;
+                        } finally {
+                            $conn = null;
+                            $stmt = null;
+                        }
+                        ?>
                     </div>
             </section>
         </main>     
