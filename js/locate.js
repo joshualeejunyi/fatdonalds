@@ -151,8 +151,6 @@ for (i = 0; i < acc.length; i++) {
 }
 }
 
-$('.collapse').not(':first').collapse(); // Collapse all but the first row on the page.
-
 // This section makes the search work.
 (function() {
   var searchTerm, panelContainerId;
