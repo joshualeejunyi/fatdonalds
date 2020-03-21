@@ -59,13 +59,30 @@ function getNews(){
                             echo "<p>$text</p>";
                         ?>
                     </div>
-<!--                    <br />
-                    <div class="card">
-                      <h2>TITLE HEADING</h2>
-                      <h5>Title description, Sep 2, 2017</h5>
-                      <div class="fakeimg" style="height:200px;">Image</div>
-                      <p>Some text..</p>
-                    </div> second section end -->
+                    <br />
+                    <div class="newsform">
+                        <h2>Edit News</h2>
+                        <form action="process_editnews.php" method="post">
+                            <div class="form-group">
+                                <label for="fname">Posted By:</label>
+                                <input class="form-control" type="text" id="postedBy" maxlength="50" name="postedBy" placeholder="Enter your name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lname">Title:</label>
+                                <input class="form-control" type="text" id="title" required maxlength="50" name="title" placeholder="Enter post title">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Text:</label>
+                                <input class="form-control" type="text" id="text" required name="text" placeholder="Enter text">
+                            </div>
+                               <br />
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
                     <br />
                 </div>
             </section>

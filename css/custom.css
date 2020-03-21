@@ -147,6 +147,15 @@ footer h4 {
 
 }
 
+/*News Page*/
+.newsform {
+    background-color: #343a40;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 5px;
+
+}
 
 
 /* media query for other devices */
