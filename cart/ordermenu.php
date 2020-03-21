@@ -1,7 +1,8 @@
 <?php
     include($_SERVER['DOCUMENT_ROOT'] . '/FatDonalds/auth/auth.php');
     session_start();
-
+    
+    $_SESSION['cartLog']["finalprice"] = 0;
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['hidden_ID'])) {
         addToCart($_POST['hidden_ID']);
@@ -13,26 +14,40 @@
         }
 
         if (isset($_SESSION['cartLog'][$id])) {
-            // do nothing - already in session
+            // already in session
             console.log("duplicate");
+            $sql = "SELECT * FROM products WHERE productID = ?";
+            $conn = dbconnect();
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([$id]);
             $_SESSION['cartLog'][$id]['quantity']++;
-            print_r($_SESSION['cartLog']);
+            $_SESSION['cartLog'][$id]['totalprice'] = $_SESSION['cartLog'][$id]['price'] * $_SESSION['cartLog'][$id]['quantity'];  
+//            print_r($_SESSION['cartLog']);
+            
             die();
         } else {
             $sql = "SELECT * FROM products WHERE productID = ?";
             $conn = dbconnect();
             $stmt = $conn->prepare($sql);
             $stmt->execute([$id]);
-
+             
             if ($stmt->rowCount() > 0) {
                 foreach ($stmt as $row) {
-                    $_SESSION['cartLog'][$id] = array('productID' => $row['productID'], 'price' => $row['price'], 'quantity' => 1);
+                    $totalprice = $row['price'];
+                    
+                    $_SESSION['cartLog'][$id] = array('productID' => $row['productID'], 'name' => $row['name'], 
+                        'price' => $row['price'], 'quantity' => 1,'totalprice' => $totalprice);
+//                    echo '<tr>';
+//                    echo '<td>' . $row['name'] . '</td>';
+//                    echo '<td>$' . $row['price'] . '</td>';
+//                    echo '<td>$' . $_SESSION['cartLog'][$id]['quantity'] . '</td>';
+//                    echo '</tr>';
                     console.log($_SESSION['cartLog'][$id]);
                 }
             }
             $stmt = null;
             $conn = null;
-            print_r($_SESSION['cartLog']);
+//            print_r($_SESSION['cartLog']);
             die();
         }
     }
@@ -46,16 +61,34 @@
         include($_SERVER['DOCUMENT_ROOT'] . '/incl/head.inc.php');
         include($_SERVER['DOCUMENT_ROOT'] . '/incl/nav.inc.php');
         ?>
-        <script src="/cart/cart.js" defer></script>
+        <script src="/FatDonalds/cart/cart.js" defer></script>
     </head>
     <body>
         <main class="container">
             <div>
                 <table id="auto" border="1">
                     <tr>
-                        <td> Name: </td>
-                        <td> Price: </td>
+                        <th> Name: </th>
+                        <th> Price: </th>
+                        <th> Quantity: </th>
+                        <th> Total Price: </th>
                     </tr>
+                    <?php
+                    foreach($_SESSION['cartLog'] as $id => $products)
+                    {
+                        ?>
+                        <tr>
+                            <td> <?=$products['name']?> </td>
+                            <td> <?=$products['price']?> </td>
+                            <td> <?=$products['quantity']?> </td>
+                            <td> <?=$products['totalprice']?> </td>
+                        </tr>
+                    <?php
+                        }
+                    ?>
+                        <tr>
+                            <td>Final Price: <?=$products['finalprice']?></td>
+                        </tr>
                 <!--//insert table here-->
                 </table>
             </div> 
