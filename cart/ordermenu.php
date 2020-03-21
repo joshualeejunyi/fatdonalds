@@ -1,56 +1,64 @@
 <?php
-    include($_SERVER['DOCUMENT_ROOT'] . '/FatDonalds/auth/auth.php');
-    session_start();
-    
-    $_SESSION['cartLog']["finalprice"] = 0;
+include($_SERVER['DOCUMENT_ROOT'] . '/FatDonalds/auth/auth.php');
+session_start();
+$total_price = 0;
+$_SESSION['cartLog']["finalprice"] = 0;
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['hidden_ID'])) {
-        addToCart($_POST['hidden_ID']);
+//    remove from cart
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remove_ID'])) {
+    removeFromCart($_POST['remove_ID']);
+}
+
+function removeFromCart($id) {
+    unset($_SESSION['cartLog'][$id]);
+}
+
+//    Add to cart
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['hidden_ID'])) {
+    addToCart($_POST['hidden_ID']);
+}
+
+function addToCart($id) {
+    if (!isset($_SESSION['cartLog'])) {
+        $_SESSION['cartLog'] = array();
     }
 
-    function addToCart($id) {
-        if (!isset($_SESSION['cartLog'])) {
-            $_SESSION['cartLog'] = array();
-        }
+    if (isset($_SESSION['cartLog'][$id])) {
+        // already in session
+        console . log("duplicate");
+        $sql = "SELECT * FROM products WHERE productID = ?";
+        $conn = dbconnect();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$id]);
+        $_SESSION['cartLog'][$id]['quantity']++;
+        $_SESSION['cartLog'][$id]['totalprice'] = $_SESSION['cartLog'][$id]['price'] * $_SESSION['cartLog'][$id]['quantity'];
 
-        if (isset($_SESSION['cartLog'][$id])) {
-            // already in session
-            console.log("duplicate");
-            $sql = "SELECT * FROM products WHERE productID = ?";
-            $conn = dbconnect();
-            $stmt = $conn->prepare($sql);
-            $stmt->execute([$id]);
-            $_SESSION['cartLog'][$id]['quantity']++;
-            $_SESSION['cartLog'][$id]['totalprice'] = $_SESSION['cartLog'][$id]['price'] * $_SESSION['cartLog'][$id]['quantity'];  
+        $_SESSION['cartLog']["finalprice"] = $_SESSION['cartLog']["finalprice"] + $_SESSION['cartLog'][$id]['price'];
 //            print_r($_SESSION['cartLog']);
-            
-            die();
-        } else {
-            $sql = "SELECT * FROM products WHERE productID = ?";
-            $conn = dbconnect();
-            $stmt = $conn->prepare($sql);
-            $stmt->execute([$id]);
-             
-            if ($stmt->rowCount() > 0) {
-                foreach ($stmt as $row) {
-                    $totalprice = $row['price'];
-                    
-                    $_SESSION['cartLog'][$id] = array('productID' => $row['productID'], 'name' => $row['name'], 
-                        'price' => $row['price'], 'quantity' => 1,'totalprice' => $totalprice);
-//                    echo '<tr>';
-//                    echo '<td>' . $row['name'] . '</td>';
-//                    echo '<td>$' . $row['price'] . '</td>';
-//                    echo '<td>$' . $_SESSION['cartLog'][$id]['quantity'] . '</td>';
-//                    echo '</tr>';
-                    console.log($_SESSION['cartLog'][$id]);
-                }
+
+        die();
+    } else {
+        $sql = "SELECT * FROM products WHERE productID = ?";
+        $conn = dbconnect();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$id]);
+
+        if ($stmt->rowCount() > 0) {
+            foreach ($stmt as $row) {
+                $totalprice = $row['price'];
+
+                $_SESSION['cartLog'][$id] = array('productID' => $row['productID'], 'name' => $row['name'],
+                    'price' => $row['price'], 'quantity' => 1, 'totalprice' => $totalprice);
+                console . log($_SESSION['cartLog'][$id]);
+                $_SESSION['cartLog']["finalprice"] = $_SESSION['cartLog']["finalprice"] + $_SESSION['cartLog'][$id]['price'];
             }
-            $stmt = null;
-            $conn = null;
-//            print_r($_SESSION['cartLog']);
-            die();
         }
+        $stmt = null;
+        $conn = null;
+//            print_r($_SESSION['cartLog']);
+        die();
     }
+}
 ?>
 
 
@@ -63,35 +71,52 @@
         ?>
         <script src="/FatDonalds/cart/cart.js" defer></script>
     </head>
-    <body>
-        <main class="container">
-            <div>
-                <table id="auto" border="1">
+
+    <body style="margin-left: 0px;">
+        <!--    //trying to align it to the right. not working atm-->
+        <nav id="sidebar" class=" navbar bg-light fixed-right"  >
+                <table id="auto" border="1" >
                     <tr>
                         <th> Name: </th>
                         <th> Price: </th>
                         <th> Quantity: </th>
                         <th> Total Price: </th>
+                        <th> Remove Item: </th>
                     </tr>
                     <?php
-                    foreach($_SESSION['cartLog'] as $id => $products)
+                    if (isset($_SESSION['cartLog'])) 
                     {
-                        ?>
-                        <tr>
-                            <td> <?=$products['name']?> </td>
-                            <td> <?=$products['price']?> </td>
-                            <td> <?=$products['quantity']?> </td>
-                            <td> <?=$products['totalprice']?> </td>
-                        </tr>
-                    <?php
+                        foreach ($_SESSION['cartLog'] as $id => $products) {
+                            ?>
+                            <tr>
+                                <td> <?= $products['name'] ?> </td>
+                                <td>$ <?= $products['price'] ?> </td>
+                                <td> <?= $products['quantity'] ?> </td>
+                                <td>$ <?= $products['totalprice'] ?> </td>
+                                <td style="text-align:center;">
+                                    <input type="hidden" value="<?= $products['productID'] ?>"/> 
+                                    <button class="btn btn-danger removeCart">Remove From Cart</button>
+                                </td>
+                            </tr>
+                            <?php
+                            $total_price += ($products["price"] * $products["quantity"]);
                         }
+                    }
                     ?>
-                        <tr>
-                            <td>Final Price: <?=$products['finalprice']?></td>
-                        </tr>
-                <!--//insert table here-->
+
+                    <tr>
+                        <td colspan="3">Final Price: </td>
+                        <td> $<?= $total_price ?></td>
+                    </tr>
+
+                    <!--//insert table here-->
                 </table>
-            </div> 
+            </nav> 
+        
+        
+        
+        <main class="container">
+            
 
             <section id="content">
                 <div class="col-md-8 text-right header-box">
@@ -164,7 +189,7 @@
                                                                 </div>
                                                                 <div class="card-footer">
                                                                     <input type="hidden" value="<?php echo $row["productID"] ?>"/> 
-                                                                    <button class="btn btn-danger addCart">Add to Cart</button>
+                                                                    <button class="btn btn-success addCart">Add to Cart</button>
                                                                 </div>                                                              
                                                             </div>
                                                         </div>
