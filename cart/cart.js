@@ -7,14 +7,19 @@ $(".addCart").on("click", function ()
             hidden_ID: $(this).prev().val()
         },
         success: function (response) {
-            console.log("HI" + response);
+//            $(".tbl-cart").load("ordermenu.php .tbl-cart");
+            console.log(response);
+            $("#auto").load("ordermenu.php #auto");
+            location.reload();
         }
     });
-    $("#auto").load("ordermenu.php #auto");
 });
 
 
-$(".removeCart").on("click", function ()
+$(".removeCart").on("click", removeItem);
+
+
+function removeItem()
 {
     $.ajax({
         url: "ordermenu.php",
@@ -23,10 +28,11 @@ $(".removeCart").on("click", function ()
             remove_ID: $(this).prev().val()
         },
         success: function (response) {
-           console.log("HI" + response);
+            console.log("Reloading");
+            console.log(response);
+            $("#auto").load("ordermenu.php #auto");
+            location.reload();
         }
     });
-    $("#auto").load("ordermenu.php #auto");
-});
-
-
+    
+}
