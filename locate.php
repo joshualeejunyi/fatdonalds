@@ -47,7 +47,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/auth/auth.php');
                                                 </a>
                                             </h4>
                                         </div>
-                                        <div id="collapseOne" class="panel-collapse  collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                        <div id="collapseOne" class="panel-collapse  collapse in show" role="tabpanel" aria-labelledby="headingOne">
                                             <div class="card-body">
                                                 <h4>Location: </h4>
                                                 <p>180 Ang Mo Kio Ave 8, Singapore 569830</p>

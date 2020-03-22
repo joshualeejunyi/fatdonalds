@@ -26,8 +26,13 @@
         }
     }
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['hidden_ID'])) {
-        addToCart($_POST['hidden_ID']);
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST['hidden_ID'])) {
+            addToCart($_POST['hidden_ID']);
+        } elseif (isset($_POST['remove_ID'])) {
+            removeFromCart($_POST['remove_ID']);
+        }
+
     }
 
     function addToCart($id) {
@@ -47,7 +52,7 @@
 
             if ($stmt->rowCount() > 0) {
                 foreach ($stmt as $row) {
-                    $_SESSION['cartLog'][$id] = array('name' => $row["name"], 'price' => $row['price'], 'quantity' => 1);
+                    $_SESSION['cartLog'][$id] = array('id' => $id, 'name' => $row["name"], 'price' => $row['price'], 'quantity' => 1);
                     console.log($_SESSION['cartLog'][$id]);
                 }
             }
@@ -60,12 +65,16 @@
 
     function removeFromCart($id) {
         if (isset($_SESSION['cartLog'][$id])) {
+            print_r($_SESSION['cartLog'][$id]['quantity']);
             if ($_SESSION['cartLog'][$id]['quantity'] == 1) {
                 unset($_SESSION['cartLog'][$id]);
             } else {
-                $_SESSION['cartLog'][$id]['quantity']--;
+                print_r($_SESSION['cartLog'][$id]['quantity']);
+                $_SESSION['cartLog'][$id]['quantity'] = $_SESSION['cartLog'][$id]['quantity'] - 1;
+                print_r($_SESSION['cartLog'][$id]['quantity']);
             }
         }
+        die();
     }
 ?>
 
@@ -75,7 +84,7 @@
         include($_SERVER['DOCUMENT_ROOT'].'/incl/head.inc.php');
         include($_SERVER['DOCUMENT_ROOT'].'/incl/nav.inc.php');
     ?>
-    <script defer type="text/javascript" src="/js/cart.js"></script>
+    <script class="cart-table" defer type="text/javascript" src="/js/cart.js"></script>
     <body>
         <header>
             <div class="row">
@@ -120,7 +129,7 @@
                                                     <td>$<?= $products['price'] ?> </td>
                                                     <td> <?= $products['quantity'] ?> </td>
                                                     <td style="text-align:center;">
-                                                        <input type="hidden" value="<?= $products['productID'] ?>"/> 
+                                                        <input type="hidden" class="removeid" value="<?= $products['id'] ?>"/> 
                                                         <button class="btn btn-danger removeCart">Remove From Cart</button>
                                                     </td>
                                                 </tr>
