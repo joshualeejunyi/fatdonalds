@@ -6,6 +6,9 @@ $(".addCart").on("click", function ()
         data: {
             hidden_ID: $(this).prev().val()
         },
+        success: function (response) {
+            console.log("HI" + response);
+        }
     });
     $("#auto").load("ordermenu.php #auto");
 });
@@ -19,6 +22,9 @@ $(".removeCart").on("click", function ()
         data: {
             remove_ID: $(this).prev().val()
         },
+        success: function (response) {
+           console.log("HI" + response);
+        }
     });
     $("#auto").load("ordermenu.php #auto");
 });
