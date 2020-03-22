@@ -9,7 +9,7 @@
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <?php
         include($_SERVER['DOCUMENT_ROOT'].'/incl/head.inc.php');
     ?>
@@ -18,13 +18,13 @@
             include($_SERVER['DOCUMENT_ROOT'].'/incl/nav.inc.php');
         ?>
         <main class="container">
-            <div class="card formcard">
+            <section class="card formcard">
                 <h2>TITLE HEADING</h2>
                   <h5>Title description, Dec 7, 2017</h5>
                   <div class="fakeimg" style="height:200px;">Image</div>
                   <p>Some text..</p>
                 </div>
-            </div>
+            </section>
         </main>
     </body>
     <?php

@@ -9,11 +9,11 @@
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <?php
         include($_SERVER['DOCUMENT_ROOT'].'/incl/head.inc.php');
     ?>
-    <script defer type="text/javascript" src="/js/slide.js"></script>
+    <script defer src="/js/slide.js"></script>
     <body data-spy="scroll" data-target="#navbar-menu" data-offset="100">
         <?php
             include($_SERVER['DOCUMENT_ROOT'].'/incl/nav.inc.php');
@@ -24,7 +24,6 @@
             <div class="row">
                 <div class="col">
                     <div class="banner">
-                        <!-- <img src="/images/logo.png" alt="FatDonald's Logo" height="150px"> -->
                         <h3>-welcome to-</h3>
                         <h1>FATDONALDS</h1>
                     </div>
@@ -61,29 +60,27 @@
                 </a>
             </section>
 
-            <section>
-                <div class="row second_sec">
-                    <div class="col-sm-6">
-                        <a href="/menu.php">
-                            <div class="menu">
-                                <div class="inner_content">
-                                    <span class="flaticon flaticon-fast-food"></span>
-                                    <h2>menu</h2>
-                                </div>
+            <section class="row second_sec">
+                <article class="col-sm-6">
+                    <a href="/menu.php">
+                        <div class="menu">
+                            <div class="inner_content">
+                                <span class="flaticon flaticon-fast-food"></span>
+                                <h2>menu</h2>
                             </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-6">
-                        <a href="/news.php">
-                            <div class="news">
-                                <div class="inner_content">
-                                    <span class="flaticon flaticon-newspaper"></span>
-                                    <h2>news</h2>
-                                </div>
+                        </div>
+                    </a>
+                </article>
+                <article class="col-sm-6">
+                    <a href="/news.php">
+                        <div class="news">
+                            <div class="inner_content">
+                                <span class="flaticon flaticon-newspaper"></span>
+                                <h2>news</h2>
                             </div>
-                        </a>
-                    </div>
-                </div>
+                        </div>
+                    </a>
+                </article>
             </section>
         </main>
         <?php

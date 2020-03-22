@@ -26,7 +26,7 @@
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <?php
         include($_SERVER['DOCUMENT_ROOT'].'/incl/head.inc.php');
         include($_SERVER['DOCUMENT_ROOT'].'/incl/nav.inc.php');
@@ -48,7 +48,7 @@
                         echo "<div class='alert alert-danger'>" . $_SESSION['menuerror'] . "</div>";
                     }
                 ?>
-                <div id="accordion"">
+                <section id="accordion"">
                     <div class="card bg-dark">
                         <div class="card-header text-white bg-dark">
                             <h5 class="mb-0">
@@ -118,9 +118,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
 
-                <div class="row datacards">
+                <section class="row datacards">
                 <?php
                     try {
                         $conn = dbconnect();
@@ -158,7 +158,7 @@
                             if ($stmt->rowCount()>0) {
                                 foreach($catstmt as $catrow) {
                                 ?>
-                                    <div class="col-12 cardcol">
+                                    <article class="col-12 cardcol">
                                         <div class="card mb-3 h-100">
                                             <div class="card-header text-white bg-dark">
                                                 <h4><?php echo $catrow["category"];?></h4>
@@ -175,11 +175,22 @@
                                                                     echo '<img class="card-img" src="data:image/jpeg;base64,'.base64_encode($row["productimage"]).'"/>';
                                                                 ?>
                                                                     <div class="card-header prod-name">
-                                                                        <h4><?php echo $row["name"];?></h4>
+                                                                        <h4><?php 
+                                                                            echo $row["name"];
+
+                                                                            if ($row["promo"] == 1) {
+                                                                                echo " ($" . $row["promoprice"] . ") <del class='promoprice'>(U.P. $" . $row["price"] . ")</del>";
+                                                                            } else {
+                                                                                echo " ($".$row["price"].")";
+                                                                            }
+
+                                                                            ?>
+                                                                        </h4>
                                                                     </div>
-                                                                    <div class="card-body p-3 proddesc">
-                                                                        <p class="card-text"><?php echo $row["description"];?></p>
-                                                                        <h5 class="card-text">Price: $<?php echo $row["price"];?></h5>
+                                                                    <div class="card-body">
+                                                                        <div class="card-text">
+                                                                            <?php echo $row["description"];?>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -189,7 +200,7 @@
                                                 ?>
                                             </div>
                                         </div>        
-                                    </div>
+                                    </article>
                 <?php
                                     }
                                 }
@@ -202,7 +213,7 @@
                         $stmt = null;
                     }
                 ?>
-                </div>
+                </section>
             </section>
         </main>
         <?php

@@ -25,14 +25,57 @@
             $keyword = $_POST['keyword'];
         }
     }
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['hidden_ID'])) {
+        addToCart($_POST['hidden_ID']);
+    }
+
+    function addToCart($id) {
+        if (!isset($_SESSION['cartLog'])) {
+            $_SESSION['cartLog'] = array();
+        }
+
+        if (isset($_SESSION['cartLog'][$id])) {
+            $_SESSION['cartLog'][$id]['quantity']++;
+            print_r(json_encode($_SESSION['cartLog']));
+            die();
+        } else {
+            $sql = "SELECT * FROM products WHERE productID = ?";
+            $conn = dbconnect();
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([$id]);
+
+            if ($stmt->rowCount() > 0) {
+                foreach ($stmt as $row) {
+                    $_SESSION['cartLog'][$id] = array('name' => $row["name"], 'price' => $row['price'], 'quantity' => 1);
+                    console.log($_SESSION['cartLog'][$id]);
+                }
+            }
+            $stmt = null;
+            $conn = null;
+            print_r(json_encode($_SESSION['cartLog']));
+            die();
+        }
+    }
+
+    function removeFromCart($id) {
+        if (isset($_SESSION['cartLog'][$id])) {
+            if ($_SESSION['cartLog'][$id]['quantity'] == 1) {
+                unset($_SESSION['cartLog'][$id]);
+            } else {
+                $_SESSION['cartLog'][$id]['quantity']--;
+            }
+        }
+    }
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <?php
         include($_SERVER['DOCUMENT_ROOT'].'/incl/head.inc.php');
         include($_SERVER['DOCUMENT_ROOT'].'/incl/nav.inc.php');
     ?>
+    <script defer type="text/javascript" src="/js/cart.js"></script>
     <body>
         <header>
             <div class="row">
@@ -50,8 +93,51 @@
                         echo "<div class='alert alert-danger'>" . $_SESSION['menuerror'] . "</div>";
                     }
                 ?>
-                <div id="accordion"">
-                    <div class="card bg-dark">
+                <section class="shoppingcart">
+                    <article class="card">
+                        <div class="card-header text-white bg-dark">
+                            <h5 class="card-title">Shopping Cart</h5>
+                        </div>
+                        <div class="card-body cart-table">
+                            <?php
+                                if (isset($_SESSION['cartLog'])) {
+                            ?>
+                                    <table class='table'>
+                                        <thead>
+                                            <tr>
+                                                <th scope='col'>Name</th>
+                                                <th scope='col'>Price</th>
+                                                <th scope='col'>Quantity</th>
+                                                <th scope='col'>Actions</th>
+                                            <tr>
+                                        <thead>
+                                        <tbody>
+                                            <?php
+                                                foreach ($_SESSION['cartLog'] as $id => $products) {
+                                            ?>
+                                                <tr>
+                                                    <td> <?= $products['name'] ?> </td>
+                                                    <td>$<?= $products['price'] ?> </td>
+                                                    <td> <?= $products['quantity'] ?> </td>
+                                                    <td style="text-align:center;">
+                                                        <input type="hidden" value="<?= $products['productID'] ?>"/> 
+                                                        <button class="btn btn-danger removeCart">Remove From Cart</button>
+                                                    </td>
+                                                </tr>
+                                            <?php
+                                                }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                            <?php
+                                }
+                            ?>
+                        </div>
+                    </article>
+                </section>
+
+                <section id="accordion">
+                    <article class="card bg-dark">
                         <div class="card-header text-white bg-dark">
                             <h5 class="mb-0">
                                 <button class="btn btn-primary" data-toggle="collapse" data-target="#actions" aria-expanded="true" aria-controls="actions">
@@ -59,6 +145,8 @@
                                 </button>
                             </h5>
                         </div>
+
+                        
 
                         <div id="actions" class="collapse" data-parent="#accordion">
                             <div class="card-body">
@@ -119,10 +207,10 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </article>
+                </section>
 
-                <div class="row datacards">
+                <section class="row datacards">
                 <?php
                     try {
                         $conn = dbconnect();
@@ -160,7 +248,7 @@
                             if ($stmt->rowCount()>0) {
                                 foreach($catstmt as $catrow) {
                                 ?>
-                                    <div class="col-12 cardcol">
+                                    <article class="col-12 cardcol">
                                         <div class="card mb-3 h-100">
                                             <div class="card-header text-white bg-dark">
                                                 <h4><?php echo $catrow["category"];?></h4>
@@ -177,12 +265,27 @@
                                                                     echo '<img class="card-img" src="data:image/jpeg;base64,'.base64_encode($row["productimage"]).'"/>';
                                                                 ?>
                                                                     <div class="card-header prod-name">
-                                                                        <h4><?php echo $row["name"];?></h4>
+                                                                        <h4><?php 
+                                                                            echo $row["name"];
+
+                                                                            if ($row["promo"] == 1) {
+                                                                                echo " ($" . $row["promoprice"] . ") <del class='promoprice'>(U.P. $" . $row["price"] . ")</del>";
+                                                                            } else {
+                                                                                echo " ($".$row["price"].")";
+                                                                            }
+
+                                                                            ?>
+                                                                        </h4>
                                                                     </div>
-                                                                    <div class="card-body p-3 proddesc">
-                                                                        <p class="card-text"><?php echo $row["description"];?></p>
-                                                                        <h5 class="card-text">Price: $<?php echo $row["price"];?></h5>
+                                                                    <div class="card-body">
+                                                                        <div class="card-text">
+                                                                            <?php echo $row["description"];?>
+                                                                        </div>
                                                                     </div>
+                                                                    <div class="card-footer">
+                                                                        <input type="hidden" value="<?php echo $row["productID"] ?>"/> 
+                                                                        <button class="btn btn-danger addCart">Add to Cart</button>
+                                                                    </div>  
                                                                 </div>
                                                             </div>
                                                 <?php
@@ -191,7 +294,7 @@
                                                 ?>
                                             </div>
                                         </div>        
-                                    </div>
+                                    </article>
                 <?php
                                     }
                                 }
@@ -204,7 +307,7 @@
                         $stmt = null;
                     }
                 ?>
-                </div>
+                </section>
             </section>
         </main>
         <?php

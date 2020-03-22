@@ -46,7 +46,7 @@
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <?php
         include($_SERVER['DOCUMENT_ROOT'].'/incl/head.inc.php');
     ?>
@@ -57,7 +57,7 @@
             include($_SERVER['DOCUMENT_ROOT'].'/incl/nav.inc.php');
         ?>
         <main class="container">
-            <div class="card formcard">
+            <section class="card formcard">
                 <div class="card-header text-center">
                     <h2 class="card-title">
                         Register
@@ -131,7 +131,7 @@
                         
                     </form>
                 </div>
-            </div>
+            </section>
         </main>
     </body>
 </html>

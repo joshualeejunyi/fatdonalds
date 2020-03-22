@@ -21,18 +21,18 @@ include($_SERVER['DOCUMENT_ROOT'] . '/auth/auth.php');
             </div>
         </header>
         <main class='container'>
-            <div class="card locate-card">
+            <section class="card locate-card">
                 <div class="card-header text-center text-white bg-dark ">
                     <h2 class="card-title">
                         Our Locations
                     </h2>
                 </div>
-                <div class="row">
+                <section class="row">
                     
                     <div class='col-span-4 col-xs-4 col-sm-4'>
                         <input class="form-control" id="anythingSearch" type="text" placeholder="Type to search page: ">
                         <section class="panel panel-default">
-                            <div class="panel-body">
+                            <article class="panel-body">
                                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                                     <div class="panel panel-default" id="collapseOne_container">
                                         <div class="panel-heading" role="tab" id="headingOne">
@@ -159,7 +159,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/auth/auth.php');
                                         </div>
                                     </div>
                                 </div>  
-                            </div> 
+                            </article> 
                     </div>
                     <div class='col-span-8 col-xs-8 col-sm-8'>
                         <div class="card-img-top">
@@ -167,8 +167,8 @@ include($_SERVER['DOCUMENT_ROOT'] . '/auth/auth.php');
                         </div>
                     </div>
                     
-                </div> 
-            </div>
+                </section> 
+            </section>
         </main>
         <?php
         include($_SERVER['DOCUMENT_ROOT'].'/incl/footer.inc.php');

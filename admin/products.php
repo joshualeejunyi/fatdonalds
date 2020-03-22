@@ -23,11 +23,13 @@
     } else {
         include($_SERVER['DOCUMENT_ROOT'].'/incl/adminhead.inc.php');
 ?>
+<!DOCTYPE html>
+<html lang="en">
+    <?php
+    include($_SERVER['DOCUMENT_ROOT'].'/incl/adminnav.inc.php');
+    ?>
     <body>
         <main class="container">
-            <?php
-            include($_SERVER['DOCUMENT_ROOT'].'/incl/adminnav.inc.php');
-            ?>
             <section id="content">
                 <?php
                     include($_SERVER['DOCUMENT_ROOT'].'/incl/admintop.inc.php');
@@ -177,7 +179,17 @@
                                                                     echo '<img class="card-img" src="data:image/jpeg;base64,'.base64_encode($row["productimage"]).'"/>';
                                                                 ?>
                                                                     <div class="card-header prod-name">
-                                                                        <h4><?php echo $row["name"];?> ($<?php echo $row["price"];?>)</h4>
+                                                                        <h4><?php 
+                                                                            echo $row["name"];
+
+                                                                            if ($row["promo"] == 1) {
+                                                                                echo " ($" . $row["promoprice"] . ") <del class='promoprice'>(U.P. $" . $row["price"] . ")</del>";
+                                                                            } else {
+                                                                                echo " ($".$row["price"].")";
+                                                                            }
+
+                                                                            ?>
+                                                                        </h4>
                                                                     </div>
                                                                     <div class="card-body">
                                                                         <div class="card-text">
@@ -213,6 +225,7 @@
             </section>
         </main>
     </body>
+</html>
 <?php
     }
 ?>

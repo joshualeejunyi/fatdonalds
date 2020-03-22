@@ -9,7 +9,7 @@
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <?php
         include($_SERVER['DOCUMENT_ROOT'].'/incl/head.inc.php');
     ?>
@@ -31,8 +31,8 @@
         
         <main class="container">
             <section class="row about-card">
-                <div class="card-deck">
-                    <div class="col">
+                <section class="card-deck">
+                    <article class="col">
                         <div class="card mb-3 h-100 about-card">
                             <div class="card-header text-white bg-dark text-center">
                                 <h4>
@@ -49,8 +49,8 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
+                    </article>
+                    <article class="col">
                         <div class="card mb-3 h-100 about-card">
                             <div class="card-header text-white bg-dark text-center">
                                 <h4>
@@ -63,8 +63,8 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
+                    </article>
+                    <article class="col">
                         <div class="card mb-3 h-100 about-card">
                             <div class="card-header text-white bg-dark text-center">
                                 <h4>
@@ -77,8 +77,8 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </article>
+                </section>
             </section>
         </main>
         <?php

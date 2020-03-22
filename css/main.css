@@ -232,7 +232,10 @@ footer h4 {
     width: 100%;
     text-align: center  ;
 }
-  
+
+.promoprice {
+    color: red;
+}
   
 @media (max-width: 500px) {
     .dropdown-menu{

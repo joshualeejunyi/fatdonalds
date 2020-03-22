@@ -7,11 +7,13 @@
     } else {
         include($_SERVER['DOCUMENT_ROOT'].'/incl/adminhead.inc.php');
 ?>
+<!DOCTYPE html>
+<html lang="en">
+    <?php
+    include($_SERVER['DOCUMENT_ROOT'].'/incl/adminnav.inc.php');
+    ?>
     <body>
-        <main class="wrapper">
-            <?php
-            include($_SERVER['DOCUMENT_ROOT'].'/incl/adminnav.inc.php');
-            ?>
+        <main class="container">
             <section id="content">
                 <?php
                     include($_SERVER['DOCUMENT_ROOT'].'/incl/admintop.inc.php');
@@ -81,6 +83,7 @@
             </section>
         </main>
     </body>
+</html>
 <?php
     }
 ?>
