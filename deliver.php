@@ -151,6 +151,12 @@
                                 </div>
                         <?php
                                 }
+                            } else {
+                        ?>
+                            <div class="card-text">
+                                Shopping Cart Empty!
+                            </div>
+                        <?php
                             }
                         ?>
                         </div>
