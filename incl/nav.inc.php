@@ -27,7 +27,8 @@
                         My Account
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/deliver.php">Order</a>
+                    <a class="dropdown-item" href="/deliver.php">Order Now</a>
+                    <a class="dropdown-item" href="/orders.php">My Orders</a>
                         <a class="dropdown-item" href="/auth/logout.php">Logout</a>
                     </div>
                     

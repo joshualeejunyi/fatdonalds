@@ -69,7 +69,7 @@
             
 
         } else {
-            $_SESSION['regerror'] = "Failed to Create Account";
+            // $_SESSION['regerror'] = "Failed to Create Account";
             header('location: /register.php');
         }
         
@@ -82,13 +82,11 @@
         global $fname, $lname, $email, $pwd, $errorMsg, $success;
         global $dbfields;
 
-        if ($_SESSION['admin'] !== true) {
+        if ($_SESSION['admin'] === true) {
             $usertype = $_POST["usertype"];
         } else {
             $usertype = "customer";
         }
-
-        print_r($usertype);
 
         try {
             $conn = dbconnect();
@@ -100,6 +98,7 @@
         } catch (PDOException $e) {
             $errorMsg = "Connection to Server Failed.";
             $_SESSION['regerror'] = $errorMsg;
+            $_SESSION['regerror'] = $e;
         } finally {
             $conn = null;
             $stmt = null;

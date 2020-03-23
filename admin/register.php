@@ -19,10 +19,6 @@
                 <?php
                     include($_SERVER['DOCUMENT_ROOT'].'/incl/admintop.inc.php');
                 ?>  
-            <section id="content">
-                <?php
-                    include($_SERVER['DOCUMENT_ROOT'].'/incl/admintop.inc.php');
-                ?>  
                 <div class="card">
                     <div class="card-header text-center">
                         <h2 class="card-title">

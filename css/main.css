@@ -240,6 +240,14 @@ footer h4 {
 .card-text {
     color: black;   
 }
+
+.tbl-cart {
+    color: black;
+}
+
+.ordercard {
+    margin-bottom: 3vh;
+}
   
 @media (max-width: 500px) {
     .dropdown-menu{

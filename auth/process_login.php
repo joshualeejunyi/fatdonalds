@@ -18,7 +18,9 @@
             if ($stmt->rowCount() > 0) {
                 $row = $stmt->fetch();
                 $fname = $row["firstname"];
+                $email = $row["email"];
                 $lname = $row["lastname"];
+                $username = $row["username"];
                 $password = $row["password"];
                 $user = $row["usertype"];
 
@@ -47,6 +49,8 @@
             // $_SESSION["lname"] = $lname;
             $_SESSION["user"] = true;
             $_SESSION["admin"] = false;
+            $_SESSION["username"] = $username;
+            $_SESSION["email"] = $email;
 
             if ($user === "customer") {
                 header('location: /deliver.php');

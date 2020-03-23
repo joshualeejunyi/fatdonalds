@@ -130,16 +130,21 @@
                                                         <td> <?php echo "$" . $products['totalprice']; ?> </td>
                                                         <td style="text-align:center;" width="20%">
                                                             <input type="hidden" value="<?= $products['productID'] ?>"/> 
-                                                            <button class="btn btn-danger removeCart" onclick="removeItem()">Remove From Cart</button>
+                                                            <button class="btn btn-danger removeCart" onclick="removeItem()">Remove</button>
                                                         </td>
                                                     </tr>
                                     <?php
                                                     $total_price += ($products["price"] * $products["quantity"]);
-                                                    }
+                                                }
                                     ?>
                                                     <tr>
-                                                        <td colspan="4">Final Price: </td>
-                                                        <td style="text-align:right;"> $<?= $total_price ?></td>
+                                                        <td>Final Price: </td>
+                                                        <td colspan="3"> $<?= $total_price ?></td>
+                                                        <td style="text-align:center;" width="20%">
+                                                            <a href="/checkout.php" class="btn btn-success">Checkout</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
                                                     </tr>
                                         </tbody>
                                     </table>
