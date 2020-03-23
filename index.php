@@ -10,16 +10,14 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
+    <script defer src="/js/slide.js"></script>
     <?php
         include($_SERVER['DOCUMENT_ROOT'].'/incl/head.inc.php');
     ?>
-    <script defer src="/js/slide.js"></script>
     <body data-spy="scroll" data-target="#navbar-menu" data-offset="100">
         <?php
             include($_SERVER['DOCUMENT_ROOT'].'/incl/nav.inc.php');
         ?>
-
-
         <header>
             <div class="row">
                 <div class="col">
@@ -33,7 +31,7 @@
         
         <main class="container">
 
-            <section id="carousel" class="carousel slide" data-ride="carousel">
+            <div id="carousel" class="carousel slide" data-ride="carousel">
                 <ul class="carousel-indicators">
                     <li data-target="#carousel" data-slide-to="0" class="active"></li>
                     <li data-target="#carousel" data-slide-to="1"></li>
@@ -58,9 +56,9 @@
                 <a class="carousel-control-next" href="#carousel" data-slide="next">
                     <span class="carousel-control-next-icon"></span>
                 </a>
-            </section>
+            </div>
 
-            <section class="row second_sec">
+            <div class="row second_sec">
                 <article class="col-sm-6">
                     <a href="/menu.php">
                         <div class="menu">
@@ -81,7 +79,7 @@
                         </div>
                     </a>
                 </article>
-            </section>
+            </div>
         </main>
         <?php
         include($_SERVER['DOCUMENT_ROOT'].'/incl/footer.inc.php');
