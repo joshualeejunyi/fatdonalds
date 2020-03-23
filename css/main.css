@@ -236,6 +236,10 @@ footer h4 {
 .promoprice {
     color: red;
 }
+
+.card-text {
+    color: black;
+}
   
 @media (max-width: 500px) {
     .dropdown-menu{

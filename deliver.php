@@ -39,42 +39,39 @@
         if (!isset($_SESSION['cartLog'])) {
             $_SESSION['cartLog'] = array();
         }
-
+    
         if (isset($_SESSION['cartLog'][$id])) {
             $_SESSION['cartLog'][$id]['quantity']++;
-            print_r(json_encode($_SESSION['cartLog']));
+            $_SESSION['cartLog'][$id]['totalprice'] = $_SESSION['cartLog'][$id]['price'] * $_SESSION['cartLog'][$id]['quantity'];
             die();
         } else {
             $sql = "SELECT * FROM products WHERE productID = ?";
             $conn = dbconnect();
             $stmt = $conn->prepare($sql);
             $stmt->execute([$id]);
-
+    
             if ($stmt->rowCount() > 0) {
                 foreach ($stmt as $row) {
-                    $_SESSION['cartLog'][$id] = array('id' => $id, 'name' => $row["name"], 'price' => $row['price'], 'quantity' => 1);
-                    console.log($_SESSION['cartLog'][$id]);
+                    $totalprice = $row['price'];
+                    $_SESSION['cartLog'][$id] = array('productID' => $row['productID'], 'name' => $row['name'],
+                        'price' => $row['price'], 'quantity' => 1, 'totalprice' => $totalprice);
+                    console . log($_SESSION['cartLog'][$id]);
                 }
             }
             $stmt = null;
             $conn = null;
-            print_r(json_encode($_SESSION['cartLog']));
             die();
         }
     }
 
     function removeFromCart($id) {
         if (isset($_SESSION['cartLog'][$id])) {
-            print_r($_SESSION['cartLog'][$id]['quantity']);
             if ($_SESSION['cartLog'][$id]['quantity'] == 1) {
                 unset($_SESSION['cartLog'][$id]);
             } else {
-                print_r($_SESSION['cartLog'][$id]['quantity']);
-                $_SESSION['cartLog'][$id]['quantity'] = $_SESSION['cartLog'][$id]['quantity'] - 1;
-                print_r($_SESSION['cartLog'][$id]['quantity']);
+                $_SESSION['cartLog'][$id]['quantity']--;
             }
         }
-        die();
     }
 ?>
 
@@ -107,40 +104,55 @@
                         <div class="card-header text-white bg-dark">
                             <h5 class="card-title">Shopping Cart</h5>
                         </div>
-                        <div class="card-body cart-table">
+                        <div class="card-body tbl-cart">
                             <?php
-                                if (isset($_SESSION['cartLog'])) {
+                            if (isset($_SESSION['cartLog'])) {
+                                if (!empty($_SESSION['cartLog'])) {
                             ?>
-                                    <table class='table'>
+                                    <table class="table">
                                         <thead>
                                             <tr>
-                                                <th scope='col'>Name</th>
-                                                <th scope='col'>Price</th>
-                                                <th scope='col'>Quantity</th>
-                                                <th scope='col'>Actions</th>
-                                            <tr>
-                                        <thead>
+                                                <th scope="col"> Name: </th>
+                                                <th scope="col"> Price: </th>
+                                                <th scope="col"> Quantity: </th>
+                                                <th scope="col"> Total Price: </th>
+                                                <th scope="col"> Remove Item: </th>
+                                            </tr>
+                                        </thead>
                                         <tbody>
                                             <?php
                                                 foreach ($_SESSION['cartLog'] as $id => $products) {
                                             ?>
-                                                <tr>
-                                                    <td> <?= $products['name'] ?> </td>
-                                                    <td>$<?= $products['price'] ?> </td>
-                                                    <td> <?= $products['quantity'] ?> </td>
-                                                    <td style="text-align:center;">
-                                                        <input type="hidden" class="removeid" value="<?= $products['id'] ?>"/> 
-                                                        <button class="btn btn-danger removeCart">Remove From Cart</button>
-                                                    </td>
-                                                </tr>
-                                            <?php
-                                                }
-                                            ?>
+                                                    <tr>
+                                                        <td> <?php echo $products['name'] ?> </td>
+                                                        <td> <?php echo "$" . $products['price']; ?> </td>
+                                                        <td> <?php echo $products['quantity'] ?> </td>
+                                                        <td> <?php echo "$" . $products['totalprice']; ?> </td>
+                                                        <td style="text-align:center;" width="20%">
+                                                            <input type="hidden" value="<?= $products['productID'] ?>"/> 
+                                                            <button class="btn btn-danger removeCart" onclick="removeItem()">Remove From Cart</button>
+                                                        </td>
+                                                    </tr>
+                                    <?php
+                                                    $total_price += ($products["price"] * $products["quantity"]);
+                                                    }
+                                    ?>
+                                                    <tr>
+                                                        <td colspan="4">Final Price: </td>
+                                                        <td style="text-align:right;"> $<?= $total_price ?></td>
+                                                    </tr>
                                         </tbody>
                                     </table>
-                            <?php
+                        <?php
+                                } else {
+                        ?>
+                                <div class="card-text">
+                                    Shopping Cart Empty!
+                                </div>
+                        <?php
                                 }
-                            ?>
+                            }
+                        ?>
                         </div>
                     </article>
                 </section>
