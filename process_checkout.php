@@ -30,9 +30,7 @@
                     $result = $orderstmt->execute([$insertid, $productID, $quantity]);
                 }
 
-                // $orderMsg = "Order Successful";
-                // $_SESSION['ordermsg'] = $orderMsg;
-                header('location: /orders.php');
+
                 
             } catch (PDOException $e) {
                 $errorMsg = "Connection to Server Failed.";
@@ -43,6 +41,8 @@
                 $conn = null;
                 $stmt = null;
                 $orderstmt = null;
+                unset($_SESSION['cartLog']);
+                header('location: /orders.php');
             }
 
         }
