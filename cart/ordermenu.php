@@ -31,7 +31,6 @@ function addToCart($id) {
                 $_SESSION['cartLog'][$id] = array('productID' => $row['productID'], 'name' => $row['name'],
                     'price' => $row['price'], 'quantity' => 1, 'totalprice' => $totalprice);
                 console . log($_SESSION['cartLog'][$id]);
-                $_SESSION['cartLog']["finalprice"] = $_SESSION['cartLog']["finalprice"] + $_SESSION['cartLog'][$id]['price'];
             }
         }
         $stmt = null;
@@ -47,8 +46,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remove_ID'])) {
 }
 
 function removeFromCart($id) {
-    unset($_SESSION['cartLog'][$id]);
+    if (isset($_SESSION['cartLog'][$id])) {
+          if ($_SESSION['cartLog'][$id]['quantity'] == 1) {
+              unset($_SESSION['cartLog'][$id]);
+          } else {
+              $_SESSION['cartLog'][$id]['quantity']--;
+          }
+      }
 }
+//function removeFromCart($id) {
+//    unset($_SESSION['cartLog'][$id]);
+//}
 ?>
 
 <!DOCTYPE html>
