@@ -13,11 +13,7 @@
             $phone = $_POST['phone'];
             $address = $_POST['address'];
 
-            print_r($phone);
-            print_r($address);
-
             $email = $_SESSION['email'];
-            print_r($email);
             $dt = date('Y-m-d H:i:s');
 
             try {
@@ -40,7 +36,9 @@
                 
             } catch (PDOException $e) {
                 $errorMsg = "Connection to Server Failed.";
-                $_SESSION['ordererr'] = $errorMsg;
+                $_SESSION['ordererr'] = $e;
+                header('location: /orders.php');
+
             } finally {
                 $conn = null;
                 $stmt = null;
