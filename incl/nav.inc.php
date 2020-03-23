@@ -12,9 +12,9 @@
             <li class="nav-item active">
                 <a class="nav-link" href="menu.php">Our Menu</a>
             </li>
-            <li class="nav-item active">
+            <!-- <li class="nav-item active">
                 <a class="nav-link" href="news.php">News</a>
-            </li>
+            </li> -->
             <li class="nav-item active">
                 <a class="nav-link" href="locate.php">Locate Us</a>
             </li>
