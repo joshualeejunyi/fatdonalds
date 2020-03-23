@@ -1,4 +1,7 @@
+<!DOCTYPE html>
+<head>
 <?php
+    
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
 
     if (isset($_POST['usertype'])) {
@@ -23,6 +26,7 @@
         include($_SERVER['DOCUMENT_ROOT'].'/incl/adminhead.inc.php');
 
 ?>
+</head>
     <body>
         <main class="container">
             <?php
@@ -58,11 +62,11 @@
                                     <h5><b><u>Filter</u></b></h5>
                                     <div class="form-group">
                                         <label for="email">Email:</label>
-                                        <input type="text" class="form-control" name="email"> 
+                                        <input type="text" class="form-control" name="email" id="email"> 
                                     </div>
                                     <div class="form-group">
                                         <label for="usertype">User type:</label>
-                                        <select class="form-control" name="usertype">
+                                        <select class="form-control" name="usertype" id="usertype">
                                             
                                                 <option value="">-</option>
                                             

@@ -1,5 +1,7 @@
+<!DOCTYPE html>
+
 <?php
-    include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
+     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
     
     if ($_SESSION['admin'] !== true) {
         header('HTTP/1.0 404 not found'); 
@@ -74,7 +76,7 @@
                                 <label for="usertype">
                                     User Type:
                                 </label>
-                                <select class="form-control" name="usertype">
+                                <select class="form-control" name="usertype" id="usertype">
                                     <option value="admin">Administrator</option>
                                     <option value="customer">Customer</option>
                                 </select>
