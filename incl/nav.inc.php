@@ -22,7 +22,7 @@
             <?php
                 if (isLoggedIn()) {
             ?>
-                <li class="nav-item active dropdown">
+                <li class="nav-item active dropdown fdbtn">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         My Account
                     </button>
@@ -33,12 +33,23 @@
                     </div>
                     
                 </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link fdbtnmobile" href="/deliver.php">Order Now</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link fdbtnmobile" href="/orders.php">My Orders</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link fdbtnmobile" href="/auth/logout.php">Logout</a>
+                </li>
+
             <?php
                 } else {
             ?>
                 <li class="nav-item active">
-                    <a class="nav-link btn btn-primary" id="fdbtn" href="deliver.php">FatDelivery</a>
-                    <a class="nav-link" id="fdbtnmobile" href="deliver.php">FatDelivery</a>
+                    <a class="nav-link btn btn-primary fdbtn" href="/deliver.php">FatDelivery</a>
+                    <a class="nav-link fdbtnmobile" href="/deliver.php">FatDelivery</a>
                 </li>
             <?php
                 }

@@ -58,11 +58,11 @@ p {
     color: #000;
 }
 
-#fdbtn {
+.fdbtn {
     display: block;
 }
 
-#fdbtnmobile {
+.fdbtnmobile {
     display: none; 
 }
 
@@ -261,11 +261,11 @@ footer h4 {
 }
 
 @media only screen and (max-width: 768px) {
-    #fdbtn {
+    .fdbtn {
         display: none;
     }
 
-    #fdbtnmobile {
+    .fdbtnmobile {
         display: block;
     }
 
