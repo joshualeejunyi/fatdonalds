@@ -10,10 +10,10 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <script defer src="/js/slide.js"></script>
     <?php
         include($_SERVER['DOCUMENT_ROOT'].'/incl/head.inc.php');
     ?>
+    <script defer src="/js/slide.js"></script>
     <body data-spy="scroll" data-target="#navbar-menu" data-offset="100">
         <?php
             include($_SERVER['DOCUMENT_ROOT'].'/incl/nav.inc.php');
@@ -23,7 +23,7 @@
                 <div class="col">
                     <div class="banner">
                         <h3>-welcome to-</h3>
-                        <h1>FATDONALDS</h1>
+                        <h1>FATDONALD'S</h1>
                     </div>
                 </div>
             </div>
