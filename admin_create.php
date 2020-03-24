@@ -40,7 +40,7 @@
         </main>
         <br />
         <br />
-        
+        <button> <a href='index.php'> Back to Home </button>
         <?php 
         include "incl/footer.inc.php";
         ?>

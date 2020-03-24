@@ -35,9 +35,9 @@
                     echo " Edited on: ".$row["edited_timestamp"];
                 }
                 echo $row["text"];
+                echo "<br />";
                 ?>
                 <a class="btn btn-success" href="editnews.php?id=<?php echo $row["newsID"]?>">Edit</a><button>
-                <br />
                 <?php
             }
             
@@ -69,9 +69,10 @@
                             $updates = "getNews();";
                             eval ($updates);
                         ?>
-                        </div>
+                        <br />
+                        <button> <a href='index.php'> Back to Home </button>
+                    </div>
                     <br />
-                    <button> <a href='index.php'> Back to Home </button>
                 </div>
             </section>
         </main>

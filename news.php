@@ -1,40 +1,52 @@
 <?php
-/** Helper function to authenticate the login.*/
-function getNews(){
-    global $postedBy, $title, $text, $created_timestamp, $errorMsg, $success;
+    function getNews(){
+        global $errorMsg, $success;
+        
+        // Create database connection.
+        $config = parse_ini_file('../../private/db-config.ini');
+        $conn = new mysqli($config['servername'], $config['username'],$config['password'], $config['dbname']);
 
-    // Create database connection.
-    $config = parse_ini_file('../../private/db-config.ini');
-    $conn = new mysqli($config['servername'], $config['username'],$config['password'], $config['dbname']);
-
-    // Check connection
-    if ($conn->connect_error){
-        $errorMsg = "Connection failed: " . $conn->connect_error;
-        $success = false;  
-    }
-    else{
-        $sql = "SELECT * FROM fat_news_post";
-
-        // Execute the query
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0){
-        // Note that email field is unique, so should only have one row in the result set.
-            $row = $result->fetch_assoc();
-            $postedBy = $row["postedBy"];
-            $title = $row["title"];
-            $text = $row["text"];
-            $created_timestamp = $row["created_timestamp"];
+        // Check connection
+        if ($conn->connect_error){
+            $errorMsg = "Connection failed: " . $conn->connect_error;
+            $success = false;  
         }
         else{
-            $errorMsg = "Post not found...";
-            $success = false;
+            $sql = "SELECT * FROM fat_news_post";
+            $stmt = $conn->query($sql);
+            foreach($stmt as $row)
+            {
+                echo " Title: ".$row["title"];
+                if ($row["editedBy"] == NULL)
+                {
+                    echo " Posted By: ".$row["postedBy"];
+                } 
+                else 
+                {
+                    echo " Edited By: ".$row["editedBy"];
+                }
+                
+                if ($row["edited_timestamp"] == NULL)
+                {
+                    echo " Posted on: ".$row["created_timestamp"];
+                } 
+                else 
+                {
+                    echo " Edited on: ".$row["edited_timestamp"];
+                }
+                echo $row["text"];
+                echo "<br />";
+            }
+            
+            if (!$conn->query($sql)){
+                $errorMsg = "Databaseerror: " . $conn->error;$success = false;
+            }
         }
-        $result->free_result();
-    }
     $conn->close();
 }
 ?>
 
+<!DOCTYPE html>
 <html>
     <head>
         <?php
@@ -51,25 +63,15 @@ function getNews(){
                     <!-- Blog section -->
                     <div class="card">
                         <?php
-                            eval(getNews());
-                            echo "<h2>$title</h2>";
-                            echo "<h5>Posted by: $postedBy</h5>";
-                            echo "<h5>Posted on: $created_timestamp</h5>";
-                            echo "<br>";
-                            echo "<p>$text</p>";
+                            $updates = "getNews();";
+                            eval ($updates);
                         ?>
+                        <br />
+                        <button> <a href='index.php'> Back to Home </button>
                     </div>
-<!--                    <br />
-                    <div class="card">
-                      <h2>TITLE HEADING</h2>
-                      <h5>Title description, Sep 2, 2017</h5>
-                      <div class="fakeimg" style="height:200px;">Image</div>
-                      <p>Some text..</p>
-                    </div> second section end -->
                     <br />
                 </div>
             </section>
-        
         </main>
         <br>
         <?php

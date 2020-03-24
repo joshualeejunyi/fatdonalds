@@ -28,6 +28,8 @@
                     <button> <a href='admin_edit.php'> Edit a news </button>
                     <br />
                     <button> <a href='news.php'> View News </button>
+                    <br />
+                    <button> <a href='admin_delete.php'> Delete News </button>
                 </div>
                 <br />
             </div>
