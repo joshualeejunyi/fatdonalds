@@ -1,3 +1,9 @@
+<!--  
+    Project : Fatdonald's
+    File: process_editaccount.php
+    Authors: Ming Hui, Joshua  
+-->
+
 <?php
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
     include($_SERVER['DOCUMENT_ROOT'].'/admin/admin.php');

@@ -1,3 +1,9 @@
+<!--  
+    Project : Fatdonald's
+    File: editnews.php
+    Authors: Jeffrey, Joshua  
+-->
+
 <?php
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
     if(isset($_GET['id'])) {

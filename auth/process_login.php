@@ -1,3 +1,9 @@
+<!--  
+    Project : Fatdonald's
+    File: process_login.php
+    Authors: Joshua  
+-->
+
 <?php
     if(!isset($_SESSION)) { 
         session_start(); 

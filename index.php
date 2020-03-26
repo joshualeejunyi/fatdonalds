@@ -1,3 +1,8 @@
+<!-- 
+    Project : Fatdonald's
+    File: index.php
+    Authors: Jeffrey, Nicholas
+ -->
 <?php  
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
 

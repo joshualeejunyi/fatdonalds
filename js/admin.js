@@ -1,3 +1,7 @@
+// Project : Fatdonald's
+// File: admin.js
+// Authors: Joshua
+
 $(document).ready(sidebarListener);
 
 function sidebarListener() {

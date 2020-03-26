@@ -1,3 +1,9 @@
+<!--  
+    Project : Fatdonald's
+    File: editaccount.php
+    Authors: Ming Hui, Joshua  
+-->
+
 <?php
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
     if(isset($_GET['id'])) {

@@ -1,3 +1,9 @@
+ <!-- 
+    Project : Fatdonald's
+    File: footer.inc.php
+    Authors: Jeffrey
+ -->
+ 
  <div class="scrollup">
     <a href="#"><i class="fa fa-chevron-up"></i></a>
 </div>

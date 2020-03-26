@@ -1,3 +1,8 @@
+<!-- 
+    Project : Fatdonald's
+    File: deliver.php
+    Authors: Nicholas, Joshua
+ -->
 <?php
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
 

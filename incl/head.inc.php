@@ -1,3 +1,9 @@
+<!-- 
+    Project : Fatdonald's
+    File: head.inc.php
+    Authors: Joshua
+ -->
+
 <?php
     if(!isset($_SESSION)) { 
         session_start(); 

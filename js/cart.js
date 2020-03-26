@@ -1,3 +1,7 @@
+// Project : Fatdonald's
+// File: cart.js
+// Authors: Nicholas
+
 $(".addCart").on("click", function ()
 {
     $.ajax({
@@ -7,7 +11,6 @@ $(".addCart").on("click", function ()
             hidden_ID: $(this).prev().val()
         },
         success: function (response) {
-//            $(".tbl-cart").load("ordermenu.php .tbl-cart");
             console.log(response);
             $("#auto").load("deliver.php #auto");
             location.reload();

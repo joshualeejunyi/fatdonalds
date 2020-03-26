@@ -1,3 +1,9 @@
+<!--  
+    Project : Fatdonald's
+    File: admin.php
+    Authors: Joshua  
+-->
+
 <?php
     function getCategories() {
         $conn = dbconnect();

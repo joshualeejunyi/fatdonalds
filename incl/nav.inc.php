@@ -1,3 +1,9 @@
+<!-- 
+    Project : Fatdonald's
+    File: nav.inc.php
+    Authors: Joshua
+ -->
+
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-end">
     <a class="navbar-brand" href="/">FatDonald's.</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">

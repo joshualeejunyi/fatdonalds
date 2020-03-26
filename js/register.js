@@ -1,3 +1,7 @@
+// Project : Fatdonald's
+// File: register.js
+// Authors: Joshua
+
 $('document').ready(function(){
     var usernameState = true;
     var emailState = true;

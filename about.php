@@ -1,3 +1,8 @@
+<!-- 
+    Project : Fatdonald's
+    File: about.php
+    Authors: Jeffrey
+ -->
 <?php  
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
 

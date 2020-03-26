@@ -1,4 +1,8 @@
-<!-- Sidebar  -->
+<!-- 
+    Project : Fatdonald's
+    File: adminnav.inc.php
+    Authors: Joshua
+ -->
 <nav id="sidebar">
     <div class="sidebar-header">
         <h3>Fatdonald's Admin</h3>

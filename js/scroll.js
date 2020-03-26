@@ -1,3 +1,7 @@
+// Project : Fatdonald's
+// File: scroll.js
+// Authors: Jeffrey
+
 jQuery(document).ready(function ($) {
     // scroll Up
     $(window).scroll(function () {

@@ -1,3 +1,10 @@
+<!--  
+    Project : Fatdonald's
+    File: products.php
+    Authors: Joshua  
+-->
+
+
 <?php
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
 

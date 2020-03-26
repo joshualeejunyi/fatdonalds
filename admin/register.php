@@ -1,3 +1,10 @@
+<!--  
+    Project : Fatdonald's
+    File: register.php
+    Authors: Ming Hui, Joshua
+-->
+
+
 <?php
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
     

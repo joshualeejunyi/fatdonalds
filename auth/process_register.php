@@ -1,3 +1,9 @@
+<!--  
+    Project : Fatdonald's
+    File: process_register.php
+    Authors: Joshua  
+-->
+
 <?php
     if(!isset($_SESSION)) { 
         session_start(); 
@@ -69,7 +75,7 @@
             
 
         } else {
-            // $_SESSION['regerror'] = "Failed to Create Account";
+            $_SESSION['regerror'] = "Failed to Create Account";
             header('location: /register.php');
         }
         

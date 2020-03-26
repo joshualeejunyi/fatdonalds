@@ -1,3 +1,9 @@
+<!--  
+    Project : Fatdonald's
+    File: deleteaccount.php
+    Authors: Ming Hui, Joshua  
+-->
+
 <?php
     include($_SERVER['DOCUMENT_ROOT'].'/auth/auth.php');
 

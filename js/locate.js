@@ -1,3 +1,7 @@
+// Project : Fatdonald's
+// File: locate.js
+// Authors: Nicholas
+
 $(document).ready(function() {
     initMap();
     accordion();
