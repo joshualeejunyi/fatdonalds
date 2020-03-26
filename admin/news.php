@@ -117,6 +117,19 @@
                                 </div>
                     <?php
                             }
+                        } else {
+
+                    ?>
+                            <div class="col-12">
+                                <div class="card mb-3 newscards">
+                                    <div class="card-body">
+                                        <h4>
+                                            No Posts Found
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                    <?php
                         }
                     ?>
                                         </div>
