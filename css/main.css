@@ -65,14 +65,8 @@ p {
 .fdbtnmobile {
     display: none; 
 }
-
 .prod-name {
     color: black;
-}
-
-.card {
-    height: 50%;
-    overflow: auto;
 }
 
 .card-img {
@@ -81,36 +75,6 @@ p {
     object-fit: cover;
 }
 
-.card-body {
-    overflow: auto;
-}
-
-.card-footer .btn {
-    justify-content: center;
-    width: 100%;
-}
-
-
-.card-group {
-    padding: 1%;
-}
-
-.card-body {
-    height: 100%; 
-}
-
-.datacards {
-    margin-top: 1vh;
-    color: black;
-}
-
-.proddesc {
-    word-wrap: break-word;
-}
-
-.prodcard {
-    height: 50vh !important;
-}
 
 /* Second Section */
 .menu, .news {

@@ -17,6 +17,15 @@
         <?php
             include($_SERVER['DOCUMENT_ROOT'].'/incl/nav.inc.php');
         ?>
+        <header>
+            <div class="row">
+                <div class="col">
+                    <div class="banner">
+                        <h1>News</h1>
+                    </div>
+                </div>
+            </div>
+        </header>
         <main class="container">
             <section class="row datacards">
                 <?php

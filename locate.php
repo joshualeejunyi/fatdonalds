@@ -9,14 +9,17 @@ include($_SERVER['DOCUMENT_ROOT'] . '/auth/auth.php');
     ?>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuzdwZdjHBM2Pm9_0UPI3jiz7c2qIrs2M&callback=initMap"></script>
     <script defer src="/js/locate.js"></script>   
-    <div class="row">
-        <div class="col">
-            <div class="banner">
-                <h1>Locate Us!</h1>
+    <header>
+        <div class="row">
+            <div class="col">
+                <div class="banner">
+                    <h1>Locate Us!</h1>
+                </div>
             </div>
         </div>
-    </div>
+    </header>
     <main class='container'>
+        
         <section class="card locate-card">
             <div class="card-header text-center text-white bg-dark ">
                 <h2 class="card-title">
