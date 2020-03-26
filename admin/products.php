@@ -17,10 +17,10 @@
         }
     }
 
-    // if ($_SESSION['admin'] !== true) {
-    //         header('HTTP/1.0 404 not found'); 
-    //         include($_SERVER['DOCUMENT_ROOT'].'/auth/404.html');
-    // } else {
+    if ($_SESSION['admin'] !== true) {
+            header('HTTP/1.0 404 not found'); 
+            include($_SERVER['DOCUMENT_ROOT'].'/auth/404.html');
+    } else {
         include($_SERVER['DOCUMENT_ROOT'].'/incl/adminhead.inc.php');
 ?>
 <!DOCTYPE html>
@@ -227,6 +227,6 @@
     </body>
 </html>
 <?php
-    // }
+    }
 ?>
 

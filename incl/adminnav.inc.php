@@ -12,6 +12,9 @@
             <a href="/admin/accounts.php">Accounts</a>
         </li>
         <li>
+            <a href="/admin/news.php">News</a>
+        </li>
+        <li>
             <a href="/auth/logout.php">Logout</a>
         </li>
     </ul>

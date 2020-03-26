@@ -18,7 +18,8 @@
 
             $stmt = $conn->prepare("UPDATE users SET email = ?, username = ?, firstname = ?, lastname = ?, usertype = ? WHERE email = ?");
             $stmt->execute([$email, $username, $fname, $lname, $usertype, $email]);
-
+            $_SESSION['editaccmsg'] = "Account Updated Successfully";
+            header('location: /admin/editaccount.php?id='.$username);
         } catch (PDOException $e) {
             $errorMsg = "Error: " . $e;
             $_SESSION['editaccerror'] = $errorMsg;
@@ -27,7 +28,5 @@
             $stmt = null;
             $conn = null;
         }
-        $_SESSION['editaccmsg'] = "Account Updated Successfully";
-        header('location: /admin/editaccount.php?id='.$username);
     }
 ?>
